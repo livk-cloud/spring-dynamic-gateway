@@ -7,7 +7,6 @@ package com.kris.common.mq.events;
  * @date: 2021/4/17 19:34
  * @since JDK 11
  */
-@FunctionalInterface
 public interface BusReceiver {
 
     /**
@@ -15,5 +14,5 @@ public interface BusReceiver {
      *
      * @param obj
      */
-    void handleMessage(Object obj);
+    default void handleMessage(Object obj){}
 }

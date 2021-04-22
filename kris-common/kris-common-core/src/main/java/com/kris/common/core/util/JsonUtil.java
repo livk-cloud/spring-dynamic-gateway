@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * The type Bean util.
@@ -25,15 +26,15 @@ public class JsonUtil {
     /**
      * Str to bean t.
      *
-     * @param <T>     the type parameter
-     * @param beanStr the bean str
-     * @param clazz   the clazz
+     * @param <T>   the type parameter
+     * @param json  the bean str
+     * @param clazz the clazz
      * @return t t
      */
-    public static <T> T strToBean(String beanStr, Class<T> clazz) {
+    public static <T> T strToBean(String json, Class<T> clazz) {
         T t = null;
         try {
-            t = MAPPER.readValue(beanStr, clazz);
+            t = MAPPER.readValue(json, clazz);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -43,15 +44,15 @@ public class JsonUtil {
     /**
      * Str to collection collection.
      *
-     * @param <T>     the type parameter
-     * @param beanStr the bean str
-     * @param clazz   the clazz
+     * @param <T>   the type parameter
+     * @param json  the bean str
+     * @param clazz the clazz
      * @return the collection
      */
-    public static <T> Collection<T> strToCollection(String beanStr, Class<T> clazz) {
+    public static <T> Collection<T> strToCollection(String json, Class<T> clazz) {
         Collection<T> t = null;
         try {
-            t = MAPPER.readValue(beanStr, new TypeReference<Collection<T>>() {
+            t = MAPPER.readValue(json, new TypeReference<Collection<T>>() {
             });
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -87,6 +88,34 @@ public class JsonUtil {
         return null;
     }
 
+    /**
+     * Str to map map.
+     *
+     * @param <K>    the type parameter
+     * @param <V>    the type parameter
+     * @param json   the json
+     * @param kClass the k class
+     * @param vClass the v class
+     * @return the map
+     */
+    public static <K, V> Map<K, V> strToMap(String json, Class<K> kClass, Class<V> vClass) {
+        Map<K, V> map = null;
+        try {
+            map = MAPPER.readValue(json, new TypeReference<Map<K, V>>() {
+            });
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    /**
+     * Find object string.
+     *
+     * @param obj  the obj
+     * @param name the name
+     * @return the string
+     */
     public static String findObject(Object obj, String name) {
         String objToStr = objToStr(obj);
         try {
@@ -97,5 +126,4 @@ public class JsonUtil {
         }
         return null;
     }
-
 }
