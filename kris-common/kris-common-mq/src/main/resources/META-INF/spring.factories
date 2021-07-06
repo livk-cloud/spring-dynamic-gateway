@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.kris.common.mq.config.BusAutoConfig
+  com.kris.common.mq.RabbitAutoConfig

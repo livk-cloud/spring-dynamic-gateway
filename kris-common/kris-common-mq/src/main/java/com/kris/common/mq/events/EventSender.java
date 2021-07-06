@@ -1,6 +1,6 @@
 package com.kris.common.mq.events;
 
-import com.kris.common.mq.config.BusAutoConfig;
+import com.kris.common.mq.config.RabbitProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -19,12 +19,14 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class EventSender {
 
     private final RabbitTemplate rabbitTemplate;
 
     private final MessageConverter messageConverter;
+
+    private final RabbitProperties properties;
 
     @PostConstruct
     public void init() {
@@ -32,6 +34,6 @@ public class EventSender {
     }
 
     public void send(Object obj) {
-        rabbitTemplate.convertAndSend(BusAutoConfig.EXCHANGE_NAME, BusAutoConfig.ROUTING_KEY, obj);
+        rabbitTemplate.convertAndSend(properties.getExchange(), properties.getBinding(), obj);
     }
 }

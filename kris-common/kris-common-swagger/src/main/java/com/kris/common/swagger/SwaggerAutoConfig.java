@@ -1,9 +1,11 @@
-package com.kris.common.swagger.config;
+package com.kris.common.swagger;
 
+import com.kris.common.swagger.config.SwaggerProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -26,10 +28,8 @@ import java.util.function.Predicate;
 @EnableOpenApi
 @EnableAutoConfiguration
 @ConditionalOnProperty(name = "swagger.enable", matchIfMissing = true)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired(required = false)))
+@EnableConfigurationProperties(SwaggerProperties.class)
 public class SwaggerAutoConfig {
-
-    private final SwaggerProperties swaggerProperties;
 
     /**
      * 默认的排除路径，排除Spring Boot默认的错误处理路径和端点
@@ -39,7 +39,7 @@ public class SwaggerAutoConfig {
 
 
     @Bean
-    public Docket createRestApi() {
+    public Docket createRestApi(SwaggerProperties swaggerProperties) {
         ApiSelectorBuilder apis = new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()));

@@ -21,5 +21,35 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-gateway-server</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kris</groupId>
+            <artifactId>kris-common-swagger</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kris</groupId>
+            <artifactId>kris-common-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kris</groupId>
+            <artifactId>kris-common-mq</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kris</groupId>
+            <artifactId>kris-common-mybatis</artifactId>
+        </dependency>
     </dependencies>
 </project>

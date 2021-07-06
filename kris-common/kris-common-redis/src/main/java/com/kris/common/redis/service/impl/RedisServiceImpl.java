@@ -1,18 +1,16 @@
 package com.kris.common.redis.service.impl;
 
 import com.kris.common.redis.service.RedisService;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author kris
@@ -22,9 +20,8 @@ import java.util.stream.Collectors;
  * @since JDK 11
  */
 @Slf4j
-@Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class RedisServiceImpl<T> implements RedisService<T> {
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
+public class RedisServiceImpl implements RedisService {
 
     private final RedisTemplate<String, Object> redisTemplate;
 

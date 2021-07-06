@@ -45,5 +45,4 @@ public class R<T> {
     public static <T> R<T> error(String msg) {
         return error(msg, null);
     }
-
 }

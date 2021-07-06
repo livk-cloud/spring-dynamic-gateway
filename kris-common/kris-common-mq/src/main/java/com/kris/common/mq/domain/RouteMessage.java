@@ -24,7 +24,7 @@ public class RouteMessage implements Serializable {
     /**
      * 操作类型、insert、update、delete
      */
-    private String type;
+    private Integer type;
     /**
      * 删除routeId
      */
@@ -32,5 +32,5 @@ public class RouteMessage implements Serializable {
     /**
      * 是否刷新
      */
-    private boolean routeIsRefresh;
+    private Boolean routeIsRefresh;
 }

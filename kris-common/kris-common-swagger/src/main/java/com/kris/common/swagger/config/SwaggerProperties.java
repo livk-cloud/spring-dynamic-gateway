@@ -2,9 +2,7 @@ package com.kris.common.swagger.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.stereotype.Component;
 
 /**
  * @author kris
@@ -14,13 +12,9 @@ import org.springframework.stereotype.Component;
  * @since JDK 11
  */
 @Data
-@Component
 @RefreshScope
-@EnableConfigurationProperties
 @ConfigurationProperties(prefix = "swagger")
 public class SwaggerProperties {
-
-//    private final ConfigurableEnvironment env;
 
     /**
      * swagger是否启用默认false

@@ -1,8 +1,9 @@
-package com.kris.common.mq.config;
+package com.kris.common.mq;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kris.common.mq.config.RabbitProperties;
 import com.kris.common.mq.events.BusReceiver;
 import com.kris.common.mq.events.EventSender;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -33,34 +35,35 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import({EventSender.class})
 @EnableAutoConfiguration
-public class BusAutoConfig {
+@EnableConfigurationProperties(RabbitProperties.class)
+public class RabbitAutoConfig {
 
-    public static final String QUEUE_NAME = "event-gateway";
-    public static final String EXCHANGE_NAME = "spring-boot-exchange";
-    public static final String ROUTING_KEY = "gateway-route";
+    public static final String QUEUE_NAME = "kris-queue";
+    public static final String EXCHANGE_NAME = "kris-exchange";
+    public static final String BINDING_NAME = "kris-binding";
 
     @Bean
-    public Queue queue() {
-        log.info("queue name:{}", QUEUE_NAME);
-        return new Queue(QUEUE_NAME, false);
+    public Queue queue(RabbitProperties properties) {
+        log.info("queue name:{}", properties.getQueue());
+        return new Queue(properties.getQueue(), false);
     }
 
     @Bean
-    public TopicExchange exchange() {
-        log.info("exchange:{}", EXCHANGE_NAME);
-        return new TopicExchange(EXCHANGE_NAME);
+    public TopicExchange exchange(RabbitProperties properties) {
+        log.info("exchange:{}", properties.getExchange());
+        return new TopicExchange(properties.getExchange());
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
-        log.info("binding {} to {} with {}", queue, exchange, ROUTING_KEY);
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
+    public Binding binding(Queue queue, TopicExchange exchange,RabbitProperties properties) {
+        log.info("binding {} to {} with {}", queue, exchange, properties.getBinding());
+        return BindingBuilder.bind(queue).to(exchange).with(properties.getBinding());
     }
 
     @Bean
     public SimpleMessageListenerContainer simpleMessageListenerContainer(ConnectionFactory connectionFactory, MessageListenerAdapter messageListenerAdapter, Queue queue) {
         log.info("init simpleMessageListenerContainer: {}", queue.getName());
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory);
+        var container = new SimpleMessageListenerContainer(connectionFactory);
         container.setQueueNames(queue.getName());
         container.setMessageListener(messageListenerAdapter);
         return container;
@@ -75,7 +78,7 @@ public class BusAutoConfig {
 
     @Bean
     public MessageConverter messageConverter() {
-        ObjectMapper objectMapper = new ObjectMapper();
+        var objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         return new ContentTypeDelegatingMessageConverter(new Jackson2JsonMessageConverter(objectMapper));
     }

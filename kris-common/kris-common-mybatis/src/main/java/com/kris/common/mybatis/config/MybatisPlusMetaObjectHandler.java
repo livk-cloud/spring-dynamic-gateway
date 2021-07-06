@@ -1,12 +1,12 @@
 package com.kris.common.mybatis.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-
-import java.util.Date;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * @author kris
@@ -16,7 +16,8 @@ import java.util.Date;
  * @since JDK 11
  */
 @ConditionalOnBean(MybatisProperties.class)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@EnableConfigurationProperties(MybatisProperties.class)
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
 
     private final MybatisProperties mybatisProperties;

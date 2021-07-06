@@ -1,9 +1,8 @@
 package com.kris.common.core.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Collection;
 import java.util.Map;
@@ -16,9 +15,9 @@ import java.util.Map;
  * @Description:
  * @Since: JDK11
  */
-public class JsonUtil {
+public class JacksonUtil {
 
-    private JsonUtil() {
+    private JacksonUtil() {
     }
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -31,10 +30,14 @@ public class JsonUtil {
      * @param clazz the clazz
      * @return t t
      */
+    @SuppressWarnings("unchecked")
     public static <T> T strToBean(String json, Class<T> clazz) {
         T t = null;
+        if (json.isEmpty() || clazz == null) {
+            return null;
+        }
         try {
-            t = MAPPER.readValue(json, clazz);
+            t = clazz.equals(String.class) ? (T) json : MAPPER.readValue(json, clazz);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -52,8 +55,8 @@ public class JsonUtil {
     public static <T> Collection<T> strToCollection(String json, Class<T> clazz) {
         Collection<T> t = null;
         try {
-            t = MAPPER.readValue(json, new TypeReference<Collection<T>>() {
-            });
+            var collectionType = MAPPER.getTypeFactory().constructCollectionType(Collection.class, clazz);
+            t = MAPPER.readValue(json, collectionType);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -69,7 +72,14 @@ public class JsonUtil {
      * @return the t
      */
     public static <T> T objToBean(Object obj, Class<T> clazz) {
-        return strToBean(objToStr(obj), clazz);
+        if (ObjectUtils.isEmpty(new Object[]{obj, clazz})) {
+            return null;
+        }
+        String json = objToStr(obj);
+        if (ObjectUtils.isEmpty(json)) {
+            return null;
+        }
+        return strToBean(json, clazz);
     }
 
 
@@ -80,12 +90,16 @@ public class JsonUtil {
      * @return the string
      */
     public static String objToStr(Object obj) {
+        String json = null;
+        if (ObjectUtils.isEmpty(obj)) {
+            return null;
+        }
         try {
-            return MAPPER.writeValueAsString(obj);
+            json = obj instanceof String ? (String) obj : MAPPER.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return null;
+        return json;
     }
 
     /**
@@ -101,8 +115,8 @@ public class JsonUtil {
     public static <K, V> Map<K, V> strToMap(String json, Class<K> kClass, Class<V> vClass) {
         Map<K, V> map = null;
         try {
-            map = MAPPER.readValue(json, new TypeReference<Map<K, V>>() {
-            });
+            var mapType = MAPPER.getTypeFactory().constructMapType(Map.class, kClass, vClass);
+            map = MAPPER.readValue(json, mapType);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -119,11 +133,20 @@ public class JsonUtil {
     public static String findObject(Object obj, String name) {
         String objToStr = objToStr(obj);
         try {
-            JsonNode jsonNode = MAPPER.readTree(objToStr);
-            return jsonNode.findPath(name).asText();
+            return MAPPER.readTree(objToStr).findPath(name).asText();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Is empty boolean.
+     *
+     * @param obj the obj
+     * @return the boolean
+     */
+    public static boolean isEmpty(Object... obj){
+        return ObjectUtils.isEmpty(obj);
     }
 }

@@ -9,10 +9,10 @@ package com.kris.common.mq.events;
  */
 public interface BusReceiver {
 
-    /**
-     * rabbitmq消息接收，实现此接口
-     *
-     * @param obj
-     */
-    default void handleMessage(Object obj){}
+  /**
+   * rabbitmq消息接收，实现此接口
+   *
+   * @param obj
+   */
+  void handleMessage(Object obj);
 }
