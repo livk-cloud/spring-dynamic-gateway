@@ -7,10 +7,11 @@ package com.kris.common.mq.events;
  * @date: 2021/4/17 19:34
  * @since JDK 11
  */
-public interface BusReceiver {
+public interface MessageReceiver {
 
   /**
-   * rabbitmq消息接收，实现此接口
+   * rabbitmq消息接收，
+   * 实现此接口、注入ioc容器
    *
    * @param obj
    */
