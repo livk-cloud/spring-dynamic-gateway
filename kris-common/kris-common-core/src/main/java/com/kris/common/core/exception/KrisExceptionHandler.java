@@ -19,7 +19,7 @@ public class KrisExceptionHandler {
   }
 
   @ExceptionHandler(Exception.class)
-  public R<?> ExceptionHandler(Exception e) {
+  public R<?> exceptionHandler(Exception e) {
     return R.error(e.getMessage());
   }
 }

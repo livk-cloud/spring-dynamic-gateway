@@ -1,5 +1,6 @@
 package com.kris.common.core.result;
 
+import com.kris.common.core.exception.KrisException;
 import lombok.Getter;
 
 /**
