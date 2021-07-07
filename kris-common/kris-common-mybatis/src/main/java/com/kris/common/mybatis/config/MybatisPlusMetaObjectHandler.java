@@ -20,19 +20,19 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
 
-    private final MybatisProperties mybatisProperties;
+  private final MybatisProperties mybatisProperties;
 
-    @Override
-    public void insertFill(MetaObject metaObject) {
-        for (String insertDate : mybatisProperties.getInsertDate()) {
-            this.strictInsertFill(metaObject, insertDate, Date::new, Date.class);
-        }
+  @Override
+  public void insertFill(MetaObject metaObject) {
+    for (String insertDate : mybatisProperties.getInsertDate()) {
+      this.strictInsertFill(metaObject, insertDate, Date::new, Date.class);
     }
+  }
 
-    @Override
-    public void updateFill(MetaObject metaObject) {
-        for (String updateDate : mybatisProperties.getUpdateDate()) {
-            this.strictInsertFill(metaObject, updateDate, Date::new, Date.class);
-        }
+  @Override
+  public void updateFill(MetaObject metaObject) {
+    for (String updateDate : mybatisProperties.getUpdateDate()) {
+      this.strictInsertFill(metaObject, updateDate, Date::new, Date.class);
     }
+  }
 }

@@ -15,45 +15,45 @@ import java.util.Set;
  */
 public interface RedisService {
 
-    /**
-     * List all list.
-     *
-     * @param prefix the prefix
-     * @return the list
-     */
-    List<Object> listAll(String prefix);
+  /**
+   * List all list.
+   *
+   * @param prefix the prefix
+   * @return the list
+   */
+  List<Object> listAll(String prefix);
 
-    /**
-     * Gets by key.
-     *
-     * @param key the key
-     * @return the by key
-     */
-    Object getByKey(String key);
+  /**
+   * Gets by key.
+   *
+   * @param key the key
+   * @return the by key
+   */
+  Object getByKey(String key);
 
-    /**
-     * Insert boolean.
-     *
-     * @param obj the obj
-     * @param key the key
-     * @return the boolean
-     */
-    boolean insertOrUpdate(Object obj,String key);
+  /**
+   * Insert boolean.
+   *
+   * @param obj the obj
+   * @param key the key
+   * @return the boolean
+   */
+  boolean insertOrUpdate(Object obj, String key);
 
-    /**
-     * Delete boolean.
-     *
-     * @param keys   the keys
-     * @param prefix the prefix
-     * @return the boolean
-     */
-    boolean delete(Collection<String> keys,String prefix);
+  /**
+   * Delete boolean.
+   *
+   * @param keys   the keys
+   * @param prefix the prefix
+   * @return the boolean
+   */
+  boolean delete(Collection<String> keys, String prefix);
 
-    /**
-     * Keys set.
-     *
-     * @param prefix the prefix
-     * @return the set
-     */
-    Set<String> keys(String prefix);
+  /**
+   * Keys set.
+   *
+   * @param prefix the prefix
+   * @return the set
+   */
+  Set<String> keys(String prefix);
 }

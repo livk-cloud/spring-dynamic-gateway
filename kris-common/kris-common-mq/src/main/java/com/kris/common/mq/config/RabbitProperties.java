@@ -15,9 +15,9 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @ConfigurationProperties("kris.rabbit")
 public class RabbitProperties {
 
-    private String exchange;
+  private String exchange;
 
-    private String queue;
+  private String queue;
 
-    private String binding;
+  private String binding;
 }

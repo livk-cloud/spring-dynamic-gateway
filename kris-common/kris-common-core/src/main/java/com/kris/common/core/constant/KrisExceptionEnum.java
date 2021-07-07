@@ -13,16 +13,16 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum KrisExceptionEnum {
-    /**
-     *
-     */
-    ROUTE_ID_IS_EXIST(4001, "路由id已经存在！"),
-    /**
-     *
-     */
-    ROUTE_DOT_EXIST(4002, "路由信息不存在！");
+  /**
+   *
+   */
+  ROUTE_ID_IS_EXIST(4001, "路由id已经存在！"),
+  /**
+   *
+   */
+  ROUTE_DOT_EXIST(4002, "路由信息不存在！");
 
-    private final int code;
+  private final int code;
 
-    private final String msg;
+  private final String msg;
 }

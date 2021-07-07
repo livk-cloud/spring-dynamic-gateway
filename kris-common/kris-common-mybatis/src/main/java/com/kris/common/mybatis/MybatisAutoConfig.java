@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Import;
  * @Description:
  * @Since: JDK11
  */
-@Configuration
+@Configuration(
+    proxyBeanMethods = false
+)
 @Import(MybatisPlusMetaObjectHandler.class)
 @EnableAutoConfiguration
 public class MybatisAutoConfig {

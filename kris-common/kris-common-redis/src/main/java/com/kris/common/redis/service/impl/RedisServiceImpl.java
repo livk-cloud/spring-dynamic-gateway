@@ -23,53 +23,53 @@ import org.springframework.data.redis.core.ValueOperations;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class RedisServiceImpl implements RedisService {
 
-    private final RedisTemplate<String, Object> redisTemplate;
+  private final RedisTemplate<String, Object> redisTemplate;
 
-    private ValueOperations<String, Object> opsForValue;
+  private ValueOperations<String, Object> opsForValue;
 
-    @PostConstruct
-    private void redisInit() {
-        this.opsForValue = redisTemplate.opsForValue();
+  @PostConstruct
+  private void redisInit() {
+    this.opsForValue = redisTemplate.opsForValue();
+  }
+
+  @Override
+  public List<Object> listAll(String prefix) {
+    Set<String> keys = this.keys(prefix);
+    return keys.stream()
+        .map(this::getByKey)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public Object getByKey(String key) {
+    return opsForValue.get(key);
+  }
+
+  @Override
+  public boolean insertOrUpdate(Object obj, String key) {
+    try {
+      opsForValue.set(key, obj);
+      return true;
+    } catch (Exception e) {
+      log.error("Failed to add or modify");
+      return false;
     }
+  }
 
-    @Override
-    public List<Object> listAll(String prefix) {
-        Set<String> keys = this.keys(prefix);
-        return keys.stream()
-                .map(this::getByKey)
-                .collect(Collectors.toList());
+  @Override
+  public boolean delete(Collection<String> keys, String prefix) {
+    try {
+      keys = keys.stream().map(key -> prefix + key).collect(Collectors.toList());
+      redisTemplate.delete(keys);
+      return true;
+    } catch (Exception e) {
+      log.error("Failed to delete batches！");
+      return false;
     }
+  }
 
-    @Override
-    public Object getByKey(String key) {
-        return opsForValue.get(key);
-    }
-
-    @Override
-    public boolean insertOrUpdate(Object obj, String key) {
-        try {
-            opsForValue.set(key, obj);
-            return true;
-        } catch (Exception e) {
-            log.error("Failed to add or modify");
-            return false;
-        }
-    }
-
-    @Override
-    public boolean delete(Collection<String> keys, String prefix) {
-        try {
-            keys = keys.stream().map(key -> prefix + key).collect(Collectors.toList());
-            redisTemplate.delete(keys);
-            return true;
-        } catch (Exception e) {
-            log.error("Failed to delete batches！");
-            return false;
-        }
-    }
-
-    @Override
-    public Set<String> keys(String prefix) {
-        return redisTemplate.keys(prefix + "*");
-    }
+  @Override
+  public Set<String> keys(String prefix) {
+    return redisTemplate.keys(prefix + "*");
+  }
 }
