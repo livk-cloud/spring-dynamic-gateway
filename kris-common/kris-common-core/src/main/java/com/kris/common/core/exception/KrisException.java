@@ -1,5 +1,8 @@
 package com.kris.common.core.exception;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author kris
  * @version 1.0
@@ -7,6 +10,11 @@ package com.kris.common.core.exception;
  * @date: 2021/4/17 11:35
  * @since JDK 11
  */
-public class KrisException extends RuntimeException{
+@Getter
+@AllArgsConstructor
+public class KrisException extends RuntimeException {
 
+  private final int code;
+
+  private final String message;
 }

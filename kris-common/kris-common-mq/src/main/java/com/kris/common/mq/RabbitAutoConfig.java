@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Import;
  * @since JDK 11
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @Import({MessageSender.class})
 @EnableAutoConfiguration
 @EnableConfigurationProperties(RabbitProperties.class)
