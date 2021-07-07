@@ -1,14 +1,12 @@
 package com.kris.common.mq.events;
 
 import com.kris.common.mq.config.RabbitProperties;
+import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 /**
  * @author kris
@@ -18,9 +16,8 @@ import javax.annotation.PostConstruct;
  * @since JDK 11
  */
 @Slf4j
-@Component
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class EventSender {
+public class MessageSender {
 
     private final RabbitTemplate rabbitTemplate;
 

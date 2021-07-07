@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * @author kris
@@ -13,7 +15,9 @@ import java.io.Serializable;
  * @since JDK 11
  */
 @Data
+@Accessors(chain = true)
 @AllArgsConstructor
+@NoArgsConstructor
 public class RouteMessage implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,10 +29,6 @@ public class RouteMessage implements Serializable {
      * 操作类型、insert、update、delete
      */
     private Integer type;
-    /**
-     * 删除routeId
-     */
-    private String routingKeyDel;
     /**
      * 是否刷新
      */
