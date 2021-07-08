@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
  * @since JDK 11
  */
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class WebPageConfig extends WebSecurityConfigurerAdapter {
+public class WebPageConfigurer extends WebSecurityConfigurerAdapter {
 
   private final SecurityProperties securityProperties;
 

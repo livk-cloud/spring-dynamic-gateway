@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @since JDK 11
  */
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class UserConfig extends WebSecurityConfigurerAdapter {
+public class UserConfigurer extends WebSecurityConfigurerAdapter {
 
   private final SecurityProperties securityProperties;
 

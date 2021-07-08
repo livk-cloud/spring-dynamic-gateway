@@ -1,7 +1,7 @@
 package com.kris.common.actuator;
 
 import com.kris.common.actuator.config.SecurityProperties;
-import com.kris.common.actuator.security.UserConfig;
+import com.kris.common.actuator.security.UserConfigurer;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 public class ActuatorAutoConfig {
 
   @Bean
-  public UserConfig userConfig(SecurityProperties properties) {
-    return new UserConfig(properties);
+  public UserConfigurer userConfig(SecurityProperties properties) {
+    return new UserConfigurer(properties);
   }
 }

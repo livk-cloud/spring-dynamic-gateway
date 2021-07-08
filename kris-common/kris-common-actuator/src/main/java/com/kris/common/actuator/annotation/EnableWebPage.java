@@ -1,6 +1,6 @@
 package com.kris.common.actuator.annotation;
 
-import com.kris.common.actuator.security.WebPageConfig;
+import com.kris.common.actuator.security.WebPageConfigurer;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Import;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@Import({WebPageConfig.class})
+@Import({WebPageConfigurer.class})
 public @interface EnableWebPage {
 
 }

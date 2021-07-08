@@ -28,7 +28,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @ConditionalOnProperty(name = "swagger.enable", matchIfMissing = true)
 @EnableConfigurationProperties(SwaggerProperties.class)
 @ConditionalOnMissingClass("org.springframework.cloud.gateway.config.GatewayAutoConfiguration")
-public class SwaggerAutoConfig {
+public class SwaggerAutoConfigurer {
 
   /**
    * 默认的排除路径，排除Spring Boot默认的错误处理路径和端点

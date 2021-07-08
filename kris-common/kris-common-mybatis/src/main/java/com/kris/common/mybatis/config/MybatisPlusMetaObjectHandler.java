@@ -32,7 +32,7 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
   @Override
   public void updateFill(MetaObject metaObject) {
     for (String updateDate : mybatisProperties.getUpdateDate()) {
-      this.strictInsertFill(metaObject, updateDate, Date::new, Date.class);
+      this.strictUpdateFill(metaObject, updateDate, Date::new, Date.class);
     }
   }
 }
