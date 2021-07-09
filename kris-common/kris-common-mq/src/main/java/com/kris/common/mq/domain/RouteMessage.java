@@ -1,9 +1,8 @@
 package com.kris.common.mq.domain;
 
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.io.Serializable;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -20,17 +19,17 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 public class RouteMessage implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    /**
-     * routeId
-     */
-    private String routingKey;
-    /**
-     * 操作类型、insert、update、delete
-     */
-    private Integer type;
-    /**
-     * 是否刷新
-     */
-    private Boolean routeIsRefresh;
+  private static final long serialVersionUID = 1L;
+  /**
+   * routeId
+   */
+  private String routingKey;
+  /**
+   * 操作类型、insert、update、delete
+   */
+  private TypeEnum type;
+  /**
+   * 是否刷新
+   */
+  private Boolean routeIsRefresh;
 }

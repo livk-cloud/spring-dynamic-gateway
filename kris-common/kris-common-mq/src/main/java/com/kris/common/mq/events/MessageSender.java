@@ -19,18 +19,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class MessageSender {
 
-    private final RabbitTemplate rabbitTemplate;
+  private final RabbitTemplate rabbitTemplate;
 
-    private final MessageConverter messageConverter;
+  private final MessageConverter messageConverter;
 
-    private final RabbitProperties properties;
+  private final RabbitProperties properties;
 
-    @PostConstruct
-    public void init() {
-        rabbitTemplate.setMessageConverter(messageConverter);
+  @PostConstruct
+  public void init() {
+    rabbitTemplate.setMessageConverter(messageConverter);
+  }
+
+  public boolean send(Object obj) {
+    try {
+      rabbitTemplate.convertAndSend(properties.getExchange(), properties.getBinding(), obj);
+      return true;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
     }
+  }
 
-    public void send(Object obj) {
-        rabbitTemplate.convertAndSend(properties.getExchange(), properties.getBinding(), obj);
+  public boolean send(Object obj, boolean isSend) {
+    if (!isSend) {
+      return false;
     }
+    return this.send(obj);
+  }
 }

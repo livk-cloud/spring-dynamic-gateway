@@ -57,15 +57,30 @@ public class RedisServiceImpl implements RedisService {
   }
 
   @Override
-  public boolean delete(Collection<String> keys, String prefix) {
+  public boolean insertOrUpdate(Object obj, String key, boolean isRun) {
+    if (!isRun) {
+      return false;
+    }
+    return this.insertOrUpdate(obj, key);
+  }
+
+  @Override
+  public boolean delete(Collection<String> keys) {
     try {
-      keys = keys.stream().map(key -> prefix + key).collect(Collectors.toList());
       redisTemplate.delete(keys);
       return true;
     } catch (Exception e) {
       log.error("Failed to delete batches！");
       return false;
     }
+  }
+
+  @Override
+  public boolean delete(Collection<String> keys, boolean isRun) {
+    if (!isRun) {
+      return false;
+    }
+    return this.delete(keys);
   }
 
   @Override

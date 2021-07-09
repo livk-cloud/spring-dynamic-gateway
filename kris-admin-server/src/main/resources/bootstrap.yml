@@ -11,7 +11,3 @@ spring:
         server-addr: ${NACOS_SERVER_IP:kris.nacos.com}:${NACOS_SERVER_PORT:8848}
         namespace: KRIS-NACOS
         group: ${spring.profiles.active}
-      config:
-        server-addr: ${NACOS_SERVER_IP:kris.nacos.com}:${NACOS_SERVER_PORT:8848}
-        namespace: KRIS-NACOS
-        file-extension: yml

@@ -55,4 +55,11 @@ public class R<T> {
   public static <T> R<T> error(KrisException e) {
     return result(e.getCode(), e.getMessage(), null);
   }
+
+  public static class Constant {
+
+    public final static String SUCCESS = "success";
+
+    public final static String ERROR = "error";
+  }
 }

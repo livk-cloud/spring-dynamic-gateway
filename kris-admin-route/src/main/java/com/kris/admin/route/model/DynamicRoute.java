@@ -28,6 +28,8 @@ import lombok.NoArgsConstructor;
 @TableName(value = "dynamic_route")
 public class DynamicRoute implements Serializable {
 
+  public static final String SUFFIX_ROUTE = "kris";
+
   /**
    * 路由id
    */
@@ -87,14 +89,14 @@ public class DynamicRoute implements Serializable {
   /**
    * 创建时间
    */
-  @TableField(value = "create_time",fill = FieldFill.INSERT)
+  @TableField(value = "create_time", fill = FieldFill.INSERT)
   @ApiModelProperty(value = "创建时间")
   private Date createTime;
 
   /**
    * 更新时间
    */
-  @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+  @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
   @ApiModelProperty(value = "更新时间")
   private Date updateTime;
 

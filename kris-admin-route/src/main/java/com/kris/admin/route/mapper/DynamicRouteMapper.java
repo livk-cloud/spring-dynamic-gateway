@@ -1,7 +1,7 @@
 package com.kris.admin.route.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.kris.admin.route.Model.DynamicRoute;
+import com.kris.admin.route.model.DynamicRoute;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
