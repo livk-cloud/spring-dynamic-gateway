@@ -17,7 +17,6 @@
         <module>kris-common-mybatis</module>
         <module>kris-common-redis</module>
         <module>kris-common-swagger</module>
-        <module>kris-common-actuator</module>
     </modules>
 
     <dependencies>
