@@ -34,7 +34,7 @@ public class RedisServiceImpl implements RedisService {
 
   @Override
   public List<Object> listAll(String prefix) {
-    Set<String> keys = this.keys(prefix);
+    var keys = this.keys(prefix);
     return keys.stream()
         .map(this::getByKey)
         .collect(Collectors.toList());

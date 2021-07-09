@@ -30,13 +30,13 @@ public class RedisConfig {
   public RedisTemplate<String, Object> redisTemplate(
       RedisConnectionFactory redisConnectionFactory) {
     // 泛型改成 String Object，方便我们的使用
-    RedisTemplate<String, Object> template = new RedisTemplate<>();
+    var template = new RedisTemplate<String, Object>();
     // Json序列化配置
     // 使用 json解析对象
-    Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(
+    var serializer = new Jackson2JsonRedisSerializer<>(
         Object.class);
     // 通过 ObjectMapper进行转义
-    ObjectMapper mapper = new ObjectMapper();
+    var mapper = new ObjectMapper();
     mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
     serializer.setObjectMapper(mapper);
     var stringRedisSerializer = new StringRedisSerializer();

@@ -1,6 +1,5 @@
 package com.kris.common.core.util;
 
-import java.lang.reflect.Constructor;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -16,8 +15,8 @@ public final class BeanUtil{
 
   public static <T> T copy(Object source, Class<T> targetClass) {
     try {
-      Constructor<T> constructor = targetClass.getConstructor();
-      T t = constructor.newInstance();
+      var constructor = targetClass.getConstructor();
+      var t = constructor.newInstance();
       BeanUtils.copyProperties(source, t);
       return t;
     } catch (Exception e) {

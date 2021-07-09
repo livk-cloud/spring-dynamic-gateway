@@ -10,7 +10,6 @@ import com.kris.common.mq.domain.TypeEnum;
 import com.kris.common.mq.events.MessageSender;
 import com.kris.common.redis.service.RedisService;
 import java.util.Collections;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,7 +65,7 @@ public class DynamicRouteServiceImpl extends
   public boolean refresh() {
     var keys = redisService.keys(DynamicRoute.SUFFIX_ROUTE);
     redisService.delete(keys);
-    List<DynamicRoute> dynamicRouteList = this.list();
+    var dynamicRouteList = this.list();
     dynamicRouteList.forEach(route -> {
       redisService.insertOrUpdate(route, DynamicRoute.SUFFIX_ROUTE + route.getRouteId(), true);
       var routeMessage = this

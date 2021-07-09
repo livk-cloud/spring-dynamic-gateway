@@ -2,7 +2,6 @@ package com.kris.common.swagger;
 
 import com.kris.common.swagger.config.SwaggerProperties;
 import java.util.ArrayList;
-import java.util.List;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -14,7 +13,6 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.ApiSelectorBuilder;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
@@ -39,11 +37,11 @@ public class SwaggerAutoConfigurer {
 
   @Bean
   public Docket createRestApi(SwaggerProperties swaggerProperties) {
-    ApiSelectorBuilder apis = new Docket(DocumentationType.SWAGGER_2)
+    var apis = new Docket(DocumentationType.SWAGGER_2)
         .apiInfo(apiInfo(swaggerProperties))
         .select()
         .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()));
-    List<String> excludePath = new ArrayList<>(swaggerProperties.getExcludePath());
+    var excludePath = new ArrayList<String>(swaggerProperties.getExcludePath());
     if (swaggerProperties.getEnableExcludeErrorPath()) {
       excludePath.add(ERROR_PATH);
     }

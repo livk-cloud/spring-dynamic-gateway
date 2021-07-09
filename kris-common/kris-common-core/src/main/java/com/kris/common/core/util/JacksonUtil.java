@@ -75,7 +75,7 @@ public final class JacksonUtil {
     if (ObjectUtils.isEmpty(new Object[]{obj, clazz})) {
       return null;
     }
-    String json = objToStr(obj);
+    var json = objToStr(obj);
     if (ObjectUtils.isEmpty(json)) {
       return null;
     }
@@ -131,7 +131,7 @@ public final class JacksonUtil {
    * @return the string
    */
   public static String findObject(Object obj, String name) {
-    String objToStr = objToStr(obj);
+    var objToStr = objToStr(obj);
     try {
       return MAPPER.readTree(objToStr).findPath(name).asText();
     } catch (JsonProcessingException e) {
