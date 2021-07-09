@@ -9,7 +9,7 @@ import org.springframework.beans.BeanUtils;
  * @Description:
  * @Since: JDK11
  */
-public class BeanUtil {
+public final class BeanUtil{
 
   private BeanUtil() {
   }

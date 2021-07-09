@@ -58,8 +58,11 @@ public class R<T> {
 
   public static class Constant {
 
-    public final static String SUCCESS = "success";
+    private Constant() {
+    }
 
-    public final static String ERROR = "error";
+    public static final String SUCCESS = "success";
+
+    public static final String ERROR = "error";
   }
 }

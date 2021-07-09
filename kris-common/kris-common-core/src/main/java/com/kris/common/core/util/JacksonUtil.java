@@ -15,7 +15,7 @@ import java.util.Map;
  * @Description:
  * @Since: JDK11
  */
-public class JacksonUtil {
+public final class JacksonUtil {
 
   private JacksonUtil() {
   }
