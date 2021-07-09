@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @TableName(value = "dynamic_route")
 public class DynamicRoute implements Serializable {
 
-  public static final String SUFFIX_ROUTE = "kris";
+  public static final String SUFFIX_ROUTE = "kris-";
 
   /**
    * 路由id
