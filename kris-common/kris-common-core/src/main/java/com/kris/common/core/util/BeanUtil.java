@@ -1,5 +1,7 @@
 package com.kris.common.core.util;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -8,7 +10,7 @@ import org.springframework.beans.BeanUtils;
  * @Description:
  * @Since: JDK11
  */
-public final class BeanUtil{
+public final class BeanUtil {
 
   private BeanUtil() {
   }
@@ -25,4 +27,8 @@ public final class BeanUtil{
     return null;
   }
 
+  public static <T> List<T> copyList(List<Object> sourceList, Class<T> targetClass) {
+    return sourceList.stream().map(source -> copy(source, targetClass))
+        .collect(Collectors.toList());
+  }
 }

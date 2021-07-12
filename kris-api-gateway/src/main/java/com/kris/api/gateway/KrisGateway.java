@@ -1,4 +1,4 @@
-package com.kris.admin.route;
+package com.kris.api.gateway;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -9,16 +9,16 @@ import org.springframework.core.env.Environment;
 
 /**
  * @Author: kris
- * @Date: 2021/7/6
+ * @Date: 2021/7/12
  * @Description:
  * @Since: JDK11
  */
 @Slf4j
 @SpringBootApplication
-public class RouteApplication {
+public class KrisGateway {
 
   public static void main(String[] args) throws UnknownHostException {
-    Environment env = SpringApplication.run(RouteApplication.class, args).getEnvironment();
+    Environment env = SpringApplication.run(KrisGateway.class, args).getEnvironment();
     log.info("地址：\thttp://{}:{}", InetAddress.getLocalHost().getHostAddress(),
         env.getProperty("server.port"));
   }

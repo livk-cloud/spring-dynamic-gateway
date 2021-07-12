@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.kris.common.core.exception.KrisExceptionHandler,\
+  com.kris.common.core.handler.SpringContextHolder

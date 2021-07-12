@@ -1,5 +1,6 @@
 package com.kris.common.core.result;
 
+import com.kris.common.core.constant.KrisResultEnum;
 import com.kris.common.core.exception.KrisException;
 import lombok.Getter;
 
@@ -36,8 +37,12 @@ public class R<T> {
     return new R<>(code, msg, data);
   }
 
+  public static <T> R<T> result(KrisResultEnum krisResultEnum, T data) {
+    return result(krisResultEnum.getCode(), krisResultEnum.getMsg(), data);
+  }
+
   public static <T> R<T> ok(String msg, T data) {
-    return result(20000, msg, data);
+    return result(2000, msg, data);
   }
 
   public static <T> R<T> ok(String msg) {
@@ -45,7 +50,7 @@ public class R<T> {
   }
 
   public static <T> R<T> error(String msg, T data) {
-    return result(50001, msg, data);
+    return result(5001, msg, data);
   }
 
   public static <T> R<T> error(String msg) {
@@ -64,5 +69,9 @@ public class R<T> {
     public static final String SUCCESS = "success";
 
     public static final String ERROR = "error";
+
+    public static final String CODE = "code";
+    public static final String MSG = "msg";
+    public static final String DATA = "data";
   }
 }

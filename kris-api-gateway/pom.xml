@@ -16,4 +16,15 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kris</groupId>
+            <artifactId>kris-common-swagger</artifactId>
+        </dependency>
+    </dependencies>
 </project>

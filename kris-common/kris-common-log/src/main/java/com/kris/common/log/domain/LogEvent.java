@@ -4,6 +4,8 @@ import java.net.InetAddress;
 import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.context.ApplicationEvent;
 
 /**
  * @Author: kris
@@ -11,9 +13,10 @@ import lombok.Data;
  * @Description:
  * @Since: JDK11
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
-public class LogEvent {
+public class LogEvent extends ApplicationEvent {
 
   private String service;
 
@@ -23,9 +26,9 @@ public class LogEvent {
 
   private String description;
 
-  private Map<String, Object> params;
+  private transient Map<String, Object> params;
 
-  private Object result;
+  private transient Object result;
 
   private InetAddress ip;
 

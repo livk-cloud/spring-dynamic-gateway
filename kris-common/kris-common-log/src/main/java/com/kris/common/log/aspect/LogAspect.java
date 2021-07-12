@@ -1,5 +1,6 @@
 package com.kris.common.log.aspect;
 
+import com.kris.common.core.handler.SpringContextHolder;
 import com.kris.common.core.util.SysUtil;
 import com.kris.common.log.annotation.KrisLog;
 import com.kris.common.log.domain.LogEvent;
@@ -59,7 +60,7 @@ public class LogAspect {
       builder.params(map)
           .result(proceed);
     }
-    builder
+    LogEvent logEvent = builder
         .service(environment.getProperty("spring.application.name"))
         .username(username)
         .method(methodName)
@@ -67,6 +68,7 @@ public class LogAspect {
         .ip(InetAddress.getByName(SysUtil.getRealIp(request)))
         .runtime(end - start)
         .build();
+    SpringContextHolder.publishEvent(logEvent);
     return proceed;
   }
 }

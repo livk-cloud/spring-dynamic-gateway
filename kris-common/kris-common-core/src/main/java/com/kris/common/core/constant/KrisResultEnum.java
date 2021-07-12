@@ -12,7 +12,15 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @RequiredArgsConstructor
-public enum KrisExceptionEnum {
+public enum KrisResultEnum {
+  /**
+   *
+   */
+  ERROR(5001, "失败"),
+  /**
+   *
+   */
+  SUCCESS(2000, "成功"),
   /**
    *
    */
