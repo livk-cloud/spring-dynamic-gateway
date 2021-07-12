@@ -51,22 +51,26 @@ public class SpringContextHolder extends Assert implements ApplicationContextAwa
    * @param event 事件
    */
   public static void publishEvent(ApplicationEvent event) {
-    notNull(applicationContext, "applicationContext注入失败！");
+    check();
     applicationContext.publishEvent(event);
   }
 
   public static Object getBean(String name) {
-    notNull(applicationContext, "applicationContext注入失败！");
+    check();
     return applicationContext.getBean(name);
   }
 
   public static <T> T getBean(Class<T> typeClass) {
-    notNull(applicationContext, "applicationContext注入失败！");
+    check();
     return applicationContext.getBean(typeClass);
   }
 
   public static <T> T getBean(String name, Class<T> typeClass) {
-    notNull(applicationContext, "applicationContext注入失败！");
+    check();
     return applicationContext.getBean(name, typeClass);
+  }
+
+  public static void check(){
+    notNull(applicationContext, "applicationContext注入失败！");
   }
 }
