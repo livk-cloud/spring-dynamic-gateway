@@ -1,5 +1,6 @@
 package com.kris.common.swagger.annotation;
 
+import com.kris.common.swagger.GateWaySwaggerAutoConfiguration;
 import com.kris.common.swagger.SwaggerAutoConfigurer;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -19,7 +20,7 @@ import org.springframework.context.annotation.Import;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@Import({SwaggerAutoConfigurer.class})
+@Import({SwaggerAutoConfigurer.class, GateWaySwaggerAutoConfiguration.class})
 public @interface EnableKrisOpenApi {
 
 }

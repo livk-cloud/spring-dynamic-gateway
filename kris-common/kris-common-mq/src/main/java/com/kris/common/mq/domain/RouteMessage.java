@@ -19,6 +19,8 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 public class RouteMessage implements Serializable {
 
+  public static final String SUFFIX_ROUTE = "kris-";
+
   private static final long serialVersionUID = 1L;
   /**
    * routeId
@@ -28,8 +30,4 @@ public class RouteMessage implements Serializable {
    * 操作类型、insert、update、delete
    */
   private TypeEnum type;
-  /**
-   * 是否刷新
-   */
-  private Boolean routeIsRefresh;
 }

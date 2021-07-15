@@ -30,52 +30,50 @@ public class DynamicRouteServiceImpl extends
   private final MessageSender messageSender;
 
   @Override
-  public boolean saveAndSend(DynamicRoute dynamicRoute, boolean refresh) {
+  public boolean saveAndSend(DynamicRoute dynamicRoute) {
     var save = this.save(dynamicRoute);
     var insertOrUpdate = redisService
-        .insertOrUpdate(dynamicRoute, DynamicRoute.SUFFIX_ROUTE + dynamicRoute.getRouteId(), save);
+        .insertOrUpdate(dynamicRoute, RouteMessage.SUFFIX_ROUTE + dynamicRoute.getRouteId(), save);
     var routeMessage = this
-        .getRouteMessage(DynamicRoute.SUFFIX_ROUTE + dynamicRoute.getRouteId(), TypeEnum.INSERT,
-            refresh);
+        .getRouteMessage(RouteMessage.SUFFIX_ROUTE + dynamicRoute.getRouteId(), TypeEnum.INSERT);
     return messageSender.send(routeMessage, insertOrUpdate);
   }
 
   @Override
-  public boolean updateByIdAndSend(DynamicRoute dynamicRoute, boolean refresh) {
+  public boolean updateByIdAndSend(DynamicRoute dynamicRoute) {
     var update = this.updateById(dynamicRoute);
     var insertOrUpdate = redisService
-        .insertOrUpdate(dynamicRoute, DynamicRoute.SUFFIX_ROUTE + dynamicRoute.getRouteId(),
+        .insertOrUpdate(dynamicRoute, RouteMessage.SUFFIX_ROUTE + dynamicRoute.getRouteId(),
             update);
     var routeMessage = this
-        .getRouteMessage(DynamicRoute.SUFFIX_ROUTE + dynamicRoute.getRouteId(), TypeEnum.UPDATE,
-            refresh);
+        .getRouteMessage(RouteMessage.SUFFIX_ROUTE + dynamicRoute.getRouteId(), TypeEnum.UPDATE);
     return messageSender.send(routeMessage, insertOrUpdate);
   }
 
   @Override
-  public boolean removeByIdAndSend(String id, boolean refresh) {
+  public boolean removeByIdAndSend(String id) {
     var remove = this.removeById(id);
-    var delete = redisService.delete(Collections.singleton(DynamicRoute.SUFFIX_ROUTE + id), remove);
+    var delete = redisService.delete(Collections.singleton(RouteMessage.SUFFIX_ROUTE + id), remove);
     var routeMessage = this
-        .getRouteMessage(DynamicRoute.SUFFIX_ROUTE + id, TypeEnum.UPDATE, refresh);
+        .getRouteMessage(RouteMessage.SUFFIX_ROUTE + id, TypeEnum.UPDATE);
     return messageSender.send(routeMessage, delete);
   }
 
   @Override
   public boolean refresh() {
-    var keys = redisService.keys(DynamicRoute.SUFFIX_ROUTE);
+    var keys = redisService.keys(RouteMessage.SUFFIX_ROUTE);
     redisService.delete(keys);
     var dynamicRouteList = this.list();
     dynamicRouteList.forEach(route -> {
-      redisService.insertOrUpdate(route, DynamicRoute.SUFFIX_ROUTE + route.getRouteId(), true);
+      redisService.insertOrUpdate(route, RouteMessage.SUFFIX_ROUTE + route.getRouteId(), true);
       var routeMessage = this
-          .getRouteMessage(DynamicRoute.SUFFIX_ROUTE + route.getRouteId(), TypeEnum.UPDATE, true);
+          .getRouteMessage(RouteMessage.SUFFIX_ROUTE + route.getRouteId(), TypeEnum.UPDATE);
       messageSender.send(routeMessage, true);
     });
     return true;
   }
 
-  private RouteMessage getRouteMessage(String routingKey, TypeEnum type, Boolean routeIsRefresh) {
-    return new RouteMessage(routingKey, type, routeIsRefresh);
+  private RouteMessage getRouteMessage(String routingKey, TypeEnum type) {
+    return new RouteMessage(routingKey, type);
   }
 }

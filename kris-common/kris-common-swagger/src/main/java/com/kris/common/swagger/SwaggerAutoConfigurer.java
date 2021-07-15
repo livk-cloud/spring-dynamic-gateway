@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClas
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -23,6 +24,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @since JDK 11
  */
 @EnableOpenApi
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(name = "swagger.enable", matchIfMissing = true)
 @EnableConfigurationProperties(SwaggerProperties.class)
 @ConditionalOnMissingClass("org.springframework.cloud.gateway.config.GatewayAutoConfiguration")

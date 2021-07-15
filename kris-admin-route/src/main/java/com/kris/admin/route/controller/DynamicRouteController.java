@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -46,21 +45,20 @@ public class DynamicRouteController {
   @PostMapping
   public R<?> save(@RequestBody KrisRouteVo vo) {
     var dynamicRoute = BeanUtil.copy(vo, DynamicRoute.class);
-    var save = dynamicRouteService.saveAndSend(dynamicRoute, vo.getRouteIsRefresh());
+    var save = dynamicRouteService.saveAndSend(dynamicRoute);
     return save ? R.ok(Constant.SUCCESS) : R.error(Constant.ERROR);
   }
 
   @PutMapping()
   public R<?> update(@RequestBody KrisRouteVo vo) {
     var dynamicRoute = BeanUtil.copy(vo, DynamicRoute.class);
-    var update = dynamicRouteService.updateByIdAndSend(dynamicRoute, vo.getRouteIsRefresh());
+    var update = dynamicRouteService.updateByIdAndSend(dynamicRoute);
     return update ? R.ok(Constant.SUCCESS) : R.error(Constant.ERROR);
   }
 
   @DeleteMapping("/{id}")
-  public R<?> delete(@PathVariable String id,
-      @RequestParam(value = "refresh", required = false, defaultValue = "true") Boolean refresh) {
-    var delete = dynamicRouteService.removeByIdAndSend(id, refresh);
+  public R<?> delete(@PathVariable String id) {
+    var delete = dynamicRouteService.removeByIdAndSend(id);
     return delete ? R.ok(Constant.SUCCESS) : R.error(Constant.ERROR);
   }
 

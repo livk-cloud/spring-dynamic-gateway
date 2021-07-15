@@ -86,12 +86,6 @@
 
             <dependency>
                 <groupId>com.kris</groupId>
-                <artifactId>kris-common-mybatis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.kris</groupId>
                 <artifactId>kris-common-mq</artifactId>
                 <version>${project.version}</version>
             </dependency>

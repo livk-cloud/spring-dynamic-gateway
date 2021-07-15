@@ -14,7 +14,6 @@
   <modules>
     <module>kris-common-core</module>
     <module>kris-common-mq</module>
-    <module>kris-common-mybatis</module>
     <module>kris-common-redis</module>
     <module>kris-common-swagger</module>
     <module>kris-common-log</module>

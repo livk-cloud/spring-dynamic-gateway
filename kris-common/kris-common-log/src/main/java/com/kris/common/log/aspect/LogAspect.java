@@ -3,6 +3,7 @@ package com.kris.common.log.aspect;
 import com.kris.common.core.handler.SpringContextHolder;
 import com.kris.common.core.util.SysUtil;
 import com.kris.common.log.annotation.KrisLog;
+import com.kris.common.log.domain.Log;
 import com.kris.common.log.domain.LogEvent;
 import java.net.InetAddress;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class LogAspect {
 
   @Around("cutPoint()")
   public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-    var builder = LogEvent.builder();
+    var log = new Log();
     var requestAttributes = RequestContextHolder.getRequestAttributes();
     var servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
     assert servletRequestAttributes != null;
@@ -46,29 +47,27 @@ public class LogAspect {
     var username = request.getHeader("token");
     var signature = (MethodSignature) joinPoint.getSignature();
     var methodName = signature.getMethod().getName();
-    var log = signature.getMethod().getAnnotation(KrisLog.class);
+    var krisLog = signature.getMethod().getAnnotation(KrisLog.class);
     var parameterNames = signature.getParameterNames();
     var args = joinPoint.getArgs();
     var start = System.currentTimeMillis();
     var proceed = joinPoint.proceed();
     var end = System.currentTimeMillis();
-    if (log.isSaveParamAndReturn() && parameterNames.length != 0 && args.length != 0) {
+    if (krisLog.isSaveParamAndReturn() && parameterNames.length != 0 && args.length != 0) {
       var map = new HashMap<String, Object>(SysUtil.getMapSize(parameterNames.length));
       for (var i = 0; i < parameterNames.length; i++) {
         map.put(parameterNames[i], args[i]);
       }
-      builder.params(map)
-          .result(proceed);
+      log.setParams(map);
+      log.setResult(proceed);
     }
-    LogEvent logEvent = builder
-        .service(environment.getProperty("spring.application.name"))
-        .username(username)
-        .method(methodName)
-        .description(log.description())
-        .ip(InetAddress.getByName(SysUtil.getRealIp(request)))
-        .runtime(end - start)
-        .build();
-    SpringContextHolder.publishEvent(logEvent);
+    log.setService(environment.getProperty("spring.application.name"));
+    log.setUsername(username);
+    log.setMethod(methodName);
+    log.setDescription(krisLog.description());
+    log.setIp(InetAddress.getByName(SysUtil.getRealIp(request)));
+    log.setRuntime(end - start);
+    SpringContextHolder.publishEvent(new LogEvent(log));
     return proceed;
   }
 }

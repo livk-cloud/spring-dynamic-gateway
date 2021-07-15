@@ -1,10 +1,12 @@
 package com.kris.api.gateway;
 
+import com.kris.common.swagger.annotation.EnableKrisOpenApi;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.core.env.Environment;
 
 /**
@@ -14,6 +16,8 @@ import org.springframework.core.env.Environment;
  * @Since: JDK11
  */
 @Slf4j
+@EnableKrisOpenApi
+@EnableDiscoveryClient
 @SpringBootApplication
 public class KrisGateway {
 

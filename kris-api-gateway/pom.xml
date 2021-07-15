@@ -26,5 +26,15 @@
             <groupId>com.kris</groupId>
             <artifactId>kris-common-swagger</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.kris</groupId>
+            <artifactId>kris-common-mq</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kris</groupId>
+            <artifactId>kris-common-redis</artifactId>
+        </dependency>
     </dependencies>
 </project>
