@@ -3,6 +3,7 @@ package com.kris.common.core.util;
 import com.kris.common.core.constant.KrisResultEnum;
 import com.kris.common.core.result.R;
 import com.kris.common.core.result.R.Constant;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -53,16 +54,33 @@ public class SysUtil {
    * @return
    */
   public static String packageResult(String result) {
+    if (result == null || "".equals(result)) {
+      return JacksonUtil.objToStr(R.ok(Constant.SUCCESS));
+    }
+    if (checkBool(result)) {
+      var parseBoolean = Boolean.parseBoolean(result);
+      return JacksonUtil.objToStr(parseBoolean ? R.ok(Constant.SUCCESS) : R.error(Constant.ERROR));
+    }
     var map = JacksonUtil.strToMap(result, String.class, Object.class);
-    if (map.get(Constant.CODE) != null && map.get(Constant.MSG) != null) {
+    if (checkMap(map)) {
       return result;
     }
-    if (result == null) {
-      return JacksonUtil.objToStr(R.error(Constant.ERROR));
-    }
-    if (!Boolean.parseBoolean(result)) {
-      return JacksonUtil.objToStr(R.error(Constant.ERROR, result));
-    }
     return JacksonUtil.objToStr(R.result(KrisResultEnum.SUCCESS, result));
+  }
+
+  private static boolean checkBool(String str) {
+    return Boolean.TRUE.toString().equalsIgnoreCase(str) || Boolean.FALSE.toString()
+        .equalsIgnoreCase(str);
+  }
+
+  private static boolean checkMap(Map<String, Object> map) {
+    var resultNum = 2;
+    if (map == null) {
+      return false;
+    }
+    if (map.size() < resultNum || map.size() > resultNum + 1) {
+      return false;
+    }
+    return map.containsKey(Constant.CODE) && map.containsKey(Constant.MSG);
   }
 }

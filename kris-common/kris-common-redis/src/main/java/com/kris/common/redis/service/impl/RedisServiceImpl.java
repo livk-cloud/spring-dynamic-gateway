@@ -1,6 +1,7 @@
 package com.kris.common.redis.service.impl;
 
 import com.kris.common.redis.service.RedisService;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -73,6 +74,15 @@ public class RedisServiceImpl implements RedisService {
       log.error("Failed to delete batches！");
       return false;
     }
+  }
+
+  @Override
+  public boolean delete(String... keys) {
+    if (keys == null || keys.length == 0) {
+      return false;
+    }
+    var keySet = Arrays.stream(keys).collect(Collectors.toSet());
+    return this.delete(keySet);
   }
 
   @Override

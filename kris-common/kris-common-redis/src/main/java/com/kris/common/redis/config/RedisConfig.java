@@ -33,8 +33,7 @@ public class RedisConfig {
     var template = new RedisTemplate<String, Object>();
     // Json序列化配置
     // 使用 json解析对象
-    var serializer = new Jackson2JsonRedisSerializer<>(
-        Object.class);
+    var serializer = new Jackson2JsonRedisSerializer<>(Object.class);
     // 通过 ObjectMapper进行转义
     var mapper = new ObjectMapper();
     mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
