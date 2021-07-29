@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -24,16 +25,17 @@ public class SpringContextHolder extends Assert implements ApplicationContextAwa
   private static ApplicationContext applicationContext = null;
 
   @Override
-  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+  public void setApplicationContext(@Nullable ApplicationContext applicationContext)
+      throws BeansException {
     if (SpringContextHolder.applicationContext != null) {
       log.warn("SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:"
           + SpringContextHolder.applicationContext);
     }
-    SpringContextHolder.applicationContext = applicationContext;
+    setSpringContext(applicationContext);
   }
 
   public static ApplicationContext getApplicationContext() {
-    notNull(applicationContext, "applicationContext注入失败！");
+    check();
     return applicationContext;
   }
 
@@ -42,7 +44,11 @@ public class SpringContextHolder extends Assert implements ApplicationContextAwa
     if (log.isDebugEnabled()) {
       log.debug("清除SpringContextHolder中的ApplicationContext:" + applicationContext);
     }
-    SpringContextHolder.applicationContext = null;
+    setSpringContext(null);
+  }
+
+  private synchronized void setSpringContext(ApplicationContext applicationContext) {
+    SpringContextHolder.applicationContext = applicationContext;
   }
 
   /**
@@ -70,7 +76,7 @@ public class SpringContextHolder extends Assert implements ApplicationContextAwa
     return applicationContext.getBean(name, typeClass);
   }
 
-  public static void check(){
+  public static void check() {
     notNull(applicationContext, "applicationContext注入失败！");
   }
 }

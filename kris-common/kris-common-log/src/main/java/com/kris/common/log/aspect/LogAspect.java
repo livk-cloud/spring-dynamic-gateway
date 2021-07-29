@@ -1,5 +1,6 @@
 package com.kris.common.log.aspect;
 
+import com.kris.common.core.handler.KrisRequestContextHolder;
 import com.kris.common.core.handler.SpringContextHolder;
 import com.kris.common.core.util.SysUtil;
 import com.kris.common.log.annotation.KrisLog;
@@ -16,8 +17,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @Author: kris
@@ -39,12 +38,9 @@ public class LogAspect {
   @Around("cutPoint()")
   public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
     var log = new Log();
-    var requestAttributes = RequestContextHolder.getRequestAttributes();
-    var servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-    assert servletRequestAttributes != null;
-    var request = servletRequestAttributes.getRequest();
+    var request = KrisRequestContextHolder.getRequest();
     //获取token，再解析token，获取username
-    var username = request.getHeader("token");
+    var username = request.getHeader("xxx");
     var signature = (MethodSignature) joinPoint.getSignature();
     var methodName = signature.getMethod().getName();
     var krisLog = signature.getMethod().getAnnotation(KrisLog.class);
