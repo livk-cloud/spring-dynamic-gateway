@@ -6,6 +6,7 @@ import com.kris.admin.route.service.DynamicRouteService;
 import com.kris.common.core.result.R;
 import com.kris.common.core.result.R.Constant;
 import com.kris.common.core.util.BeanUtil;
+import com.kris.common.log.annotation.KrisLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +31,7 @@ public class DynamicRouteController {
 
   private final DynamicRouteService dynamicRouteService;
 
+  @KrisLog(description = "查询所有路由信息", isSaveParamAndReturn = true)
   @GetMapping()
   public R<?> listAll() {
     var dynamicRoutes = dynamicRouteService.list();

@@ -104,7 +104,7 @@
 
             <dependency>
                 <groupId>com.kris</groupId>
-                <artifactId>kris-common-actuator</artifactId>
+                <artifactId>kris-common-log</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

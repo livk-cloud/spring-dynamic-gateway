@@ -1,11 +1,11 @@
 package com.kris.common.log.aspect;
 
+import com.kris.common.core.event.KrisEvent;
 import com.kris.common.core.handler.KrisRequestContextHolder;
 import com.kris.common.core.handler.SpringContextHolder;
 import com.kris.common.core.util.SysUtil;
 import com.kris.common.log.annotation.KrisLog;
 import com.kris.common.log.domain.Log;
-import com.kris.common.log.domain.LogEvent;
 import java.net.InetAddress;
 import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
@@ -63,7 +63,7 @@ public class LogAspect {
     log.setDescription(krisLog.description());
     log.setIp(InetAddress.getByName(SysUtil.getRealIp(request)));
     log.setRuntime(end - start);
-    SpringContextHolder.publishEvent(new LogEvent(log));
+    SpringContextHolder.publishEvent(new KrisEvent<>(log));
     return proceed;
   }
 }

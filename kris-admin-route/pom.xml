@@ -54,6 +54,11 @@
 
         <dependency>
             <groupId>com.kris</groupId>
+            <artifactId>kris-common-log</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kris</groupId>
             <artifactId>kris-common-redis</artifactId>
         </dependency>
 

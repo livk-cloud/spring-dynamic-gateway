@@ -16,7 +16,6 @@ import org.springframework.core.env.Environment;
 @EnableAutoConfiguration
 public class LogAutoConfiguration {
 
-
   @Bean
   public LogAspect logAspect(Environment environment) {
     return new LogAspect(environment);
