@@ -63,7 +63,7 @@ public interface Json{
    * @param str the str
    * @return the json
    */
-  default Json strToBean(String str){
+  public static Json strToBean(String str){
     try {
       return MAPPER.readValue(str,Json.class);
     } catch (JsonProcessingException e) {

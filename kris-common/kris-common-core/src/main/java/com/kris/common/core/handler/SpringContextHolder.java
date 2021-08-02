@@ -11,12 +11,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-/**
- * @Author: kris
- * @Date: 2021/7/12
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/12 @Description: @Since: JDK11 */
 @Slf4j
 @Service
 @Lazy(false)
@@ -28,8 +23,9 @@ public class SpringContextHolder extends Assert implements ApplicationContextAwa
   public void setApplicationContext(@Nullable ApplicationContext applicationContext)
       throws BeansException {
     if (SpringContextHolder.applicationContext != null) {
-      log.warn("SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:"
-          + SpringContextHolder.applicationContext);
+      log.warn(
+          "SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:"
+              + SpringContextHolder.applicationContext);
     }
     setSpringContext(applicationContext);
   }

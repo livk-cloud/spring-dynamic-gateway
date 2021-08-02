@@ -18,12 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @Author: kris
- * @Date: 2021/7/9
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/9 @Description: @Since: JDK11 */
 @RestController
 @RequestMapping("/dynamic/route")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)

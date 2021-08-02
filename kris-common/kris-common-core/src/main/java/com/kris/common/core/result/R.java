@@ -14,17 +14,11 @@ import lombok.Getter;
 @Getter
 public class R<T> {
 
-  /**
-   * 返回状态码
-   */
+  /** 返回状态码 */
   private final int code;
-  /**
-   * 返回消息
-   */
+  /** 返回消息 */
   private final String msg;
-  /**
-   * 返回数据
-   */
+  /** 返回数据 */
   private final T data;
 
   private R(int code, String msg, T data) {
@@ -63,8 +57,7 @@ public class R<T> {
 
   public static class Constant {
 
-    private Constant() {
-    }
+    private Constant() {}
 
     public static final String SUCCESS = "success";
 

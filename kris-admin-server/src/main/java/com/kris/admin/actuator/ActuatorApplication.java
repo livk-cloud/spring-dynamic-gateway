@@ -24,7 +24,9 @@ public class ActuatorApplication {
 
   public static void main(String[] args) throws UnknownHostException {
     Environment env = SpringApplication.run(ActuatorApplication.class, args).getEnvironment();
-    log.info("Gateway地址：\thttp://{}:{}", InetAddress.getLocalHost().getHostAddress(),
+    log.info(
+        "Gateway地址：\thttp://{}:{}",
+        InetAddress.getLocalHost().getHostAddress(),
         env.getProperty("server.port"));
   }
 }

@@ -6,21 +6,21 @@ import com.kris.common.core.result.R.Constant;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * @Author: kris
- * @Date: 2021/7/12
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/12 @Description: @Since: JDK11 */
 public class SysUtil {
 
   private static final String UNKNOWN = "unknown";
 
   private static final String HTTP_IP_SPLIT = ",";
 
-  private SysUtil() {
-  }
+  private SysUtil() {}
 
+  /**
+   * 获取map的初始化大小
+   *
+   * @param n 预期添加map数量
+   * @return map的初始化大小
+   */
   public static int getMapSize(int n) {
     if (n <= 0) {
       return -1;
@@ -28,6 +28,12 @@ public class SysUtil {
     return n * 4 / 3 + 1;
   }
 
+  /**
+   * 根据request获取IP
+   *
+   * @param request 请求参数
+   * @return ip
+   */
   public static String getRealIp(HttpServletRequest request) {
     // 这个一般是Nginx反向代理设置的参数
     var ip = request.getHeader("X-Real-IP");
@@ -48,10 +54,10 @@ public class SysUtil {
   }
 
   /**
-   * 包装返回值
+   * 是否包装返回值 包装返回值
    *
-   * @param result
-   * @return
+   * @param result 返回值
+   * @return 包装后的返回值
    */
   public static String packageResult(String result) {
     if (result == null || "".equals(result)) {
@@ -68,11 +74,23 @@ public class SysUtil {
     return JacksonUtil.objToStr(R.result(KrisResultEnum.SUCCESS, result));
   }
 
+  /**
+   * 检查字符串是否属于boolean类型
+   *
+   * @param str 需要校验的字符串
+   * @return result
+   */
   private static boolean checkBool(String str) {
-    return Boolean.TRUE.toString().equalsIgnoreCase(str) || Boolean.FALSE.toString()
-        .equalsIgnoreCase(str);
+    return Boolean.TRUE.toString().equalsIgnoreCase(str)
+        || Boolean.FALSE.toString().equalsIgnoreCase(str);
   }
 
+  /**
+   * 检查map是否需要包装
+   *
+   * @param map 需检查的map
+   * @return result
+   */
   private static boolean checkMap(Map<String, Object> map) {
     var resultNum = 2;
     if (map == null) {

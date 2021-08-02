@@ -6,12 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-/**
- * @Author: kris
- * @Date: 2021/7/12
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/12 @Description: @Since: JDK11 */
 @Configuration(proxyBeanMethods = false)
 @EnableAutoConfiguration
 public class LogAutoConfiguration {

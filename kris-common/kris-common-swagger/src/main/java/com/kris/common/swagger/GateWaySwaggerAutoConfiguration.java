@@ -9,18 +9,14 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
-/**
- * @Author: kris
- * @Date: 2021/7/15
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/15 @Description: @Since: JDK11 */
 @ConditionalOnWebApplication(type = Type.REACTIVE)
 public class GateWaySwaggerAutoConfiguration {
 
   @Bean
   public GatewaySwaggerResourcesProvider gatewaySwaggerResourcesProvider(
-      RouteLocator routeLocator, Environment environment,
+      RouteLocator routeLocator,
+      Environment environment,
       RouteDefinitionLocator routeDefinitionLocator) {
     return new GatewaySwaggerResourcesProvider(routeLocator, environment, routeDefinitionLocator);
   }

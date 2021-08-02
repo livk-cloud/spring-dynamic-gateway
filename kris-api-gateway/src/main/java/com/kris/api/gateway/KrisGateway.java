@@ -9,12 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.core.env.Environment;
 
-/**
- * @Author: kris
- * @Date: 2021/7/12
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/12 @Description: @Since: JDK11 */
 @Slf4j
 @EnableKrisOpenApi
 @EnableDiscoveryClient
@@ -23,7 +18,9 @@ public class KrisGateway {
 
   public static void main(String[] args) throws UnknownHostException {
     Environment env = SpringApplication.run(KrisGateway.class, args).getEnvironment();
-    log.info("地址：\thttp://{}:{}", InetAddress.getLocalHost().getHostAddress(),
+    log.info(
+        "地址：\thttp://{}:{}",
+        InetAddress.getLocalHost().getHostAddress(),
         env.getProperty("server.port"));
   }
 }

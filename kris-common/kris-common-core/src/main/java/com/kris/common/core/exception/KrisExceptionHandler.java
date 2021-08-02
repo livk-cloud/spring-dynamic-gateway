@@ -4,12 +4,7 @@ import com.kris.common.core.result.R;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-/**
- * @Author: kris
- * @Date: 2021/7/7
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/7 @Description: @Since: JDK11 */
 @RestControllerAdvice
 public class KrisExceptionHandler {
 

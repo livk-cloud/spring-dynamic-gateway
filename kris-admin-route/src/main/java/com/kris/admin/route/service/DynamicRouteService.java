@@ -4,12 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.kris.admin.route.model.DynamicRoute;
 
 /**
- * The interface Dynamic route service.
- *
- * @Author: kris
- * @Date: 2021 /7/6
- * @Description: $ {Description}
- * @Since: JDK11
+ * The interface Dynamic route service. @Author: kris @Date: 2021 /7/6 @Description: $
+ * {Description} @Since: JDK11
  */
 public interface DynamicRouteService extends IService<DynamicRoute> {
 
@@ -32,7 +28,7 @@ public interface DynamicRouteService extends IService<DynamicRoute> {
   /**
    * 删除路由，并发送
    *
-   * @param id      路由id
+   * @param id 路由id
    * @return 处理结果 boolean
    */
   boolean removeByIdAndSend(String id);

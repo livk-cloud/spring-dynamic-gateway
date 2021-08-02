@@ -7,26 +7,18 @@ import org.springframework.util.ObjectUtils;
 import java.util.Collection;
 import java.util.Map;
 
-/**
- * The type Bean util.
- *
- * @Author: kris
- * @Date: 2021 /4/19
- * @Description:
- * @Since: JDK11
- */
+/** The type Bean util. @Author: kris @Date: 2021 /4/19 @Description: @Since: JDK11 */
 public final class JacksonUtil {
 
-  private JacksonUtil() {
-  }
+  private JacksonUtil() {}
 
   private static final ObjectMapper MAPPER = new ObjectMapper();
 
   /**
    * Str to bean t.
    *
-   * @param <T>   the type parameter
-   * @param json  the bean str
+   * @param <T> the type parameter
+   * @param json the bean str
    * @param clazz the clazz
    * @return t t
    */
@@ -47,8 +39,8 @@ public final class JacksonUtil {
   /**
    * Str to collection collection.
    *
-   * @param <T>   the type parameter
-   * @param json  the bean str
+   * @param <T> the type parameter
+   * @param json the bean str
    * @param clazz the clazz
    * @return the collection
    */
@@ -66,13 +58,13 @@ public final class JacksonUtil {
   /**
    * Obj to bean t.
    *
-   * @param <T>   the type parameter
-   * @param obj   the obj
+   * @param <T> the type parameter
+   * @param obj the obj
    * @param clazz the clazz
    * @return the t
    */
   public static <T> T objToBean(Object obj, Class<T> clazz) {
-    if (ObjectUtils.isEmpty(new Object[]{obj, clazz})) {
+    if (ObjectUtils.isEmpty(new Object[] {obj, clazz})) {
       return null;
     }
     var json = objToStr(obj);
@@ -81,7 +73,6 @@ public final class JacksonUtil {
     }
     return strToBean(json, clazz);
   }
-
 
   /**
    * Obj to str string.
@@ -105,9 +96,9 @@ public final class JacksonUtil {
   /**
    * Str to map map.
    *
-   * @param <K>    the type parameter
-   * @param <V>    the type parameter
-   * @param json   the json
+   * @param <K> the type parameter
+   * @param <V> the type parameter
+   * @param json the json
    * @param kClass the k class
    * @param vClass the v class
    * @return the map
@@ -126,7 +117,7 @@ public final class JacksonUtil {
   /**
    * Find object string.
    *
-   * @param obj  the obj
+   * @param obj the obj
    * @param name the name
    * @return the string
    */

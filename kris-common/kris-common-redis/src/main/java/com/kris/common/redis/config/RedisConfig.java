@@ -20,9 +20,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @date: 2021/4/17 11:55
  * @since JDK 11
  */
-@Configuration(
-    proxyBeanMethods = false
-)
+@Configuration(proxyBeanMethods = false)
 public class RedisConfig {
 
   @Bean

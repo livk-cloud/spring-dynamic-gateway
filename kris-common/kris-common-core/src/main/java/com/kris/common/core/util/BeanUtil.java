@@ -4,17 +4,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 
-/**
- * @Author: kris
- * @Date: 2021/7/9
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/9 @Description: @Since: JDK11 */
 public final class BeanUtil {
 
-  private BeanUtil() {
-  }
+  private BeanUtil() {}
 
+  /**
+   * 基于BeanUtils的复制
+   *
+   * @param source 目标源
+   * @param targetClass 需复制的结果类型
+   * @param <T> 类型
+   * @return result
+   */
   public static <T> T copy(Object source, Class<T> targetClass) {
     try {
       var constructor = targetClass.getConstructor();
@@ -27,8 +29,17 @@ public final class BeanUtil {
     return null;
   }
 
+  /**
+   * list类型复制
+   *
+   * @param sourceList 目标list
+   * @param targetClass class类型
+   * @param <T> 类型
+   * @return result list
+   */
   public static <T> List<T> copyList(List<Object> sourceList, Class<T> targetClass) {
-    return sourceList.stream().map(source -> copy(source, targetClass))
+    return sourceList.stream()
+        .map(source -> copy(source, targetClass))
         .collect(Collectors.toList());
   }
 }

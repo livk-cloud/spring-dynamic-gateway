@@ -27,21 +27,11 @@ public class MessageReceiverImpl implements MessageReceiver {
   public void handleMessage(String msg) {
     var routeMessage = JacksonUtil.strToBean(msg, RouteMessage.class);
     switch (Objects.requireNonNull(routeMessage).getType()) {
-      case INSERT:
-        routeHandler.save(routeMessage.getRoutingKey());
-        break;
-      case UPDATE:
-        routeHandler.update(routeMessage.getRoutingKey());
-        break;
-      case DELETE:
-        routeHandler.delete(routeMessage.getRoutingKey());
-        break;
-      case NONE:
-        routeHandler.refresh();
-        break;
-      default:
-        log.info("Unknown operation type！");
-        break;
+      case INSERT -> routeHandler.save(routeMessage.getRoutingKey());
+      case UPDATE -> routeHandler.update(routeMessage.getRoutingKey());
+      case DELETE -> routeHandler.delete(routeMessage.getRoutingKey());
+      case NONE -> routeHandler.refresh();
+      default -> log.info("Unknown operation type！");
     }
   }
 }

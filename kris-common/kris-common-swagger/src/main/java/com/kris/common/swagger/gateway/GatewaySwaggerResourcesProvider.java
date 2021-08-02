@@ -38,9 +38,7 @@ public class GatewaySwaggerResourcesProvider implements SwaggerResourcesProvider
    */
   public static final String SWAGGER3URL = "/v2/api-docs";
 
-  /**
-   * 网关路由
-   */
+  /** 网关路由 */
   @Value("${spring.application.name}")
   public String appName;
 

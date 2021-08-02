@@ -21,12 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
-/**
- * @Author: kris
- * @Date: 2021/7/15
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/15 @Description: @Since: JDK11 */
 @Slf4j
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -40,24 +35,26 @@ public class RouteHandler {
   private static final String LOAD_LOADBALANCER_SUFFIX = "lb://";
 
   public void refresh() {
-    redisService.listAll(RouteMessage.SUFFIX_ROUTE)
-        .stream()
-        .map(object -> JacksonUtil.objToBean(object, DynamicRoute.class)).filter(Objects::nonNull)
+    redisService.listAll(RouteMessage.SUFFIX_ROUTE).stream()
+        .map(object -> JacksonUtil.objToBean(object, DynamicRoute.class))
+        .filter(Objects::nonNull)
         .map(this::gatewayRouteToRouteDefinition)
         .collect(Collectors.toList())
         .forEach(this::saveRoute);
   }
 
   public void save(String routeId) {
-    DynamicRoute dynamicRoute = JacksonUtil
-        .objToBean(redisService.getByKey(RouteMessage.SUFFIX_ROUTE + routeId), DynamicRoute.class);
+    DynamicRoute dynamicRoute =
+        JacksonUtil.objToBean(
+            redisService.getByKey(RouteMessage.SUFFIX_ROUTE + routeId), DynamicRoute.class);
     assert dynamicRoute != null;
     this.saveRoute(this.gatewayRouteToRouteDefinition(dynamicRoute));
   }
 
   public void update(String routeId) {
-    DynamicRoute dynamicRoute = JacksonUtil
-        .objToBean(redisService.getByKey(RouteMessage.SUFFIX_ROUTE + routeId), DynamicRoute.class);
+    DynamicRoute dynamicRoute =
+        JacksonUtil.objToBean(
+            redisService.getByKey(RouteMessage.SUFFIX_ROUTE + routeId), DynamicRoute.class);
     assert dynamicRoute != null;
     this.deleteRoute(routeId);
     this.saveRoute(this.gatewayRouteToRouteDefinition(dynamicRoute));
@@ -83,16 +80,20 @@ public class RouteHandler {
     routeDefinition.setOrder(dynamicRoute.getOrder());
     URI uri;
     if (ROUTE_TYPE.equals(dynamicRoute.getRouteType())) {
-      uri = UriComponentsBuilder.fromUriString(LOAD_LOADBALANCER_SUFFIX + dynamicRoute.getUri())
-          .build().toUri();
+      uri =
+          UriComponentsBuilder.fromUriString(LOAD_LOADBALANCER_SUFFIX + dynamicRoute.getUri())
+              .build()
+              .toUri();
     } else {
       uri = UriComponentsBuilder.fromHttpUrl(dynamicRoute.getUri()).build().toUri();
     }
     routeDefinition.setUri(uri);
-    routeDefinition.setFilters(new ArrayList<>(
-        JacksonUtil.strToCollection(dynamicRoute.getFilters(), FilterDefinition.class)));
-    routeDefinition.setPredicates(new ArrayList<>(
-        JacksonUtil.strToCollection(dynamicRoute.getPredicates(), PredicateDefinition.class)));
+    routeDefinition.setFilters(
+        new ArrayList<>(
+            JacksonUtil.strToCollection(dynamicRoute.getFilters(), FilterDefinition.class)));
+    routeDefinition.setPredicates(
+        new ArrayList<>(
+            JacksonUtil.strToCollection(dynamicRoute.getPredicates(), PredicateDefinition.class)));
     return routeDefinition;
   }
 }

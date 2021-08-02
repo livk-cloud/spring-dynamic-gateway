@@ -63,7 +63,8 @@ public class RabbitAutoConfig {
 
   @Bean
   public SimpleMessageListenerContainer simpleMessageListenerContainer(
-      ConnectionFactory connectionFactory, MessageListenerAdapter messageListenerAdapter,
+      ConnectionFactory connectionFactory,
+      MessageListenerAdapter messageListenerAdapter,
       Queue queue) {
     log.info("init simpleMessageListenerContainer: {}", queue.getName());
     var container = new SimpleMessageListenerContainer(connectionFactory);
@@ -74,8 +75,8 @@ public class RabbitAutoConfig {
 
   @Bean
   @ConditionalOnBean(MessageReceiver.class)
-  public MessageListenerAdapter messageListenerAdapter(MessageReceiver messageReceiver,
-      MessageConverter messageConverter) {
+  public MessageListenerAdapter messageListenerAdapter(
+      MessageReceiver messageReceiver, MessageConverter messageConverter) {
     log.info("new listener");
     return new MessageListenerAdapter(messageReceiver, messageConverter);
   }
@@ -90,8 +91,10 @@ public class RabbitAutoConfig {
 
   @Bean
   @ConditionalOnBean({RabbitTemplate.class, RabbitProperties.class, MessageConverter.class})
-  public MessageSender messageSender(RabbitTemplate rabbitTemplate,
-      MessageConverter messageConverter, RabbitProperties rabbitProperties) {
+  public MessageSender messageSender(
+      RabbitTemplate rabbitTemplate,
+      MessageConverter messageConverter,
+      RabbitProperties rabbitProperties) {
     return new MessageSender(rabbitTemplate, messageConverter, rabbitProperties);
   }
 }

@@ -4,12 +4,7 @@ import java.net.InetAddress;
 import java.util.Map;
 import lombok.Data;
 
-/**
- * @Author: kris
- * @Date: 2021/7/12
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/12 @Description: @Since: JDK11 */
 @Data
 public class Log {
 

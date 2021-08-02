@@ -10,17 +10,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.context.annotation.Import;
 
-/**
- * @Author: kris
- * @Date: 2021/7/7
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/7 @Description: @Since: JDK11 */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
 @Import({SwaggerAutoConfigurer.class, GateWaySwaggerAutoConfiguration.class})
-public @interface EnableKrisOpenApi {
-
-}
+public @interface EnableKrisOpenApi {}
