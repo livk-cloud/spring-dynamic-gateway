@@ -12,6 +12,10 @@ import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 /** @Author: kris @Date: 2021/7/6 @Description: ${Description} @Since: JDK11 */
 @Service
@@ -23,36 +27,46 @@ public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, Dyn
 
   private final MessageSender messageSender;
 
+  private final DefaultTransactionDefinition definition =
+      new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRED);
+
+  @Transactional(rollbackFor = Exception.class)
   @Override
   public boolean saveAndSend(DynamicRoute dynamicRoute) {
     var save = this.save(dynamicRoute);
     var insertOrUpdate =
-        redisService.insertOrUpdate(
-            dynamicRoute, RouteMessage.SUFFIX_ROUTE + dynamicRoute.getRouteId(), save);
+        save
+            && redisService.insertOrUpdate(
+                dynamicRoute, RouteMessage.SUFFIX_ROUTE + dynamicRoute.getRouteId());
     var routeMessage =
         this.getRouteMessage(
             RouteMessage.SUFFIX_ROUTE + dynamicRoute.getRouteId(), TypeEnum.INSERT);
-    return messageSender.send(routeMessage, insertOrUpdate);
+    if (save && !insertOrUpdate) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+    }
+    return insertOrUpdate && messageSender.send(routeMessage);
   }
 
   @Override
   public boolean updateByIdAndSend(DynamicRoute dynamicRoute) {
     var update = this.updateById(dynamicRoute);
     var insertOrUpdate =
-        redisService.insertOrUpdate(
-            dynamicRoute, RouteMessage.SUFFIX_ROUTE + dynamicRoute.getRouteId(), update);
+        update
+            && redisService.insertOrUpdate(
+                dynamicRoute, RouteMessage.SUFFIX_ROUTE + dynamicRoute.getRouteId());
     var routeMessage =
         this.getRouteMessage(
             RouteMessage.SUFFIX_ROUTE + dynamicRoute.getRouteId(), TypeEnum.UPDATE);
-    return messageSender.send(routeMessage, insertOrUpdate);
+    return insertOrUpdate && messageSender.send(routeMessage);
   }
 
   @Override
   public boolean removeByIdAndSend(String id) {
     var remove = this.removeById(id);
-    var delete = redisService.delete(Collections.singleton(RouteMessage.SUFFIX_ROUTE + id), remove);
+    var delete =
+        remove && redisService.delete(Collections.singleton(RouteMessage.SUFFIX_ROUTE + id));
     var routeMessage = this.getRouteMessage(RouteMessage.SUFFIX_ROUTE + id, TypeEnum.UPDATE);
-    return messageSender.send(routeMessage, delete);
+    return delete && messageSender.send(routeMessage);
   }
 
   @Override
@@ -62,10 +76,10 @@ public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, Dyn
     var dynamicRouteList = this.list();
     dynamicRouteList.forEach(
         route -> {
-          redisService.insertOrUpdate(route, RouteMessage.SUFFIX_ROUTE + route.getRouteId(), true);
+          redisService.insertOrUpdate(route, RouteMessage.SUFFIX_ROUTE + route.getRouteId());
           var routeMessage =
               this.getRouteMessage(RouteMessage.SUFFIX_ROUTE + route.getRouteId(), TypeEnum.UPDATE);
-          messageSender.send(routeMessage, true);
+          messageSender.send(routeMessage);
         });
     return true;
   }

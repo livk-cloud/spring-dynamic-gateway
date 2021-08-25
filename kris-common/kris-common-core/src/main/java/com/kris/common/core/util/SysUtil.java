@@ -3,8 +3,14 @@ package com.kris.common.core.util;
 import com.kris.common.core.constant.KrisResultEnum;
 import com.kris.common.core.result.R;
 import com.kris.common.core.result.R.Constant;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.core.env.Environment;
 
 /** @Author: kris @Date: 2021/7/12 @Description: @Since: JDK11 */
 public class SysUtil {
@@ -100,5 +106,15 @@ public class SysUtil {
       return false;
     }
     return map.containsKey(Constant.CODE) && map.containsKey(Constant.MSG);
+  }
+
+  public static void run(Class<?> targetClass, String[] args)
+      throws UnknownHostException {
+    Logger logger = LoggerFactory.getLogger(targetClass);
+    Environment env = SpringApplication.run(targetClass, args).getEnvironment();
+    logger.info(
+        "地址：\thttp://{}:{}",
+        InetAddress.getLocalHost().getHostAddress(),
+        env.getProperty("server.port"));
   }
 }

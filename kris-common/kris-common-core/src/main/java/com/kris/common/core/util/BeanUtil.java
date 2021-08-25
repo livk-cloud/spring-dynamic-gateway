@@ -1,7 +1,7 @@
 package com.kris.common.core.util;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 
 /** @Author: kris @Date: 2021/7/9 @Description: @Since: JDK11 */
@@ -37,9 +37,7 @@ public final class BeanUtil {
    * @param <T> 类型
    * @return result list
    */
-  public static <T> List<T> copyList(List<Object> sourceList, Class<T> targetClass) {
-    return sourceList.stream()
-        .map(source -> copy(source, targetClass))
-        .collect(Collectors.toList());
+  public static <T> List<T> copyList(Collection<Object> sourceList, Class<T> targetClass) {
+    return sourceList.stream().map(source -> copy(source, targetClass)).toList();
   }
 }

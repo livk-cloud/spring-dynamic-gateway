@@ -1,10 +1,11 @@
 package com.kris.common.log.aspect;
 
+import com.kris.common.core.event.KrisEvent;
 import com.kris.common.core.handler.SpringContextHolder;
+import com.kris.common.core.util.RequestUtil;
 import com.kris.common.core.util.SysUtil;
 import com.kris.common.log.annotation.KrisLog;
 import com.kris.common.log.domain.Log;
-import com.kris.common.log.domain.LogEvent;
 import java.net.InetAddress;
 import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +17,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-/**
- * @Author: kris
- * @Date: 2021/7/12
- * @Description:
- * @Since: JDK11
- */
+/** @Author: kris @Date: 2021/7/12 @Description: @Since: JDK11 */
 @Slf4j
 @Aspect
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -32,15 +26,15 @@ public class LogAspect {
 
   private final Environment environment;
 
-  @Pointcut("@annotation(com.kris.common.log.annotation.KrisLog)||@within(com.kris.common.log.annotation.KrisLog)")
-  private void cutPoint() {
-  }
+  @Pointcut(
+      "@annotation(com.kris.common.log.annotation.KrisLog)||@within(com.kris.common.log.annotation.KrisLog)")
+  private void cutPoint() {}
 
   @Around("cutPoint()")
   public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
     var log = new Log();
-    var request = KrisRequestContextHolder.getRequest();
-    //获取token，再解析token，获取username
+    var request = RequestUtil.getRequest();
+    // 获取token，再解析token，获取username
     var username = request.getHeader("xxx");
     var signature = (MethodSignature) joinPoint.getSignature();
     var methodName = signature.getMethod().getName();
@@ -68,4 +62,3 @@ public class LogAspect {
     return proceed;
   }
 }
-

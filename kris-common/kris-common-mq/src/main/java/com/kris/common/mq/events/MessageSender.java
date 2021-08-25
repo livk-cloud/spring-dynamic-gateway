@@ -39,11 +39,4 @@ public class MessageSender {
       return false;
     }
   }
-
-  public boolean send(Object obj, boolean isSend) {
-    if (!isSend) {
-      return false;
-    }
-    return this.send(obj);
-  }
 }

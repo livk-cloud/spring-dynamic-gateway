@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/dynamic/route")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class DynamicRouteController {
+public class
+DynamicRouteController {
 
   private final DynamicRouteService dynamicRouteService;
 
@@ -33,7 +34,7 @@ public class DynamicRouteController {
     return R.ok(Constant.SUCCESS, dynamicRoutes);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("{id}")
   public R<?> getById(@PathVariable String id) {
     var dynamicRoute = dynamicRouteService.getById(id);
     return dynamicRoute != null ? R.ok(Constant.SUCCESS, dynamicRoute) : R.error(Constant.ERROR);
@@ -53,13 +54,13 @@ public class DynamicRouteController {
     return update ? R.ok(Constant.SUCCESS) : R.error(Constant.ERROR);
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("{id}")
   public R<?> delete(@PathVariable String id) {
     var delete = dynamicRouteService.removeByIdAndSend(id);
     return delete ? R.ok(Constant.SUCCESS) : R.error(Constant.ERROR);
   }
 
-  @PostMapping("/refresh")
+  @PostMapping("refresh")
   public R<?> refresh() {
     var refresh = dynamicRouteService.refresh();
     return refresh ? R.ok(Constant.SUCCESS) : R.error(Constant.ERROR);

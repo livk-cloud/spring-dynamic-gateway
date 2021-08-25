@@ -6,7 +6,9 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.env.Environment;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -15,7 +17,7 @@ import org.springframework.util.Assert;
 @Slf4j
 @Service
 @Lazy(false)
-public class SpringContextHolder extends Assert implements ApplicationContextAware, DisposableBean {
+public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 
   private static ApplicationContext applicationContext = null;
 
@@ -31,7 +33,6 @@ public class SpringContextHolder extends Assert implements ApplicationContextAwa
   }
 
   public static ApplicationContext getApplicationContext() {
-    check();
     return applicationContext;
   }
 
@@ -40,7 +41,7 @@ public class SpringContextHolder extends Assert implements ApplicationContextAwa
     if (log.isDebugEnabled()) {
       log.debug("清除SpringContextHolder中的ApplicationContext:" + applicationContext);
     }
-    setSpringContext(null);
+    this.setSpringContext(null);
   }
 
   private synchronized void setSpringContext(ApplicationContext applicationContext) {
@@ -53,26 +54,20 @@ public class SpringContextHolder extends Assert implements ApplicationContextAwa
    * @param event 事件
    */
   public static void publishEvent(ApplicationEvent event) {
-    check();
     applicationContext.publishEvent(event);
   }
 
-  public static Object getBean(String name) {
-    check();
-    return applicationContext.getBean(name);
+  @SuppressWarnings("unchecked")
+  public static <T> T getBean(String name) {
+    return (T) applicationContext.getBean(name);
   }
 
   public static <T> T getBean(Class<T> typeClass) {
-    check();
     return applicationContext.getBean(typeClass);
   }
 
   public static <T> T getBean(String name, Class<T> typeClass) {
-    check();
     return applicationContext.getBean(name, typeClass);
   }
 
-  public static void check() {
-    notNull(applicationContext, "applicationContext注入失败！");
-  }
 }

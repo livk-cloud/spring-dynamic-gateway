@@ -56,14 +56,6 @@ public class RedisServiceImpl implements RedisService {
   }
 
   @Override
-  public boolean insertOrUpdate(Object obj, String key, boolean isRun) {
-    if (!isRun) {
-      return false;
-    }
-    return this.insertOrUpdate(obj, key);
-  }
-
-  @Override
   public boolean delete(Collection<String> keys) {
     try {
       redisTemplate.delete(keys);
@@ -81,14 +73,6 @@ public class RedisServiceImpl implements RedisService {
     }
     var keySet = Arrays.stream(keys).collect(Collectors.toSet());
     return this.delete(keySet);
-  }
-
-  @Override
-  public boolean delete(Collection<String> keys, boolean isRun) {
-    if (!isRun) {
-      return false;
-    }
-    return this.delete(keys);
   }
 
   @Override

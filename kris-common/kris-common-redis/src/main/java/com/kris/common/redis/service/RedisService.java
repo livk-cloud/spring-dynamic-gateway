@@ -41,16 +41,6 @@ public interface RedisService {
   boolean insertOrUpdate(Object obj, String key);
 
   /**
-   * Insert boolean.
-   *
-   * @param obj   the obj
-   * @param key   the key
-   * @param isRun the is run
-   * @return the boolean
-   */
-  boolean insertOrUpdate(Object obj, String key, boolean isRun);
-
-  /**
    * Delete boolean.
    *
    * @param keys the keys
@@ -65,15 +55,6 @@ public interface RedisService {
    * @return the boolean
    */
   boolean delete(String... keys);
-
-  /**
-   * Delete boolean.
-   *
-   * @param keys  the keys
-   * @param isRun the is run
-   * @return the boolean
-   */
-  boolean delete(Collection<String> keys, boolean isRun);
 
   /**
    * Keys set.

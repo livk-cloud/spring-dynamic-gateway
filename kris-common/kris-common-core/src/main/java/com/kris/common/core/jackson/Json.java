@@ -3,26 +3,16 @@ package com.kris.common.core.jackson;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import java.io.Serializable;
 import java.util.Map;
 import org.springframework.util.ObjectUtils;
 
-/**
- * The interface Json.
- *
- * @Author: kris
- * @Date: 2021 /7/22
- * @Description:
- * @Since: JDK11
- */
-public interface Json{
+/** The interface Json. @Author: kris @Date: 2021 /7/22 @Description: @Since: JDK11 */
+public interface Json extends Serializable {
 
-  /**
-   * The constant MAPPER.
-   */
+  /** The constant MAPPER. */
   ObjectMapper MAPPER = new ObjectMapper();
-  /**
-   * The constant TYPE_FACTORY.
-   */
+  /** The constant TYPE_FACTORY. */
   TypeFactory TYPE_FACTORY = MAPPER.getTypeFactory();
 
   /**
@@ -63,9 +53,9 @@ public interface Json{
    * @param str the str
    * @return the json
    */
-  public static Json strToBean(String str){
+  public static Json strToBean(String str) {
     try {
-      return MAPPER.readValue(str,Json.class);
+      return MAPPER.readValue(str, Json.class);
     } catch (JsonProcessingException e) {
       e.printStackTrace();
       return null;
