@@ -53,7 +53,7 @@ public interface Json extends Serializable {
    * @param str the str
    * @return the json
    */
-  public static Json strToBean(String str) {
+  static Json strToBean(String str) {
     try {
       return MAPPER.readValue(str, Json.class);
     } catch (JsonProcessingException e) {

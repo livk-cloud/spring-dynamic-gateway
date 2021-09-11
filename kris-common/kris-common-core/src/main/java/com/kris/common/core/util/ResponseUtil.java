@@ -8,7 +8,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /** @Author: chris @Date: 2021/7/26 @Description: @Since: JDK11 */
-public class ResponseUtil {
+public final class ResponseUtil {
 
   private ResponseUtil() {}
 

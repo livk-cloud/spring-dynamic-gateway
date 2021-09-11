@@ -15,7 +15,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @author livk
  * @date 2021/8/13
  */
-public class RequestUtil {
+public final class RequestUtil {
 
   private RequestUtil() {}
 
