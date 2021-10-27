@@ -1,7 +1,9 @@
 package com.kris.common.mq.events;
 
 import com.kris.common.mq.config.RabbitProperties;
+
 import javax.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -19,24 +21,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class MessageSender {
 
-  private final RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
-  private final MessageConverter messageConverter;
+    private final MessageConverter messageConverter;
 
-  private final RabbitProperties properties;
+    private final RabbitProperties properties;
 
-  @PostConstruct
-  public void init() {
-    rabbitTemplate.setMessageConverter(messageConverter);
-  }
-
-  public boolean send(Object obj) {
-    try {
-      rabbitTemplate.convertAndSend(properties.getExchange(), properties.getBinding(), obj);
-      return true;
-    } catch (Exception e) {
-      e.printStackTrace();
-      return false;
+    @PostConstruct
+    public void init() {
+        rabbitTemplate.setMessageConverter(messageConverter);
     }
-  }
+
+    public boolean send(Object obj) {
+        try {
+            rabbitTemplate.convertAndSend(properties.getExchange(), properties.getBinding(), obj);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

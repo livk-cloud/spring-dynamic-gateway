@@ -17,10 +17,11 @@ import java.util.Date;
  * @date 2021/9/11
  */
 public class LivkBanner implements Banner {
-    private LivkBanner(){}
+    private LivkBanner() {
+    }
 
-    private static final String[] banner ={
-            " ██       ██          ██         ██████   ██                       ██\n"
+    private static final String[] banner = {
+                      " ██       ██          ██         ██████   ██                       ██\n"
                     + "░██      ░░          ░██        ██░░░░██ ░██                      ░██\n"
                     + "░██       ██ ██    ██░██  ██   ██    ░░  ░██  ██████  ██   ██     ░██\n"
                     + "░██      ░██░██   ░██░██ ██   ░██        ░██ ██░░░░██░██  ░██  ██████\n"
@@ -32,20 +33,20 @@ public class LivkBanner implements Banner {
 
     @Override
     public void printBanner(Environment environment, Class<?> sourceClass, PrintStream out) {
-        for(var line : banner) {
+        for (var line : banner) {
             out.println(line);
         }
         var version = SpringBootVersion.getVersion();
         // 当前时间
-        out.println("-----------------------Spring Boot Version:"+version+"----------------------");
+        out.println("-----------------------Spring Boot Version:" + version + "----------------------");
         var dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        out.println("--------------------Current time：" + dateFormat.format(new Date())+"------------------");
-        out.println("---------------------Current JDK Version：" + System.getProperty("java.version")+"--------------------");
-        out.println("----------------------Operating System：" + System.getProperty("os.name")+"---------------------");
+        out.println("--------------------Current time：" + dateFormat.format(new Date()) + "------------------");
+        out.println("---------------------Current JDK Version：" + System.getProperty("java.version") + "--------------------");
+        out.println("----------------------Operating System：" + System.getProperty("os.name") + "---------------------");
         out.flush();
     }
 
-    public static LivkBanner create(){
+    public static LivkBanner create() {
         return new LivkBanner();
     }
 }

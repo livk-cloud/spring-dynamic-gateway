@@ -14,7 +14,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class KrisException extends RuntimeException {
 
-  private final int code;
+    private final int code;
 
-  private final String message;
+    private final String message;
 }
