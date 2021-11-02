@@ -4,27 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.kris</groupId>
+    <groupId>com.livk.cloud</groupId>
     <artifactId>spring-dynamic-gateway</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>kris-common</module>
-        <module>kris-admin-route</module>
-        <module>kris-admin-server</module>
-        <module>kris-api-gateway</module>
-    </modules>
+    <version>0.0.1</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <boot.version>2.5.6</boot.version>
         <cloud.version>2020.0.4</cloud.version>
         <cloud-alibaba.version>2021.1</cloud-alibaba.version>
-        <spring-boot-admin.version>2.4.0</spring-boot-admin.version>
+        <spring-boot-admin.version>2.5.3</spring-boot-admin.version>
         <swagger.version>3.0.0</swagger.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <mapstruct.version>1.5.0.Beta1</mapstruct.version>
+        <mapstruct-lombok.version>0.2.0</mapstruct-lombok.version>
     </properties>
 
     <dependencyManagement>
@@ -62,12 +57,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-gateway-core</artifactId>
-                <version>${gateway-core.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
@@ -94,37 +83,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok-mapstruct-binding</artifactId>
-                <version>0.1.0</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.kris</groupId>
-                <artifactId>kris-common-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.kris</groupId>
-                <artifactId>kris-common-mq</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.kris</groupId>
-                <artifactId>kris-common-redis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.kris</groupId>
-                <artifactId>kris-common-swagger</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.kris</groupId>
-                <artifactId>kris-common-log</artifactId>
-                <version>${project.version}</version>
+                <version>${mapstruct-lombok.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
