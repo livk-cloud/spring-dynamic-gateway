@@ -8,6 +8,9 @@
     <artifactId>spring-dynamic-gateway</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1</version>
+    <modules>
+        <module>livk-cloud-common</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -20,7 +23,16 @@
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
         <mapstruct.version>1.5.0.Beta1</mapstruct.version>
         <mapstruct-lombok.version>0.2.0</mapstruct-lombok.version>
+        <livk-common.version>0.0.1</livk-common.version>
     </properties>
+
+    <dependencies>
+        <!--    依赖注入需要    -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -52,6 +64,14 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-dependencies</artifactId>
                 <version>${spring-boot-admin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.livk.cloud</groupId>
+                <artifactId>livk-common-pom</artifactId>
+                <version>${livk-common.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

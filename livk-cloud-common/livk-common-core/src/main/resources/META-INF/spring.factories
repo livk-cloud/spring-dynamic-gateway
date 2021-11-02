@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.livk.common.core.exception.LivkExceptionHandler,\
+  com.livk.common.core.support.SpringContextHolder
