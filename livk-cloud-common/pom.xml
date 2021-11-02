@@ -16,7 +16,7 @@
         <module>livk-common-log</module>
         <module>livk-common-pom</module>
         <module>livk-common-redis</module>
-        <module>livk-common-bus</module>
+        <module>livk-common-gateway</module>
     </modules>
 
     <properties>

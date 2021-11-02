@@ -22,6 +22,24 @@
                 <artifactId>livk-common-core</artifactId>
                 <version>${livk-common.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.livk.cloud</groupId>
+                <artifactId>livk-common-log</artifactId>
+                <version>${livk-common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.livk.cloud</groupId>
+                <artifactId>livk-common-bus</artifactId>
+                <version>${livk-common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.livk.cloud</groupId>
+                <artifactId>livk-common-redis</artifactId>
+                <version>${livk-common.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
