@@ -1,18 +1,11 @@
 # spring-dynamic-gateway
-基于springcloud gateway的动态路由
 
-目录结构
+基于SpringCloud Gateway的动态路由
 
-```txt
-spring-dynamic-gateway
-    ---kris-admin-route   路由操作服务
-    ---kris-admin-server  springboot admin服务
-    ---kris-api-gateway   API网关服务
-    ---kris-common        基础包
-        ---kris-common-core     核心基础包
-        ---kris-common-log      日志基础包
-        ---kris-common-mq       rabbitMQ基础包
-        ---kris-common-redis    redis基础包
-        ---kris-common-swagger  swagger基础包
-```
+### 技术栈
+
+> SpringBoot、SpringCloud GateWay、SpringCloud Bus、SpringCloud Stream、SpringCloud Alibaba Nacos
+> 消息队列kafka(RabbitMq)、Redis、持久化存储PostgreSQL、通用API文档Springfox Swagger
+
+# 重构中
 
