@@ -1,0 +1,15 @@
+server:
+  port: 5599
+
+spring:
+  application:
+    name: api-dynamic
+  redis:
+    host: livk.com
+    password: 123456
+  kafka:
+    bootstrap-servers: livk.com:9092
+  cloud:
+    nacos:
+      discovery:
+        server-addr: livk.com:8848

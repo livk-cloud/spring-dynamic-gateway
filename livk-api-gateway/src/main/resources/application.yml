@@ -1,0 +1,24 @@
+server:
+  port: 9852
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  application:
+    name: api-gateway
+  redis:
+    host: livk.com
+    password: 123456
+  kafka:
+    bootstrap-servers: livk.com:9092
+  cloud:
+    nacos:
+      discovery:
+        server-addr: livk.com:8848
+
+#logging:
+#  level:
+#    root: debug

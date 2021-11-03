@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * @date 2021/11/2
  */
 @UtilityClass
-public class BeanUtils extends org.springframework.beans.BeanUtils {
+public class BeanUtils {
     /**
      * 基于BeanUtils的复制
      *
@@ -29,7 +29,7 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
     public <T> T copy(Object source, Class<T> targetClass) {
         var constructor = targetClass.getConstructor();
         var t = constructor.newInstance();
-        copyProperties(source, t);
+        org.springframework.beans.BeanUtils.copyProperties(source, t);
         return t;
     }
 

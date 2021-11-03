@@ -1,12 +1,13 @@
 package com.livk.common.core.event;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
+import org.springframework.lang.Nullable;
 
 import java.util.Map;
 
@@ -18,13 +19,14 @@ import java.util.Map;
  * @author livk
  * @date 2021/11/2
  */
-@Configuration
+@Slf4j
 public class LivkRemoteListener implements ApplicationListener<LivkRemoteApplicationEvent>, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
     @Override
-    public void onApplicationEvent(LivkRemoteApplicationEvent event) {
+    public void onApplicationEvent(@Nullable LivkRemoteApplicationEvent event) {
+        log.info("event:{} Listener", event);
         Map<String, LivkRemoteHandler> remoteHandlerMap = applicationContext.getBeansOfType(LivkRemoteHandler.class);
         remoteHandlerMap.values().stream().sorted((r1, r2) -> {
             Order order1 = AnnotationUtils.findAnnotation(r1.getClass(), Order.class);
@@ -36,11 +38,12 @@ public class LivkRemoteListener implements ApplicationListener<LivkRemoteApplica
                 return -1;
             }
             return -(order1.value() - order2.value());
-        }).forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
+        }).peek(livkRemoteHandler -> log.info("handler:{}", livkRemoteHandler))
+                .forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
 }

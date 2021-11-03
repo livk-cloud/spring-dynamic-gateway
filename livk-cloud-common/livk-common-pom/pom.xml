@@ -40,6 +40,12 @@
                 <artifactId>livk-common-redis</artifactId>
                 <version>${livk-common.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.livk.cloud</groupId>
+                <artifactId>livk-common-gateway</artifactId>
+                <version>${livk-common.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
