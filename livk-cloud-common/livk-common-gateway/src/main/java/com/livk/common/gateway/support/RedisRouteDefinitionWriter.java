@@ -12,8 +12,6 @@ import org.springframework.util.ObjectUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.stream.Collectors;
-
 /**
  * <p>
  * RedisRouteDefinitionWriter
@@ -40,7 +38,7 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
     public Flux<RouteDefinition> getRouteDefinitions() {
         return Flux.fromIterable(livkRedisTemplate.opsForHash().entries(ROUTE_KEY).values()
                 .stream().map(JacksonUtil::objToStr).map(str -> JacksonUtil.strToBean(str, LivkRoute.class))
-                .collect(Collectors.toSet()));
+                .toList());
     }
 
     /**
