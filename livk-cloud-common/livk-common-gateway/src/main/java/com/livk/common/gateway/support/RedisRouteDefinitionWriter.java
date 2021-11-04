@@ -56,7 +56,7 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
     }
 
     public Mono<Void> delete(Mono<String> routeId) {
-        return routeId.flatMap((id) -> {
+        return routeId.flatMap(id -> {
             if (livkRedisTemplate.opsForHash().hasKey(ROUTE_KEY, id)) {
                 livkRedisTemplate.opsForHash().delete(ROUTE_KEY, id);
             } else {

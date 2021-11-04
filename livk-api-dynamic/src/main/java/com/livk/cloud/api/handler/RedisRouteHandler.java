@@ -29,21 +29,23 @@ public class RedisRouteHandler {
 
     static final String ROUTE_KEY = "route_key";
 
+    static final String STREAM_BUS_EVENT = "api-gateway:9852:**";
+
     private final LivkRedisTemplate livkRedisTemplate;
 
     public String reload(List<RedisRoute> redisRouteList) {
         redisRouteList.forEach(this::push);
-        return "api-gateway:9852:**";
+        return STREAM_BUS_EVENT;
     }
 
     public String push(RedisRoute redisRoute) {
         livkRedisTemplate.opsForHash().put(ROUTE_KEY, redisRoute.getId(), redisRoute);
-        return "api-gateway:9852:**";
+        return STREAM_BUS_EVENT;
     }
 
     public String delete(String id) {
         livkRedisTemplate.opsForHash().delete(ROUTE_KEY, id);
-        return "api-gateway:9852:**";
+        return STREAM_BUS_EVENT;
     }
 
     public List<RedisRoute> list() {

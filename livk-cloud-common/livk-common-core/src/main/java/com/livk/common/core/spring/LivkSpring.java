@@ -20,7 +20,7 @@ import java.net.InetAddress;
 @Slf4j
 @UtilityClass
 public class LivkSpring {
-    private static final String http = "IP Address: http";
+    private static final String HTTP = "IP Address: http";
 
     @SneakyThrows
     public <T> ConfigurableApplicationContext run(Class<T> targetClass, String[] args) {
@@ -35,6 +35,6 @@ public class LivkSpring {
     @SneakyThrows
     private void print(ConfigurableApplicationContext context) {
         var port = context.getEnvironment().getProperty("server.port");
-        log.info(http.concat("://{}:{}"), InetAddress.getLocalHost().getHostAddress(), port == null ? "8080" : port);
+        log.info(HTTP.concat("://{}:{}"), InetAddress.getLocalHost().getHostAddress(), port == null ? "8080" : port);
     }
 }

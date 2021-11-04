@@ -17,6 +17,5 @@ import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 public class LivkGateWay {
     public static void main(String[] args) {
         LivkSpring.run(LivkGateWay.class, args);
-        System.out.println(SpringContextHolder.getBean(RouteDefinitionRepository.class));
     }
 }

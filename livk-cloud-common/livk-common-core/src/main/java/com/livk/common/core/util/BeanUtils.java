@@ -5,7 +5,6 @@ import lombok.experimental.UtilityClass;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -42,6 +41,6 @@ public class BeanUtils {
      * @return result list
      */
     public <T> List<T> copyList(Collection<Object> sourceList, Class<T> targetClass) {
-        return sourceList.stream().map(source -> copy(source, targetClass)).collect(Collectors.toList());
+        return sourceList.stream().map(source -> copy(source, targetClass)).toList();
     }
 }

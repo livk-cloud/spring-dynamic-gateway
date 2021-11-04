@@ -13,7 +13,7 @@ import org.springframework.cloud.bus.event.RemoteApplicationEvent;
  */
 public class LivkRemoteApplicationEvent extends RemoteApplicationEvent {
 
-    public LivkRemoteApplicationEvent(){
+    public LivkRemoteApplicationEvent() {
         super();
     }
 
@@ -25,6 +25,14 @@ public class LivkRemoteApplicationEvent extends RemoteApplicationEvent {
         super(source, originService, destination);
     }
 
+    /**
+     * 弃用
+     *
+     * @param source             source
+     * @param originService      originService
+     * @param destinationService destinationService
+     * @deprecated 弃用
+     */
     @Deprecated
     public LivkRemoteApplicationEvent(Object source, String originService, String destinationService) {
         super(source, originService, destinationService);

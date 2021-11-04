@@ -15,10 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableAdminServer
 @SpringBootApplication
 public class LivkMonitor {
-        public static void main(String[] args) {
+    public static void main(String[] args) {
         LivkSpring.run(LivkMonitor.class, args);
     }
-//    public static void main(String[] args) {
-//        SpringApplication.run(LivkMonitor.class, args);
-//    }
 }

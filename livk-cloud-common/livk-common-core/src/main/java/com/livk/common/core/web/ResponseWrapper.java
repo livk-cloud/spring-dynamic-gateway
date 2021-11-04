@@ -9,6 +9,8 @@ package com.livk.common.core.web;
  * @date 2021/11/2
  */
 
+import lombok.SneakyThrows;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
@@ -86,9 +88,10 @@ public class ResponseWrapper extends HttpServletResponseWrapper {
             stream.write(b, 0, b.length);
         }
 
+        @SneakyThrows
         @Override
         public void setWriteListener(WriteListener writeListener) {
-//      log.info("异步listener");
+            writeListener.onWritePossible();
         }
 
         @Override

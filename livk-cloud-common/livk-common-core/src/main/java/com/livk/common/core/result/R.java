@@ -43,7 +43,7 @@ public class R<T> {
     }
 
     public static <T> R<T> ok(T data) {
-        return result(2000, "success", data);
+        return result(2000, Constant.SUCCESS, data);
     }
 
     public static <T> R<T> error(String msg, T data) {

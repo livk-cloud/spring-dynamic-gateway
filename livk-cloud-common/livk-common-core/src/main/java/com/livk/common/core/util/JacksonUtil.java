@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,7 @@ public class JacksonUtil {
     @SneakyThrows
     public <T> List<T> strToCollection(String json, Class<T> clazz) {
         if (json == null || json.isEmpty() || clazz == null) {
-            return null;
+            return Collections.emptyList();
         }
         var collectionType = MAPPER.getTypeFactory().constructCollectionType(List.class, clazz);
         return MAPPER.readValue(json, collectionType);
@@ -65,7 +66,7 @@ public class JacksonUtil {
         if (ObjectUtils.isEmpty(obj)) {
             return null;
         }
-        return obj instanceof String ? (String) obj : MAPPER.writeValueAsString(obj);
+        return obj instanceof String str ? str : MAPPER.writeValueAsString(obj);
     }
 
     /**
@@ -81,7 +82,7 @@ public class JacksonUtil {
     @SneakyThrows
     public <K, V> Map<K, V> strToMap(String json, Class<K> kClass, Class<V> vClass) {
         if (json == null || json.isEmpty() || kClass == null || vClass == null) {
-            return null;
+            return Collections.emptyMap();
         }
         var mapType = MAPPER.getTypeFactory().constructMapType(Map.class, kClass, vClass);
         return MAPPER.readValue(json, mapType);
