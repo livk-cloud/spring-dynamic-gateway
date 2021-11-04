@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.context.ApplicationListener;
+import org.springframework.lang.Nullable;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -27,7 +28,7 @@ public class LivkLogEventListener implements ApplicationListener<LivkLogEvent> {
             new ArrayBlockingQueue<>(10));
 
     @Override
-    public void onApplicationEvent(LivkLogEvent event) {
+    public void onApplicationEvent(@Nullable LivkLogEvent event) {
         executor.execute(new LogThead(event, log));
     }
 }

@@ -9,8 +9,6 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.Nullable;
 
-import java.util.Map;
-
 /**
  * <p>
  * LivkRemoteListener
@@ -27,18 +25,18 @@ public class LivkRemoteListener implements ApplicationListener<LivkRemoteApplica
     @Override
     public void onApplicationEvent(@Nullable LivkRemoteApplicationEvent event) {
         log.info("event:{} Listener", event);
-        Map<String, LivkRemoteHandler> remoteHandlerMap = applicationContext.getBeansOfType(LivkRemoteHandler.class);
+        var remoteHandlerMap = applicationContext.getBeansOfType(LivkRemoteHandler.class);
         remoteHandlerMap.values().stream().sorted((r1, r2) -> {
-            Order order1 = AnnotationUtils.findAnnotation(r1.getClass(), Order.class);
-            Order order2 = AnnotationUtils.findAnnotation(r2.getClass(), Order.class);
-            if (order2 == null) {
-                return 1;
-            }
-            if (order1 == null) {
-                return -1;
-            }
-            return -(order1.value() - order2.value());
-        }).peek(livkRemoteHandler -> log.info("handler:{}", livkRemoteHandler))
+                    var order1 = AnnotationUtils.findAnnotation(r1.getClass(), Order.class);
+                    var order2 = AnnotationUtils.findAnnotation(r2.getClass(), Order.class);
+                    if (order2 == null) {
+                        return 1;
+                    }
+                    if (order1 == null) {
+                        return -1;
+                    }
+                    return -(order1.value() - order2.value());
+                }).peek(livkRemoteHandler -> log.info("handler:{}", livkRemoteHandler))
                 .forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
     }
 

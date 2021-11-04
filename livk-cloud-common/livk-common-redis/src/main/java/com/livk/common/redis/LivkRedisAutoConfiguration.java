@@ -43,9 +43,9 @@ public class LivkRedisAutoConfiguration {
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
-        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
-        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
-        ObjectMapper mapper = new ObjectMapper();
+        var redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
+        var serializer = new Jackson2JsonRedisSerializer<>(Object.class);
+        var mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         serializer.setObjectMapper(mapper);
         redisCacheConfiguration = redisCacheConfiguration

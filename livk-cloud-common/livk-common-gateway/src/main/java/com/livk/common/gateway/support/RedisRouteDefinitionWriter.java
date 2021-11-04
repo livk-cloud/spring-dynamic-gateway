@@ -30,6 +30,13 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
 
     static final String ROUTE_KEY = "route_key";
 
+    /**
+     * 从Redis拿下来是一个LinkedHashMap
+     * 使用反射直接操作，uri类型为{@link java.net.URI}
+     * 使用JackSon进行序列化和反序列化，将Map转成{@link com.livk.common.gateway.domain.LivkRoute}
+     *
+     * @return Flux<LivkRoute>
+     */
     public Flux<RouteDefinition> getRouteDefinitions() {
         return Flux.fromIterable(livkRedisTemplate.opsForHash().entries(ROUTE_KEY).values()
                 .stream().map(JacksonUtil::objToStr).map(str -> JacksonUtil.strToBean(str, LivkRoute.class))
@@ -37,9 +44,7 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
     }
 
     /**
-     * 目前有点问题，不知为什么进不了flatMap
-     *
-     * @param route
+     * @param route {@link com.livk.common.gateway.domain.LivkRoute}
      * @return Mono.empty()
      */
     public Mono<Void> save(Mono<RouteDefinition> route) {
