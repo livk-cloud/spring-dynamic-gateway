@@ -3,8 +3,10 @@ server:
 
 spring:
   application:
-    name: api-monitor
+    name: @artifactId@
   cloud:
     nacos:
       discovery:
         server-addr: livk.com:8848
+  profiles:
+    active: @profiles.active@

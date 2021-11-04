@@ -18,7 +18,7 @@ public class LivkRemoteApplicationEvent extends RemoteApplicationEvent {
     }
 
     public LivkRemoteApplicationEvent(String originService, Destination destination) {
-        super("livk", originService, destination);
+        this("livk", originService, destination);
     }
 
     public LivkRemoteApplicationEvent(Object source, String originService, Destination destination) {

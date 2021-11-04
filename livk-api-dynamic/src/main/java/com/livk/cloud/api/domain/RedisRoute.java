@@ -1,5 +1,6 @@
 package com.livk.cloud.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.livk.cloud.api.domain.route.Filter;
 import com.livk.cloud.api.domain.route.Predicate;
 import lombok.Data;
@@ -16,6 +17,7 @@ import java.util.Map;
  * @date 2021/11/4
  */
 @Data
+@JsonPropertyOrder(alphabetic = true)
 public class RedisRoute {
 
     private String description;

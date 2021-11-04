@@ -1,5 +1,6 @@
 package com.livk.common.gateway.domain;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.cloud.gateway.route.RouteDefinition;
@@ -14,6 +15,7 @@ import org.springframework.cloud.gateway.route.RouteDefinition;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@JsonPropertyOrder(alphabetic = true)
 public class LivkRoute extends RouteDefinition {
     /**
      * 描述

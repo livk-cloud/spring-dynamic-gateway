@@ -34,6 +34,8 @@ public class RedisRouteHandler {
     private final LivkRedisTemplate livkRedisTemplate;
 
     public String reload(List<RedisRoute> redisRouteList) {
+        var keys = livkRedisTemplate.opsForHash().keys(ROUTE_KEY);
+        livkRedisTemplate.opsForHash().delete(ROUTE_KEY, keys);
         redisRouteList.forEach(this::push);
         return STREAM_BUS_EVENT;
     }
