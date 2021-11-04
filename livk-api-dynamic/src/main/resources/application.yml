@@ -17,3 +17,11 @@ spring:
     admin:
       client:
         url: lb://api-monitor
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://livk.com:5432/spring_livk
+    username: postgres
+    password: 123456
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

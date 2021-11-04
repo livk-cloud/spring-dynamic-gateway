@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
 /**
  * <p>
@@ -21,7 +20,7 @@ import org.springframework.core.env.Environment;
 public class LivkLogAutoConfiguration {
 
     @Bean
-    public LogAspect logAspect(Environment environment) {
-        return new LogAspect(environment);
+    public LogAspect logAspect() {
+        return new LogAspect();
     }
 }

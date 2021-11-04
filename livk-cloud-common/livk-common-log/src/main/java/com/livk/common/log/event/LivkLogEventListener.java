@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.springframework.context.ApplicationListener;
 import org.springframework.lang.Nullable;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * <p>
@@ -25,16 +22,18 @@ public class LivkLogEventListener implements ApplicationListener<LivkLogEvent> {
 
     private static final ExecutorService executor = new ThreadPoolExecutor(20, 100,
             60L, TimeUnit.SECONDS,
-            new ArrayBlockingQueue<>(10));
+            new ArrayBlockingQueue<>(10),
+            r -> new Thread(null, r, "Livk-log-Thread-", 0, false));
 
     @Override
     public void onApplicationEvent(@Nullable LivkLogEvent event) {
-        executor.execute(new LogThead(event, log));
+
+        executor.execute(new LogThread(event, log));
     }
 }
 
 @RequiredArgsConstructor
-class LogThead implements Runnable {
+class LogThread implements Runnable {
 
     private final LivkLogEvent event;
     private final Logger log;

@@ -42,12 +42,8 @@ public class R<T> {
         return result(livkResultEnum.getCode(), livkResultEnum.getMsg(), data);
     }
 
-    public static <T> R<T> ok(String msg, T data) {
-        return result(2000, msg, data);
-    }
-
-    public static <T> R<T> ok(String msg) {
-        return ok(msg, null);
+    public static <T> R<T> ok(T data) {
+        return result(2000, "success", data);
     }
 
     public static <T> R<T> error(String msg, T data) {

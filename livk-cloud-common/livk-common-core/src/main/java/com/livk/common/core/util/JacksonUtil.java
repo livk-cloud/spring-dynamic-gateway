@@ -5,7 +5,7 @@ import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.ObjectUtils;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,11 +46,11 @@ public class JacksonUtil {
      * @return the collection
      */
     @SneakyThrows
-    public <T> Collection<T> strToCollection(String json, Class<T> clazz) {
+    public <T> List<T> strToCollection(String json, Class<T> clazz) {
         if (json == null || json.isEmpty() || clazz == null) {
             return null;
         }
-        var collectionType = MAPPER.getTypeFactory().constructCollectionType(Collection.class, clazz);
+        var collectionType = MAPPER.getTypeFactory().constructCollectionType(List.class, clazz);
         return MAPPER.readValue(json, collectionType);
     }
 
