@@ -13,3 +13,7 @@ spring:
     nacos:
       discovery:
         server-addr: livk.com:8848
+  boot:
+    admin:
+      client:
+        url: lb://api-monitor

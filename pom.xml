@@ -12,6 +12,7 @@
         <module>livk-cloud-common</module>
         <module>livk-api-gateway</module>
         <module>livk-api-dynamic</module>
+        <module>livk-api-monitor</module>
     </modules>
 
     <properties>

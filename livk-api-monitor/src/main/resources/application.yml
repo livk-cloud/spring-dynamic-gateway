@@ -1,0 +1,10 @@
+server:
+  port: 7777
+
+spring:
+  application:
+    name: api-monitor
+  cloud:
+    nacos:
+      discovery:
+        server-addr: livk.com:8848
