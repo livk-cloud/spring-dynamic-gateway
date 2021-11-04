@@ -15,7 +15,4 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 public @interface LivkLog {
-    String description() default "";
-
-    boolean isSaveParamAndReturn() default false;
 }

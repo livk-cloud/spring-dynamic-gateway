@@ -38,7 +38,7 @@ public class LogAspect {
         var start = System.currentTimeMillis();
         var proceed = joinPoint.proceed();
         var end = System.currentTimeMillis();
-        if (livkLog.isSaveParamAndReturn() && parameterNames.length != 0 && args.length != 0) {
+        if (parameterNames.length != 0 && args.length != 0) {
             var map = new HashMap<String, Object>(SysUtil.getMapSize(parameterNames.length));
             for (var i = 0; i < parameterNames.length; i++) {
                 map.put(parameterNames[i], args[i]);

@@ -40,12 +40,16 @@ public class LivkBanner implements Banner {
         }
         var version = SpringBootVersion.getVersion();
         // 当前时间
-        out.println("-----------------------Spring Boot Version:" + version + "----------------------");
+        out.println(out(22) + "Spring Boot Version:" + version + out(22));
         var dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        out.println("--------------------Current time：" + dateFormat.format(new Date()) + "------------------");
-        out.println("---------------------Current JDK Version：" + System.getProperty("java.version") + "--------------------");
-        out.println("----------------------Operating System：" + System.getProperty("os.name") + "---------------------");
+        out.println(out(18) + "Current time：" + dateFormat.format(new Date()) + out(18));
+        out.println(out(23) + "Current JDK Version：" + System.getProperty("java.version") + out(23));
+        out.println(out(21) + "Operating System：" + System.getProperty("os.name") + out(20));
         out.flush();
+    }
+
+    private String out(int num) {
+        return String.valueOf('*').repeat(Math.max(0, num));
     }
 
     public static LivkBanner create() {

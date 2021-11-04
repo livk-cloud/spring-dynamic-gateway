@@ -1,0 +1,29 @@
+POST http://localhost:5599/route
+Content-Type: application/json; charset=UTF-8
+
+{
+  "id": "livk-dynamic",
+  "predicates": [
+    {
+      "name": "Path",
+      "args": {
+        "_genkey_0": "/dynamic/**"
+      }
+    }
+  ],
+  "filters": [
+    {
+      "name": "StripPrefix",
+      "args": {
+        "parts": "1"
+      }
+    }
+  ],
+  "uri": "lb://api-dynamic",
+  "metadata": {
+    "data": "true"
+  },
+  "order": 0,
+  "description": "dynamic Route",
+  "status": 1
+}
