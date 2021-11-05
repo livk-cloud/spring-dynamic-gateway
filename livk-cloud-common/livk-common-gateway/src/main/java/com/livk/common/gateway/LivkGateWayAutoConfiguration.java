@@ -1,5 +1,6 @@
 package com.livk.common.gateway;
 
+import com.livk.common.core.event.LivkRemoteListener;
 import com.livk.common.gateway.support.RedisRouteDefinitionWriter;
 import com.livk.common.gateway.support.RedisRouteHealthIndicator;
 import com.livk.common.gateway.support.RouteHandler;
@@ -34,11 +35,13 @@ public class LivkGateWayAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnBean(LivkRedisTemplate.class)
     public RedisRouteHealthIndicator redisRouteHealthIndicator(LivkRedisTemplate livkRedisTemplate) {
         return new RedisRouteHealthIndicator(livkRedisTemplate);
     }
 
     @Bean
+    @ConditionalOnBean(LivkRemoteListener.class)
     public RouteHandler routeHandler() {
         return new RouteHandler();
     }
