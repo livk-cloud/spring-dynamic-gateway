@@ -29,13 +29,9 @@ public class LivkRemoteListener implements ApplicationListener<LivkRemoteApplica
         remoteHandlerMap.values().stream().sorted((r1, r2) -> {
                     var order1 = AnnotationUtils.findAnnotation(r1.getClass(), Order.class);
                     var order2 = AnnotationUtils.findAnnotation(r2.getClass(), Order.class);
-                    if (order2 == null) {
-                        return 1;
-                    }
-                    if (order1 == null) {
-                        return -1;
-                    }
-                    return -(order1.value() - order2.value());
+                    var orderValueOne = order1 == null ? Integer.MAX_VALUE : order1.value();
+                    var orderValueTwo = order2 == null ? Integer.MAX_VALUE : order2.value();
+                    return (orderValueOne - orderValueTwo);
                 }).peek(livkRemoteHandler -> log.info("handler:{}", livkRemoteHandler))
                 .forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
     }

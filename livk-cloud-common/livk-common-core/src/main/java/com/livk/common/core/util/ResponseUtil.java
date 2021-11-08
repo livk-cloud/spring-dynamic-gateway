@@ -41,7 +41,7 @@ public class ResponseUtil {
     public void out(HttpServletResponse response, String message) {
         var r = R.error(message);
         try (PrintWriter out = response.getWriter()) {
-            out.print(JacksonUtil.objToStr(r));
+            out.print(JacksonUtil.toJson(r));
             out.flush();
         } catch (IOException exception) {
             exception.printStackTrace();

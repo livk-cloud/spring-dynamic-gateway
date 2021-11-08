@@ -52,13 +52,13 @@ public class RedisRouteHandler {
 
     public List<RedisRoute> list() {
         return livkRedisTemplate.opsForHash().entries(ROUTE_KEY).values()
-                .stream().map(JacksonUtil::objToStr).map(str -> JacksonUtil.strToBean(str, RedisRoute.class))
+                .stream().map(JacksonUtil::toJson).map(str -> JacksonUtil.toBean(str, RedisRoute.class))
                 .toList();
     }
 
     public RedisRoute getByRouteId(String routeId) {
         return Optional.ofNullable(livkRedisTemplate.opsForHash().get(ROUTE_KEY, routeId))
-                .map(JacksonUtil::objToStr).map(str -> JacksonUtil.strToBean(str, RedisRoute.class))
+                .map(JacksonUtil::toJson).map(str -> JacksonUtil.toBean(str, RedisRoute.class))
                 .orElse(new RedisRoute());
     }
 }

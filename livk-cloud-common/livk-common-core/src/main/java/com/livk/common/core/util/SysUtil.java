@@ -68,17 +68,17 @@ public class SysUtil {
      */
     public static String packageResult(String result) {
         if (result == null || "".equals(result)) {
-            return JacksonUtil.objToStr(R.ok(R.Constant.SUCCESS));
+            return JacksonUtil.toJson(R.ok(R.Constant.SUCCESS));
         }
         if (checkBool(result)) {
             var parseBoolean = Boolean.parseBoolean(result);
-            return JacksonUtil.objToStr(parseBoolean ? R.ok(R.Constant.SUCCESS) : R.error(R.Constant.ERROR));
+            return JacksonUtil.toJson(parseBoolean ? R.ok(R.Constant.SUCCESS) : R.error(R.Constant.ERROR));
         }
-        var map = JacksonUtil.strToMap(result, String.class, Object.class);
+        var map = JacksonUtil.toMap(result, String.class, Object.class);
         if (checkMap(map)) {
             return result;
         }
-        return JacksonUtil.objToStr(R.result(LivkResultEnum.SUCCESS, result));
+        return JacksonUtil.toJson(R.result(LivkResultEnum.SUCCESS, result));
     }
 
     /**

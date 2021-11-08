@@ -39,6 +39,6 @@ class LogThread implements Runnable {
 
     @Override
     public void run() {
-        log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtil.objToStr(event.getSource()));
+        log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtil.toJson(event.getSource()));
     }
 }

@@ -46,6 +46,12 @@
                 <artifactId>livk-common-gateway</artifactId>
                 <version>${livk-common.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.livk.cloud</groupId>
+                <artifactId>livk-common-swagger</artifactId>
+                <version>${livk-common.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

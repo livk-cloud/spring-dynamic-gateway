@@ -20,17 +20,17 @@ import org.mapstruct.factory.Mappers;
 public interface DynamicRouteConverter extends BaseConverter<RedisRoute, DynamicRoute> {
     DynamicRouteConverter INSTANCE = Mappers.getMapper(DynamicRouteConverter.class);
 
-    @Mapping(target = "predicates", expression = "java(com.livk.common.core.util.JacksonUtil.strToCollection(dynamicRoute.getPredicates(),com.livk.cloud.api.domain.route.Predicate.class))")
-    @Mapping(target = "filters", expression = "java(com.livk.common.core.util.JacksonUtil.strToCollection(dynamicRoute.getFilters(),com.livk.cloud.api.domain.route.Filter.class))")
-    @Mapping(target = "metadata", expression = "java(com.livk.common.core.util.JacksonUtil.strToMap(dynamicRoute.getMetadata(),String.class,Object.class))")
+    @Mapping(target = "predicates", expression = "java(com.livk.common.core.util.JacksonUtil.toStream(dynamicRoute.getPredicates(),com.livk.cloud.api.domain.route.Predicate.class).toList())")
+    @Mapping(target = "filters", expression = "java(com.livk.common.core.util.JacksonUtil.toStream(dynamicRoute.getFilters(),com.livk.cloud.api.domain.route.Filter.class).toList())")
+    @Mapping(target = "metadata", expression = "java(com.livk.common.core.util.JacksonUtil.toMap(dynamicRoute.getMetadata(),String.class,Object.class))")
     @Override
     RedisRoute getSource(DynamicRoute dynamicRoute);
 
     @Mapping(target = "insertTime", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "predicates", expression = "java(com.livk.common.core.util.JacksonUtil.objToStr(redisRoute.getPredicates()))")
-    @Mapping(target = "filters", expression = "java(com.livk.common.core.util.JacksonUtil.objToStr(redisRoute.getFilters()))")
-    @Mapping(target = "metadata", expression = "java(com.livk.common.core.util.JacksonUtil.objToStr(redisRoute.getMetadata()))")
+    @Mapping(target = "predicates", expression = "java(com.livk.common.core.util.JacksonUtil.toJson(redisRoute.getPredicates()))")
+    @Mapping(target = "filters", expression = "java(com.livk.common.core.util.JacksonUtil.toJson(redisRoute.getFilters()))")
+    @Mapping(target = "metadata", expression = "java(com.livk.common.core.util.JacksonUtil.toJson(redisRoute.getMetadata()))")
     @Override
     DynamicRoute getTarget(RedisRoute redisRoute);
 }

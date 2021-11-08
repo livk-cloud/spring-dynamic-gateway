@@ -5,9 +5,10 @@ import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * <p>
@@ -31,7 +32,7 @@ public class JacksonUtil {
      */
     @SneakyThrows
     @SuppressWarnings("unchecked")
-    public <T> T strToBean(String json, Class<T> clazz) {
+    public <T> T toBean(String json, Class<T> clazz) {
         if (json == null || json.isEmpty() || clazz == null) {
             return null;
         }
@@ -47,12 +48,13 @@ public class JacksonUtil {
      * @return the collection
      */
     @SneakyThrows
-    public <T> List<T> strToCollection(String json, Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+    public <T> Stream<T> toStream(String json, Class<T> clazz) {
         if (json == null || json.isEmpty() || clazz == null) {
-            return Collections.emptyList();
+            return Stream.empty();
         }
-        var collectionType = MAPPER.getTypeFactory().constructCollectionType(List.class, clazz);
-        return MAPPER.readValue(json, collectionType);
+        var collectionType = MAPPER.getTypeFactory().constructCollectionType(Collection.class, clazz);
+        return ((Collection<T>) MAPPER.readValue(json, collectionType)).stream();
     }
 
     /**
@@ -62,7 +64,7 @@ public class JacksonUtil {
      * @return the string
      */
     @SneakyThrows
-    public String objToStr(Object obj) {
+    public String toJson(Object obj) {
         if (ObjectUtils.isEmpty(obj)) {
             return null;
         }
@@ -80,7 +82,7 @@ public class JacksonUtil {
      * @return the map
      */
     @SneakyThrows
-    public <K, V> Map<K, V> strToMap(String json, Class<K> kClass, Class<V> vClass) {
+    public <K, V> Map<K, V> toMap(String json, Class<K> kClass, Class<V> vClass) {
         if (json == null || json.isEmpty() || kClass == null || vClass == null) {
             return Collections.emptyMap();
         }
@@ -97,7 +99,7 @@ public class JacksonUtil {
      */
     @SneakyThrows
     public String findObject(Object obj, String name) {
-        var objToStr = objToStr(obj);
-        return MAPPER.readTree(objToStr).findPath(name).asText();
+        var json = toJson(obj);
+        return MAPPER.readTree(json).findPath(name).asText();
     }
 }

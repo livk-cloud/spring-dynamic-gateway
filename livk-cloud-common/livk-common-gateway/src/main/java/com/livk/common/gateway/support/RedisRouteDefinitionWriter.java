@@ -37,7 +37,7 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
      */
     public Flux<RouteDefinition> getRouteDefinitions() {
         return Flux.fromIterable(livkRedisTemplate.opsForHash().entries(ROUTE_KEY).values()
-                .stream().map(JacksonUtil::objToStr).map(str -> JacksonUtil.strToBean(str, LivkRoute.class))
+                .stream().map(JacksonUtil::toJson).map(str -> JacksonUtil.toBean(str, LivkRoute.class))
                 .toList());
     }
 

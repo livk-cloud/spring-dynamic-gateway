@@ -1,6 +1,5 @@
 server:
   port: 5599
-
 spring:
   application:
     name: @artifactId@
