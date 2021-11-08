@@ -5,8 +5,8 @@ import org.springframework.boot.SpringBootVersion;
 import org.springframework.core.env.Environment;
 
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * <p>
@@ -41,8 +41,8 @@ public class LivkBanner implements Banner {
         var version = SpringBootVersion.getVersion();
         // 当前时间
         out.println(out(22) + "Spring Boot Version:" + version + out(22));
-        var dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        out.println(out(18) + "Current time：" + dateFormat.format(new Date()) + out(18));
+        out.println(out(18) + "Current time：" +
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()) + out(18));
         out.println(out(23) + "Current JDK Version：" + System.getProperty("java.version") + out(23));
         out.println(out(21) + "Operating System：" + System.getProperty("os.name") + out(20));
         out.flush();

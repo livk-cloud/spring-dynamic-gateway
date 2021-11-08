@@ -17,6 +17,8 @@ spring:
     admin:
       client:
         url: lb://api-monitor
+        username: livk
+        password: 123456
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://livk.com:5432/spring_livk

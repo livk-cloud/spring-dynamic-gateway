@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class LivkDynamic {
     public static void main(String[] args) {
-        System.setProperty("spring.cloud.gateway.enabled", "false");
         LivkSpring.run(LivkDynamic.class, args);
     }
 }

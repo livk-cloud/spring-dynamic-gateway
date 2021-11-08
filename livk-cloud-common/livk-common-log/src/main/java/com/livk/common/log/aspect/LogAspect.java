@@ -11,6 +11,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
 
 import java.net.InetAddress;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import java.util.HashMap;
  */
 @Slf4j
 @Aspect
+@Order(-1)
 public class LogAspect {
 
     @Around("@annotation(livkLog)||@within(livkLog)")

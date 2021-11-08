@@ -27,7 +27,6 @@ public class LivkLogEventListener implements ApplicationListener<LivkLogEvent> {
 
     @Override
     public void onApplicationEvent(@Nullable LivkLogEvent event) {
-
         executor.execute(new LogThread(event, log));
     }
 }

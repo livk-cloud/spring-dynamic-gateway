@@ -2,6 +2,15 @@ server:
   port: 7777
 
 spring:
+  boot:
+    admin:
+      instance-auth:
+        default-user-name: ${spring.security.user.name}
+        default-password: ${spring.security.user.password}
+  security:
+    user:
+      name: livk
+      password: 123456
   application:
     name: @artifactId@
   cloud:
