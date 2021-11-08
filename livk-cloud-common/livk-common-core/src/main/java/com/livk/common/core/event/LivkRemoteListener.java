@@ -5,8 +5,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.core.annotation.Order;
+import org.springframework.core.OrderComparator;
 import org.springframework.lang.Nullable;
 
 /**
@@ -26,13 +25,8 @@ public class LivkRemoteListener implements ApplicationListener<LivkRemoteApplica
     public void onApplicationEvent(@Nullable LivkRemoteApplicationEvent event) {
         log.info("event:{} Listener", event);
         var remoteHandlerMap = applicationContext.getBeansOfType(LivkRemoteHandler.class);
-        remoteHandlerMap.values().stream().sorted((r1, r2) -> {
-                    var order1 = AnnotationUtils.findAnnotation(r1.getClass(), Order.class);
-                    var order2 = AnnotationUtils.findAnnotation(r2.getClass(), Order.class);
-                    var orderValueOne = order1 == null ? Integer.MAX_VALUE : order1.value();
-                    var orderValueTwo = order2 == null ? Integer.MAX_VALUE : order2.value();
-                    return (orderValueOne - orderValueTwo);
-                }).peek(livkRemoteHandler -> log.info("handler:{}", livkRemoteHandler))
+        remoteHandlerMap.values().stream().sorted(OrderComparator.INSTANCE)
+                .peek(livkRemoteHandler -> log.info("handler:{}", livkRemoteHandler))
                 .forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
     }
 
