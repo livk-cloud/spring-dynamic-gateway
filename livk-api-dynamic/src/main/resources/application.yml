@@ -33,3 +33,4 @@ mybatis-plus:
 
 swagger:
   enable: true
+  version: @version@

@@ -11,6 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 /**
  * <p>
  * DynamicRouteServiceImpl
@@ -36,5 +39,23 @@ public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, Dyn
     public Boolean delete(String routeId) {
         redisRouteHandler.delete(routeId);
         return this.removeById(routeId);
+    }
+
+    @Override
+    public RedisRoute getById(String routeId) {
+        return redisRouteHandler.getByRouteId(routeId);
+    }
+
+    @Override
+    public List<RedisRoute> selectList() {
+        return redisRouteHandler.list();
+    }
+
+    @Override
+    public Boolean reload() {
+        List<DynamicRoute> dynamicRouteList = this.list();
+        Stream<RedisRoute> redisRouteStream = DynamicRouteConverter.INSTANCE.streamSource(dynamicRouteList);
+        redisRouteHandler.reload(redisRouteStream.toList());
+        return true;
     }
 }
