@@ -3,14 +3,13 @@ package com.livk.common.swagger;
 import com.livk.common.swagger.config.SwaggerProperties;
 import com.livk.common.swagger.config.WebFluxSwaggerConfig;
 import com.livk.common.swagger.support.GatewaySwaggerResourcesProvider;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 
 /**
  * <p>
@@ -25,9 +24,8 @@ import org.springframework.context.annotation.Lazy;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class LivkGateWaySwaggerAutoConfiguration {
 
-    @Lazy
     @Bean
-    @ConditionalOnBean({DiscoveryClient.class, RouteDefinitionRepository.class})
+    @Primary
     public GatewaySwaggerResourcesProvider gatewaySwaggerResourcesProvider(SwaggerProperties swaggerProperties,
                                                                            DiscoveryClient discoveryClient,
                                                                            RouteDefinitionRepository routeDefinitionRepository) {

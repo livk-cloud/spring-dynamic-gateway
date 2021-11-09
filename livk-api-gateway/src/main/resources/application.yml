@@ -27,6 +27,9 @@ spring:
   profiles:
     active: @profiles.active@
 
+
 #logging:
 #  level:
 #    root: debug
+swagger:
+  enable: true

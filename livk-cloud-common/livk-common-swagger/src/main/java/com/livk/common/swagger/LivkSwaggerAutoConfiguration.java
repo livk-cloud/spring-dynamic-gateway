@@ -1,6 +1,7 @@
 package com.livk.common.swagger;
 
 import com.livk.common.swagger.config.SwaggerProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,8 +28,9 @@ import java.util.Arrays;
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(SwaggerProperties.class)
-@ConditionalOnProperty(prefix = "swagger.enable", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "swagger", name = "enable", havingValue = "true")
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+@ConditionalOnMissingClass("com.livk.common.gateway.LivkGateWayAutoConfiguration")
 public class LivkSwaggerAutoConfiguration {
 
     /**

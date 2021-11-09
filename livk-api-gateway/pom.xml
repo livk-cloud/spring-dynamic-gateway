@@ -56,6 +56,11 @@
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.livk.cloud</groupId>
+            <artifactId>livk-common-swagger</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

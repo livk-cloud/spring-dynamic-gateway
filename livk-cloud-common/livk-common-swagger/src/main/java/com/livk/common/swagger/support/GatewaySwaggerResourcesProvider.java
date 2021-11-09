@@ -8,7 +8,6 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.cloud.gateway.support.NameUtils;
-import org.springframework.context.annotation.Primary;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
@@ -24,7 +23,6 @@ import java.util.function.Supplier;
  * @date 2021/11/9
  */
 @Slf4j
-@Primary
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class GatewaySwaggerResourcesProvider implements SwaggerResourcesProvider {
 

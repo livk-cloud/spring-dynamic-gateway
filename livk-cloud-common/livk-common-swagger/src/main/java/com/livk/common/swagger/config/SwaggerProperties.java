@@ -32,7 +32,7 @@ public class SwaggerProperties {
     /**
      * swagger排除路径
      */
-    private List<String> excludePath;
+    private List<String> excludePath = new ArrayList<>();
 
     /**
      * 需要排除的服务
