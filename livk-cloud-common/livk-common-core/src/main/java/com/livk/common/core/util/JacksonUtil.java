@@ -11,24 +11,19 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 /**
- * <p>
- * JacksonUtil
- * </p>
- *
- * @author livk
- * @date 2021/11/2
+ * The type Jackson util.
  */
 @UtilityClass
 public class JacksonUtil {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     /**
-     * Str to bean t.
+     * To bean t.
      *
      * @param <T>   the type parameter
-     * @param json  the bean str
+     * @param json  the json
      * @param clazz the clazz
-     * @return t t
+     * @return the t
      */
     @SneakyThrows
     @SuppressWarnings("unchecked")
@@ -40,12 +35,12 @@ public class JacksonUtil {
     }
 
     /**
-     * Str to collection.
+     * To stream.
      *
      * @param <T>   the type parameter
-     * @param json  the bean str
+     * @param json  the json
      * @param clazz the clazz
-     * @return the collection
+     * @return the stream
      */
     @SneakyThrows
     @SuppressWarnings("unchecked")
@@ -58,7 +53,7 @@ public class JacksonUtil {
     }
 
     /**
-     * Obj to str string.
+     * To json string.
      *
      * @param obj the obj
      * @return the string
@@ -72,7 +67,7 @@ public class JacksonUtil {
     }
 
     /**
-     * Str to map map.
+     * To map map.
      *
      * @param <K>    the type parameter
      * @param <V>    the type parameter
@@ -88,18 +83,5 @@ public class JacksonUtil {
         }
         var mapType = MAPPER.getTypeFactory().constructMapType(Map.class, kClass, vClass);
         return MAPPER.readValue(json, mapType);
-    }
-
-    /**
-     * Find object string.
-     *
-     * @param obj  the obj
-     * @param name the name
-     * @return the string
-     */
-    @SneakyThrows
-    public String findObject(Object obj, String name) {
-        var json = toJson(obj);
-        return MAPPER.readTree(json).findPath(name).asText();
     }
 }
