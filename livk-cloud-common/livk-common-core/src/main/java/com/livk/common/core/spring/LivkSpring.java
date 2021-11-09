@@ -8,6 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.net.InetAddress;
+import java.util.Optional;
 
 /**
  * <p>
@@ -35,6 +36,6 @@ public class LivkSpring {
     @SneakyThrows
     private void print(ConfigurableApplicationContext context) {
         var port = context.getEnvironment().getProperty("server.port");
-        log.info(HTTP.concat("://{}:{}"), InetAddress.getLocalHost().getHostAddress(), port == null ? "8080" : port);
+        log.info(HTTP.concat("://{}:{}"), InetAddress.getLocalHost().getHostAddress(), Optional.ofNullable(port).orElse("8080"));
     }
 }

@@ -52,13 +52,13 @@ public class GatewaySwaggerResourcesProvider implements SwaggerResourcesProvider
                 .filter(predicateDefinition -> !predicateDefinition.getArgs().isEmpty())
                 .map(predicateDefinition -> {
                     Map<String, String> args = predicateDefinition.getArgs();
-                    String pattern = choose(() -> args.get("pattern"), () -> args.get(NameUtils.GENERATED_NAME_PREFIX + "0"));
+                    String pattern = this.choose(() -> args.get("pattern"), () -> args.get(NameUtils.GENERATED_NAME_PREFIX + "0"));
                     return swaggerResource(routeDefinition.getId(), pattern.replace("/**", SWAGGER3URL));
                 })).toList();
     }
 
     private <T> T choose(Supplier<T> s1, Supplier<T> s2) {
-        return s1.get() == null ? s2.get() : s1.get();
+        return Optional.ofNullable(s1.get()).orElse(s2.get());
     }
 
     private SwaggerResource swaggerResource(String name, String location) {
