@@ -4,8 +4,8 @@
 
 ### 技术栈
 
-> SpringBoot、SpringCloud GateWay、SpringCloud Bus、SpringCloud Stream、SpringCloud Alibaba Nacos
-> 消息队列kafka(RabbitMq)、Redis、持久化存储MySQL、通用API文档Springfox Swagger
+> SpringBoot、SpringCloud GateWay、SpringCloud Bus、SpringCloud Stream、SpringCloud Alibaba Nacos.
+> 消息队列kafka(RabbitMq)、Redis、持久化存储MySQL、通用API文档Springfox Swagger.
 
 ### 项目结构
 
@@ -30,11 +30,11 @@
 
 ### 0.0.1
 
-> 表SQL详见[SQL](./table.sql)
-> 每一个XXXAutoConfiguration，请注意bean生成的条件，非必要不要修改，以免服务启动报错
-> Spring Cloud Bus需要与Spring Cloud Stream结合使用，同时需要一个Message Queue(官方使用RabbitMQ或者Kafka)
-> [Gateway路由信息与Redis操作结合](./livk-cloud-common/livk-common-gateway/src/main/java/com/livk/common/gateway/support/RedisRouteDefinitionWriter.java)
-> [Bus操作远程Event](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/event/LivkRemoteApplicationEvent.java)
-> [Mapstruct转化器通用接口](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/converter/BaseConverter.java)
-> [Swagger整合Gateway](./livk-cloud-common/livk-common-swagger/src/main/java/com/livk/common/swagger/support/GatewaySwaggerResourcesProvider.java)
+> 表SQL详见[SQL](./table.sql).
+> 每一个XXXAutoConfiguration，请注意bean生成的条件，非必要不要修改，以免服务启动报错.
+> Spring Cloud Bus需要与Spring Cloud Stream结合使用，同时需要一个Message Queue(官方使用RabbitMQ或者Kafka).
+> [Gateway路由信息与Redis操作结合](./livk-cloud-common/livk-common-gateway/src/main/java/com/livk/common/gateway/support/RedisRouteDefinitionWriter.java).
+> [Bus操作远程Event](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/event/LivkRemoteApplicationEvent.java).
+> [Mapstruct转化器通用接口](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/converter/BaseConverter.java).
+> [Swagger整合Gateway](./livk-cloud-common/livk-common-swagger/src/main/java/com/livk/common/swagger/support/GatewaySwaggerResourcesProvider.java).
 
