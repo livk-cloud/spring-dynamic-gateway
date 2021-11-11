@@ -1,4 +1,10 @@
-POST http://localhost:5599/route
+GET {{host}}:{{port}}{{pattern}}/route
+
+###
+GET {{host}}:{{port}}{{pattern}}/route/{{routeId}}
+
+####
+POST {{host}}:{{port}}{{pattern}}/route
 Content-Type: application/json; charset=UTF-8
 
 {
@@ -27,3 +33,9 @@ Content-Type: application/json; charset=UTF-8
   "description": "dynamic Route",
   "status": 1
 }
+
+###
+DELETE {{host}}:{{port}}{{pattern}}/route/{{routeId}}
+
+###
+POST {{host}}:{{port}}{{pattern}}/route/reload
