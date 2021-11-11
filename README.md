@@ -28,12 +28,13 @@
         |--livk-common-swagger(Swagger与Gateway聚合配置，Swagger单服务配置)
 ```
 
-# 0.0.1
+### 0.0.1
 
->表SQL详见[SQL](./table.sql)
->每一个XXXAutoConfiguration，请注意bean生成的条件，非必要请不要修改，以免服务启动报错 
->Spring Cloud Bus需要与Spring Cloud Stream结合使用，同时需要一个Message Queue(官方使用RabbitMQ或者Kafka)
->Gateway路由信息与Redis操作结合[code](./livk-cloud-common/livk-common-gateway/src/main/java/com/livk/common/gateway/support/RedisRouteDefinitionWriter.java)
->Bus操作远程Event[code](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/event/LivkRemoteApplicationEvent.java)
->Mapstruct转化器通用接口[code](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/converter/BaseConverter.java)
+> 表SQL详见[SQL](./table.sql)
+> 每一个XXXAutoConfiguration，请注意bean生成的条件，非必要不要修改，以免服务启动报错
+> Spring Cloud Bus需要与Spring Cloud Stream结合使用，同时需要一个Message Queue(官方使用RabbitMQ或者Kafka)
+> [Gateway路由信息与Redis操作结合](./livk-cloud-common/livk-common-gateway/src/main/java/com/livk/common/gateway/support/RedisRouteDefinitionWriter.java)
+> [Bus操作远程Event](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/event/LivkRemoteApplicationEvent.java)
+> [Mapstruct转化器通用接口](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/converter/BaseConverter.java)
+> [Swagger整合Gateway](./livk-cloud-common/livk-common-swagger/src/main/java/com/livk/common/swagger/support/GatewaySwaggerResourcesProvider.java)
 
