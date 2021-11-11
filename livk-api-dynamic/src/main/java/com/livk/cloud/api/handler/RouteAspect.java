@@ -1,12 +1,12 @@
 package com.livk.cloud.api.handler;
 
 import com.livk.common.core.event.LivkRemoteApplicationEvent;
-import com.livk.common.core.support.SpringContextHolder;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.bus.BusProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,9 +20,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class RouteAspect {
+public class RouteAspect  {
 
     private final BusProperties busProperties;
+
+    private final ApplicationContext applicationContext;
 
     /**
      * 需添加配置文件，设置通知那个serviceId
@@ -30,7 +32,6 @@ public class RouteAspect {
      */
     @After(value = "execution(void com.livk.cloud.api.handler.RedisRouteHandler.*(..))")
     public void refresh() {
-        SpringContextHolder.publishEvent(new LivkRemoteApplicationEvent(busProperties.getId(), RouteEventHolder::get));
-        RouteEventHolder.clear();
+        applicationContext.publishEvent(new LivkRemoteApplicationEvent(busProperties.getId(), () -> RedisRouteHandler.STREAM_BUS_EVENT));
     }
 }

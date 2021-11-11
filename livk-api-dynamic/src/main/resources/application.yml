@@ -19,12 +19,15 @@ spring:
         username: livk
         password: 123456
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://livk.com:5432/spring_livk
-    username: postgres
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://livk.com:3306/sc_gateway
+    username: root
     password: 123456
+    hikari:
+      schema: classpath:sql/table.sql
   profiles:
     active: @profiles.active@
+
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

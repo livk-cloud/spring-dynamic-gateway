@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.ObjectUtils;
 
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -32,6 +33,14 @@ public class JacksonUtil {
             return null;
         }
         return clazz.isInstance(json) ? (T) json : MAPPER.readValue(json, clazz);
+    }
+
+    @SneakyThrows
+    public <T> T toBean(InputStream inputStream, Class<T> clazz) {
+        if (inputStream == null) {
+            return null;
+        }
+        return MAPPER.readValue(inputStream, clazz);
     }
 
     /**

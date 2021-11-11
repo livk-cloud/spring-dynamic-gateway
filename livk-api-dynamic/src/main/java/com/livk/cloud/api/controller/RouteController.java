@@ -2,7 +2,6 @@ package com.livk.cloud.api.controller;
 
 import com.livk.cloud.api.domain.RedisRoute;
 import com.livk.cloud.api.service.DynamicRouteService;
-import com.livk.common.log.annotation.LivkLog;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import java.util.List;
  * @date 2021/11/3
  */
 @Slf4j
-@LivkLog
+//@LivkLog
 @RestController
 @RequestMapping("route")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)

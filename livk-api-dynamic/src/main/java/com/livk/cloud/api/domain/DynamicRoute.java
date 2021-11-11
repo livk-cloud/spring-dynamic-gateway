@@ -1,9 +1,7 @@
 package com.livk.cloud.api.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,40 +13,69 @@ import java.util.Date;
  * </p>
  *
  * @author livk
- * @date 2021/11/4
+ * @date 2021/11/10
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @TableName(value = "dynamic_route")
 public class DynamicRoute implements Serializable {
+    /**
+     * 路由id
+     */
     @TableId(value = "id", type = IdType.INPUT)
     private String id;
 
+    /**
+     * url地址
+     */
     @TableField(value = "uri")
     private String uri;
 
+    /**
+     * 断言
+     */
     @TableField(value = "predicates")
     private String predicates;
 
+    /**
+     * 过滤器
+     */
     @TableField(value = "filters")
     private String filters;
 
+    /**
+     * 元数据
+     */
     @TableField(value = "metadata")
     private String metadata;
 
-    @TableField(value = "\"order\"")
+    /**
+     * 排序
+     */
+    @TableField(value = "`order`")
     private Integer order;
 
+    /**
+     * 描述
+     */
     @TableField(value = "description")
     private String description;
 
-    @TableField(value = "\"status\"")
+    /**
+     * 状态值:0-禁用 1-启用
+     */
+    @TableField(value = "`status`")
     private Integer status;
 
+    /**
+     * 插入时间
+     */
     @TableField(value = "insert_time", fill = FieldFill.INSERT)
     private Date insertTime;
 
+    /**
+     * 更新时间
+     */
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 

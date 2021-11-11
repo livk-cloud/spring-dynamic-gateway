@@ -1,0 +1,20 @@
+{
+  "predicates": [
+    {
+      "name": "Path",
+      "args": {
+        "pattern": "/dynamic/**"
+      }
+    }
+  ],
+  "filters": [
+    {
+      "name": "StripPrefix",
+      "args": {
+        "parts": "1"
+      }
+    }
+  ],
+  "order": 0,
+  "status": 1
+}

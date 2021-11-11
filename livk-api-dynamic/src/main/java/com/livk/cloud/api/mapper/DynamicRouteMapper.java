@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author livk
- * @date 2021/11/4
+ * @date 2021/11/10
  */
 @Mapper
 public interface DynamicRouteMapper extends BaseMapper<DynamicRoute> {

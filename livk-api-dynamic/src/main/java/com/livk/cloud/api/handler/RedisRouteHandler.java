@@ -32,22 +32,21 @@ public class RedisRouteHandler {
     private final LivkRedisTemplate livkRedisTemplate;
 
     public void reload(List<RedisRoute> redisRouteList) {
-        var keys = livkRedisTemplate.opsForHash().keys(ROUTE_KEY);
-        livkRedisTemplate.opsForHash().delete(ROUTE_KEY, keys);
+        if (Boolean.TRUE.equals(livkRedisTemplate.hasKey(ROUTE_KEY))) {
+            var keys = livkRedisTemplate.opsForHash().keys(ROUTE_KEY).toArray();
+            livkRedisTemplate.opsForHash().delete(ROUTE_KEY, keys);
+        }
         Map<String, RedisRoute> redisRouteMap = redisRouteList.stream()
                 .collect(Collectors.toMap(RedisRoute::getId, Function.identity()));
         livkRedisTemplate.opsForHash().putAll(ROUTE_KEY, redisRouteMap);
-        RouteEventHolder.set(STREAM_BUS_EVENT);
     }
 
     public void push(RedisRoute redisRoute) {
         livkRedisTemplate.opsForHash().put(ROUTE_KEY, redisRoute.getId(), redisRoute);
-        RouteEventHolder.set(STREAM_BUS_EVENT);
     }
 
     public void delete(String id) {
         livkRedisTemplate.opsForHash().delete(ROUTE_KEY, id);
-        RouteEventHolder.set(STREAM_BUS_EVENT);
     }
 
     public List<RedisRoute> list() {
