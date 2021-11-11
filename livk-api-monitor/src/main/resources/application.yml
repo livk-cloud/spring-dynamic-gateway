@@ -19,3 +19,9 @@ spring:
         server-addr: livk.com:8848
   profiles:
     active: @profiles.active@
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

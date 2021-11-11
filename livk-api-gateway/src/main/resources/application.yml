@@ -26,10 +26,6 @@ spring:
         password: 123456
   profiles:
     active: @profiles.active@
-
-
-#logging:
-#  level:
-#    root: debug
 swagger:
   enable: true
+  version: @version@

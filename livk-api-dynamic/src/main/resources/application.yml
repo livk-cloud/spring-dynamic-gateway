@@ -29,11 +29,14 @@ spring:
       schema: classpath:sql/table.sql
   profiles:
     active: @profiles.active@
-
 mybatis-plus:
   global-config:
     banner: false
-
 swagger:
   enable: true
   version: @version@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
