@@ -32,10 +32,7 @@ public class RedisRouteHandler {
     private final LivkRedisTemplate livkRedisTemplate;
 
     public void reload(List<RedisRoute> redisRouteList) {
-        if (Boolean.TRUE.equals(livkRedisTemplate.hasKey(ROUTE_KEY))) {
-            var keys = livkRedisTemplate.opsForHash().keys(ROUTE_KEY).toArray();
-            livkRedisTemplate.opsForHash().delete(ROUTE_KEY, keys);
-        }
+        livkRedisTemplate.delete(ROUTE_KEY);
         Map<String, RedisRoute> redisRouteMap = redisRouteList.stream()
                 .collect(Collectors.toMap(RedisRoute::getId, Function.identity()));
         livkRedisTemplate.opsForHash().putAll(ROUTE_KEY, redisRouteMap);

@@ -18,6 +18,8 @@ spring:
         url: lb://api-monitor
         username: livk
         password: 123456
+        instance:
+          prefer-ip: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://livk.com:3306/sc_gateway
@@ -29,8 +31,6 @@ spring:
     active: @profiles.active@
 
 mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     banner: false
 
