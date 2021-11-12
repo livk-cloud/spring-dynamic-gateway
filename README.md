@@ -28,6 +28,93 @@
         |--livk-common-swagger(Swagger与Gateway聚合配置，Swagger单服务配置)
 ```
 
+### 环境搭建
+
+> 全局采用docker搭建环境<br>
+> Mysql、Redis、kafka(RabbitMq)百度自行搭建<br>
+> Nacos(2.0.3)集群搭建，配置Nginx转发<br>
+> [Nacos官方](https://nacos.io/zh-cn/)
+```shell
+docker run -d \   
+-e PREFER_HOST_MODE=hostname \
+-e MODE=cluster \
+-e NACOS_APPLICATION_PORT=8844 \  
+-e NACOS_SERVERS="192.168.75.128:8844 192.168.75.128:8846 192.168.75.128:8848" \ 
+-e SPRING_DATASOURCE_PLATFORM=mysql \
+-e MYSQL_SERVICE_HOST=192.168.75.128 \
+-e MYSQL_SERVICE_PORT=3306 \
+-e MYSQL_SERVICE_USER=root \
+-e MYSQL_SERVICE_PASSWORD=123456 \
+-e MYSQL_SERVICE_DB_NAME=nacos_config \
+-e NACOS_SERVER_IP=192.168.75.128 \
+-e JVM_XMS=256m \
+-e JVM_XMX=512m \
+-p 8844:8844 \
+-p 7844:7844 \
+-p 9844:9844 \
+-p 9845:9845 \
+--name nacos1 \
+nacos/nacos-server:v2.0.3
+
+docker run -d \
+-e PREFER_HOST_MODE=hostname \
+-e MODE=cluster \
+-e NACOS_APPLICATION_PORT=8846 \
+-e NACOS_SERVERS="192.168.75.128:8844 192.168.75.128:8846 192.168.75.128:8848" \
+-e SPRING_DATASOURCE_PLATFORM=mysql \
+-e MYSQL_SERVICE_HOST=192.168.75.128 \
+-e MYSQL_SERVICE_PORT=3306 \
+-e MYSQL_SERVICE_USER=root \
+-e MYSQL_SERVICE_PASSWORD=123456 \
+-e MYSQL_SERVICE_DB_NAME=nacos_config \
+-e NACOS_SERVER_IP=192.168.75.128 \
+-e JVM_XMS=256m \
+-e JVM_XMX=512m \
+-p 8846:8846 \
+-p 7846:7846 \
+-p 9846:9846 \
+-p 9847:9847 \
+--name nacos2 \
+nacos/nacos-server:v2.0.3
+
+docker run -d \
+-e PREFER_HOST_MODE=hostname \
+-e MODE=cluster \
+-e NACOS_APPLICATION_PORT=8848 \
+-e NACOS_SERVERS="192.168.75.128:8844 192.168.75.128:8846 192.168.75.128:8848" \
+-e SPRING_DATASOURCE_PLATFORM=mysql \
+-e MYSQL_SERVICE_HOST=192.168.75.128 \
+-e MYSQL_SERVICE_PORT=3306 \
+-e MYSQL_SERVICE_USER=root \
+-e MYSQL_SERVICE_PASSWORD=123456 \
+-e MYSQL_SERVICE_DB_NAME=nacos_config \
+-e NACOS_SERVER_IP=192.168.75.128 \
+-e JVM_XMS=256m \
+-e JVM_XMX=512m \
+-p 8848:8848 \
+-p 7848:7848 \
+-p 9848:9848 \
+-p 9849:9848 \
+--name nacos3 \
+nacos/nacos-server:v2.0.3
+```
+
+Nginx转发(配置在http下面)
+
+```shell
+upstream nacos {   
+    server 192.168.75.128:8844;
+    server 192.168.75.128:8846;   
+    server 192.168.75.128:8848;
+}
+server{
+	listen 9966;
+	location / {
+		proxy_pass http://nacos;
+	}
+}
+```
+
 ### 0.0.1
 
 > 表SQL详见[SQL](./table.sql).<br>

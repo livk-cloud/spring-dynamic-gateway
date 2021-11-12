@@ -16,7 +16,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: livk.com:8848
+        server-addr: livk.com:9966
   profiles:
     active: @profiles.active@
 
