@@ -24,7 +24,7 @@
         |--livk-common-gateway(Gateway路由信息整合Redis处理)
         |--livk-common-log(日志纪录操作相关)
         |--livk-common-pom(common聚合POM依赖)
-        |--livk-common-redis(edis与Spring Cache操作相关)
+        |--livk-common-redis(Redis与Spring Cache操作相关)
         |--livk-common-swagger(Swagger与Gateway聚合配置，Swagger单服务配置)
 ```
 
