@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -37,7 +38,7 @@ public class RouteController {
     }
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
-    public Boolean addNewRoute(@RequestBody RedisRoute redisRoute) {
+    public Boolean addNewRoute(@RequestBody @Valid RedisRoute redisRoute) {
         return dynamicRouteService.saveOrUpdate(redisRoute);
     }
 
