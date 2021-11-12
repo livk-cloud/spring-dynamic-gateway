@@ -34,6 +34,7 @@
 > Mysql、Redis、kafka(RabbitMq)百度自行搭建<br>
 > Nacos(2.0.3)集群搭建，配置Nginx转发<br>
 > [Nacos官方](https://nacos.io/zh-cn/)
+
 ```shell
 docker run -d \   
 -e PREFER_HOST_MODE=hostname \
@@ -102,6 +103,9 @@ nacos/nacos-server:v2.0.3
 Nginx转发(配置在http下面)
 
 ```shell
+docker run --name nginx-nacos -p 9966:9966 -d nginx
+
+配置
 upstream nacos {   
     server 192.168.75.128:8844;
     server 192.168.75.128:8846;   
