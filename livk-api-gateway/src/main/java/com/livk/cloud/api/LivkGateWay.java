@@ -17,6 +17,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class LivkGateWay {
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = LivkSpring.run(LivkGateWay.class, args);
+        LivkSpring.run(LivkGateWay.class, args);
     }
 }

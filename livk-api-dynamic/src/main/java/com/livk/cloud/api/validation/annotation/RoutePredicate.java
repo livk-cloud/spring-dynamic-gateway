@@ -1,5 +1,6 @@
 package com.livk.cloud.api.validation.annotation;
 
+import com.livk.cloud.api.validation.config.RoutePredicateValidator;
 import com.livk.cloud.api.validation.config.RouteURLValidator;
 
 import javax.validation.Constraint;
@@ -22,7 +23,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = RouteURLValidator.class)
+@Constraint(validatedBy = RoutePredicateValidator.class)
 public @interface RoutePredicate {
     String message() default "{com.livk.cloud.api.validation.annotation.RoutePredicate.message}";
 

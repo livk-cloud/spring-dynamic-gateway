@@ -26,6 +26,7 @@
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <mapstruct-lombok.version>0.2.0</mapstruct-lombok.version>
+        <commons-validator.version>1.7</commons-validator.version>
         <livk-common.version>0.0.1</livk-common.version>
     </properties>
 
@@ -113,6 +114,12 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok-mapstruct-binding</artifactId>
                 <version>${mapstruct-lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>${commons-validator.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

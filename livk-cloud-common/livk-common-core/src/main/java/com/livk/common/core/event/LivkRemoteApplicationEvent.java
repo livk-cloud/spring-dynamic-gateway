@@ -21,20 +21,10 @@ public class LivkRemoteApplicationEvent extends RemoteApplicationEvent {
         this("livk", originService, destination);
     }
 
+    /**
+     * {@link org.springframework.cloud.bus.event.RemoteApplicationEvent#RemoteApplicationEvent(Object, String, String)}
+     */
     public LivkRemoteApplicationEvent(Object source, String originService, Destination destination) {
         super(source, originService, destination);
-    }
-
-    /**
-     * 弃用
-     *
-     * @param source             source
-     * @param originService      originService
-     * @param destinationService destinationService
-     * @deprecated 弃用
-     */
-    @Deprecated
-    public LivkRemoteApplicationEvent(Object source, String originService, String destinationService) {
-        super(source, originService, destinationService);
     }
 }
