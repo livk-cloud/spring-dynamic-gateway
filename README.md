@@ -129,3 +129,6 @@ server{
 > [Mapstruct转化器通用接口](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/converter/BaseConverter.java).<br>
 > [Swagger整合Gateway](./livk-cloud-common/livk-common-swagger/src/main/java/com/livk/common/swagger/support/GatewaySwaggerResourcesProvider.java).<br>
 
+### 0.0.2(待开发)
+预计添加系统基础模块
+系统设计、操作日志等
