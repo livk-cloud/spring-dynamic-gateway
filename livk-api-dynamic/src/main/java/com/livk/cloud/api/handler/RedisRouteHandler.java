@@ -1,5 +1,6 @@
 package com.livk.cloud.api.handler;
 
+import com.livk.cloud.api.annotation.LivkEventPublish;
 import com.livk.cloud.api.domain.RedisRoute;
 import com.livk.common.core.util.JacksonUtil;
 import com.livk.common.redis.support.LivkRedisTemplate;
@@ -31,6 +32,7 @@ public class RedisRouteHandler {
 
     private final LivkRedisTemplate livkRedisTemplate;
 
+    @LivkEventPublish(STREAM_BUS_EVENT)
     public void reload(List<RedisRoute> redisRouteList) {
         livkRedisTemplate.delete(ROUTE_KEY);
         Map<String, RedisRoute> redisRouteMap = redisRouteList.stream()
@@ -38,10 +40,12 @@ public class RedisRouteHandler {
         livkRedisTemplate.opsForHash().putAll(ROUTE_KEY, redisRouteMap);
     }
 
+    @LivkEventPublish(STREAM_BUS_EVENT)
     public void push(RedisRoute redisRoute) {
         livkRedisTemplate.opsForHash().put(ROUTE_KEY, redisRoute.getId(), redisRoute);
     }
 
+    @LivkEventPublish(STREAM_BUS_EVENT)
     public void delete(String id) {
         livkRedisTemplate.opsForHash().delete(ROUTE_KEY, id);
     }

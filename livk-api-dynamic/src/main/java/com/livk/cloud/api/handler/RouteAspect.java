@@ -1,5 +1,6 @@
 package com.livk.cloud.api.handler;
 
+import com.livk.cloud.api.annotation.LivkEventPublish;
 import com.livk.common.core.event.LivkRemoteApplicationEvent;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.After;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class RouteAspect  {
+public class RouteAspect {
 
     private final BusProperties busProperties;
 
@@ -30,8 +31,8 @@ public class RouteAspect  {
      * 需添加配置文件，设置通知那个serviceId
      * 例如"api-gateway:9852:**"
      */
-    @After(value = "execution(void com.livk.cloud.api.handler.RedisRouteHandler.*(..))")
-    public void refresh() {
-        applicationContext.publishEvent(new LivkRemoteApplicationEvent(busProperties.getId(), () -> RedisRouteHandler.STREAM_BUS_EVENT));
+    @After("@annotation(livkEventPublish)")
+    public void refresh(LivkEventPublish livkEventPublish) {
+        applicationContext.publishEvent(new LivkRemoteApplicationEvent(busProperties.getId(), livkEventPublish::value));
     }
 }
