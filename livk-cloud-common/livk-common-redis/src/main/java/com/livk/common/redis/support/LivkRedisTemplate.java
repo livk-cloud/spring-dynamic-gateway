@@ -20,18 +20,13 @@ public class LivkRedisTemplate extends RedisTemplate<String, Object> {
 
     public LivkRedisTemplate() {
         var serializer = new Jackson2JsonRedisSerializer<>(Object.class);
-        // 通过 ObjectMapper进行转义
         var mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         serializer.setObjectMapper(mapper);
         var stringRedisSerializer = new StringRedisSerializer();
-        // key采用 String的序列化方式
         this.setKeySerializer(stringRedisSerializer);
-        // hash的 key也采用 String的序列化方式
         this.setHashKeySerializer(stringRedisSerializer);
-        // Value的序列化方式采用 jackSon
         this.setValueSerializer(serializer);
-        // hash的 value序列化也采用 jackSon
         this.setHashValueSerializer(serializer);
     }
 
