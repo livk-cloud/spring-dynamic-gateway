@@ -16,7 +16,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: livk.com:9966
+        server-addr: ${NACOS_HOST:livk.com}:${NACOS_PORT:9966}
   profiles:
     active: @profiles.active@
 

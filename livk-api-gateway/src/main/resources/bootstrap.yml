@@ -10,14 +10,15 @@ spring:
   application:
     name: @artifactId@
   redis:
-    host: livk.com
-    password: 123456
+    host: ${REDIS_HOST:livk.com}
+    password: ${REDIS_PASSWORD:123456}
+    port: ${REDIS_PORT:6379}
   kafka:
-    bootstrap-servers: livk.com:9092
+    bootstrap-servers: ${KAFKA_HOST:livk.com}:${KAFKA_PORT:9092}
   cloud:
     nacos:
       discovery:
-        server-addr: livk.com:9966
+        server-addr: ${NACOS_HOST:livk.com}:${NACOS_PORT:9966}
   boot:
     admin:
       client:

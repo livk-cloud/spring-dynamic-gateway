@@ -4,14 +4,15 @@ spring:
   application:
     name: @artifactId@
   redis:
-    host: livk.com
-    password: 123456
+    host: ${REDIS_HOST:livk.com}
+    password: ${REDIS_PASSWORD:123456}
+    port: ${REDIS_PORT:6379}
   kafka:
-    bootstrap-servers: livk.com:9092
+    bootstrap-servers: ${KAFKA_HOST:livk.com}:${KAFKA_PORT:9092}
   cloud:
     nacos:
       discovery:
-        server-addr: livk.com:9966
+        server-addr: ${NACOS_HOST:livk.com}:${NACOS_PORT:9966}
   boot:
     admin:
       client:
@@ -22,9 +23,9 @@ spring:
           prefer-ip: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://livk.com:3306/sc_gateway
-    username: root
-    password: 123456
+    url: jdbc:mysql://${MYSQL_HOST:livk.com}:${MYSQL_PORT:3306}/${MYSQL_DB:sc_gateway}
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:123456}
     hikari:
       schema: classpath:sql/table.sql
   profiles:
