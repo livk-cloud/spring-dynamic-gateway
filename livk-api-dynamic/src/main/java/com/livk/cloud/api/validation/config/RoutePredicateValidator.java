@@ -1,7 +1,7 @@
 package com.livk.cloud.api.validation.config;
 
 import com.livk.cloud.api.domain.route.Predicate;
-import com.livk.cloud.api.validation.annotation.RouteURL;
+import com.livk.cloud.api.validation.annotation.RoutePredicate;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -15,7 +15,7 @@ import java.util.List;
  * @author livk
  * @date 2021/11/12
  */
-public class RoutePredicateValidator implements ConstraintValidator<RouteURL, List<Predicate>> {
+public class RoutePredicateValidator implements ConstraintValidator<RoutePredicate, List<Predicate>> {
 
     private static final String PATTERN = "pattern";
 

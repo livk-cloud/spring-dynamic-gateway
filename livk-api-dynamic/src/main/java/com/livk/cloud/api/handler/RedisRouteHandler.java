@@ -27,7 +27,7 @@ public class RedisRouteHandler {
 
     static final String ROUTE_KEY = "route_key";
 
-    static final String STREAM_BUS_EVENT = "api-gateway:9852:**";
+    static final String STREAM_BUS_EVENT = "livk-api-gateway:9852:**";
 
     private final LivkRedisTemplate livkRedisTemplate;
 

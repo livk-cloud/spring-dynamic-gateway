@@ -13,7 +13,7 @@ Content-Type: application/json; charset=UTF-8
     {
       "name": "Path",
       "args": {
-        "_genkey_0": "/dynamic/**"
+        "_genkey_0": "/api/dynamic/**"
       }
     }
   ],
@@ -21,13 +21,15 @@ Content-Type: application/json; charset=UTF-8
     {
       "name": "StripPrefix",
       "args": {
-        "parts": "1"
+        "parts": "2"
       }
     }
   ],
   "uri": "lb://api-dynamic",
   "metadata": {
-    "data": "true"
+    "username": "livk",
+    "password": "123456",
+    "register": "nacos"
   },
   "order": 0,
   "description": "dynamic Route",

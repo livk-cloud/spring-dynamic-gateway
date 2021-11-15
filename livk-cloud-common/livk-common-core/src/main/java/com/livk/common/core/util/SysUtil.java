@@ -1,6 +1,5 @@
 package com.livk.common.core.util;
 
-import com.livk.common.core.constant.LivkResultEnum;
 import com.livk.common.core.result.R;
 import lombok.experimental.UtilityClass;
 
@@ -72,13 +71,15 @@ public class SysUtil {
         }
         if (checkBool(result)) {
             var parseBoolean = Boolean.parseBoolean(result);
-            return JacksonUtil.toJson(parseBoolean ? R.ok(R.Constant.SUCCESS) : R.error(R.Constant.ERROR));
+            return JacksonUtil.toJson(parseBoolean ? R.ok() : R.error(R.Constant.ERROR));
         }
-        var map = JacksonUtil.toMap(result, String.class, Object.class);
-        if (checkMap(map)) {
-            return result;
+        if (!(result.startsWith("[") && result.endsWith("]"))) {
+            var map = JacksonUtil.toMap(result, String.class, Object.class);
+            if (checkMap(map)) {
+                return result;
+            }
         }
-        return JacksonUtil.toJson(R.result(LivkResultEnum.SUCCESS, result));
+        return JacksonUtil.toJson(R.ok(result));
     }
 
     /**
@@ -89,7 +90,7 @@ public class SysUtil {
      */
     private static boolean checkBool(String str) {
         return Boolean.TRUE.toString().equalsIgnoreCase(str)
-                || Boolean.FALSE.toString().equalsIgnoreCase(str);
+               || Boolean.FALSE.toString().equalsIgnoreCase(str);
     }
 
     /**

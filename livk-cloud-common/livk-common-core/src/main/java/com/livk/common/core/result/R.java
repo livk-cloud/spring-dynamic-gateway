@@ -42,6 +42,10 @@ public class R<T> {
         return result(livkResultEnum.getCode(), livkResultEnum.getMsg(), data);
     }
 
+    public static <T> R<T> ok() {
+        return result(2000, Constant.SUCCESS, null);
+    }
+
     public static <T> R<T> ok(T data) {
         return result(2000, Constant.SUCCESS, data);
     }
