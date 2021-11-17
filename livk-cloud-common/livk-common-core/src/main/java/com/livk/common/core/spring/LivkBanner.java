@@ -1,5 +1,8 @@
 package com.livk.common.core.spring;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.core.env.Environment;
@@ -7,6 +10,8 @@ import org.springframework.core.env.Environment;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * <p>
@@ -38,22 +43,46 @@ public class LivkBanner implements Banner {
         for (var line : banner) {
             out.println(line);
         }
-        var version = SpringBootVersion.getVersion();
-        // 当前时间
-        out.println(out(22) + "Spring Boot Version:" + version + out(22));
-        out.println(out(18) + "Current time：" +
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()) + out(18));
-        out.println(out(23) + "Current JDK Version：" + System.getProperty("java.version") + out(23));
-        out.println(out(21) + "Operating System：" + System.getProperty("os.name") + out(20));
+        Format format = Format.create(out);
+        format.accept("Spring Boot Version:" + SpringBootVersion.getVersion());
+        format.accept("Current time：" + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(LocalDateTime.now()));
+        format.accept("Current JDK Version：" + System.getProperty("java.version"));
+        format.accept("Operating System：" + System.getProperty("os.name"));
         out.flush();
-    }
-
-    private String out(int num) {
-        return String.valueOf('*').repeat(Math.max(0, num));
     }
 
     public static LivkBanner create() {
         return new LivkBanner();
+    }
+
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+    private static class Format implements Function<String, String>, Consumer<String> {
+
+        private final int n;
+
+        private final PrintStream out;
+
+        private final char ch;
+
+        @Override
+        public String apply(String str) {
+            int length = str.length();
+            if (length >= n) {
+                return str;
+            }
+            int index = (n - length) >> 1;
+            str = StringUtils.leftPad(str, length + index, ch);
+            return StringUtils.rightPad(str, n, ch);
+        }
+
+        @Override
+        public void accept(String s) {
+            out.println(this.apply(s));
+        }
+
+        public static Format create(PrintStream out) {
+            return new Format(70, out, '*');
+        }
     }
 }
 
