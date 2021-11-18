@@ -1,6 +1,7 @@
 package com.livk.cloud.api.filter;
 
 import com.livk.common.core.util.SysUtil;
+import com.livk.common.swagger.support.GatewaySwaggerResourcesProvider;
 import org.reactivestreams.Publisher;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -37,6 +39,11 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         var originalResponse = exchange.getResponse();
         var bufferFactory = originalResponse.bufferFactory();
+        URI uri = exchange.getRequest().getURI();
+        if (!uri.getPath().endsWith(GatewaySwaggerResourcesProvider.SWAGGER2URL) &&
+            !uri.getPath().endsWith(GatewaySwaggerResourcesProvider.SWAGGER3URL)) {
+            return chain.filter(exchange);
+        }
         var decoratedResponse =
                 new ServerHttpResponseDecorator(originalResponse) {
                     @NonNull

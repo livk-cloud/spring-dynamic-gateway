@@ -29,7 +29,9 @@ public class GatewaySwaggerResourcesProvider implements SwaggerResourcesProvider
     /**
      * Swagger3默认的url后缀(v3有问题)
      */
-    public static final String SWAGGER3URL = "/v2/api-docs";
+    public static final String SWAGGER2URL = "/v2/api-docs";
+
+    public static final String SWAGGER3URL = "/v3/api-docs";
 
     private final RouteDefinitionRepository routeDefinitionRepository;
 

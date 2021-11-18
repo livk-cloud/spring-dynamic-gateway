@@ -93,4 +93,13 @@ public class JacksonUtil {
         var mapType = MAPPER.getTypeFactory().constructMapType(Map.class, kClass, vClass);
         return MAPPER.readValue(json, mapType);
     }
+
+    @SneakyThrows
+    public <K, V> Map<K, V> toMap(byte[] json, Class<K> kClass, Class<V> vClass) {
+        if (json == null || kClass == null || vClass == null) {
+            return Collections.emptyMap();
+        }
+        var mapType = MAPPER.getTypeFactory().constructMapType(Map.class, kClass, vClass);
+        return MAPPER.readValue(json, mapType);
+    }
 }
