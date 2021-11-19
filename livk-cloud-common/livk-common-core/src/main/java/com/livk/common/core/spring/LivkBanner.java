@@ -1,7 +1,5 @@
 package com.livk.common.core.spring;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringBootVersion;
@@ -55,15 +53,8 @@ public class LivkBanner implements Banner {
         return new LivkBanner();
     }
 
-    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    private static class Format implements Function<String, String>, Consumer<String> {
-
-        private final int n;
-
-        private final PrintStream out;
-
-        private final char ch;
-
+    private static record Format(int n, PrintStream out,
+                                 char ch) implements Function<String, String>, Consumer<String> {
         @Override
         public String apply(String str) {
             int length = str.length();
