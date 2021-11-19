@@ -18,12 +18,12 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <boot.version>2.5.6</boot.version>
+        <boot.version>2.5.7</boot.version>
         <cloud.version>2020.0.4</cloud.version>
         <cloud-alibaba.version>2021.1</cloud-alibaba.version>
-        <spring-boot-admin.version>2.5.3</spring-boot-admin.version>
+        <spring-boot-admin.version>2.5.4</spring-boot-admin.version>
         <swagger.version>3.0.0</swagger.version>
-        <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <mapstruct-lombok.version>0.2.0</mapstruct-lombok.version>
         <commons-validator.version>1.7</commons-validator.version>
