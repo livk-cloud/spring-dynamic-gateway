@@ -23,16 +23,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class RouteAspect {
 
-    private final BusProperties busProperties;
+	private final BusProperties busProperties;
 
-    private final ApplicationContext applicationContext;
+	private final ApplicationContext applicationContext;
 
-    /**
-     * 需添加配置文件，设置通知那个serviceId
-     * 例如"api-gateway:9852:**"
-     */
-    @After("@annotation(livkEventPublish)")
-    public void refresh(LivkEventPublish livkEventPublish) {
-        applicationContext.publishEvent(new LivkRemoteApplicationEvent(busProperties.getId(), livkEventPublish::value));
-    }
+	/**
+	 * 需添加配置文件，设置通知那个serviceId 例如"api-gateway:9852:**"
+	 */
+	@After("@annotation(livkEventPublish)")
+	public void refresh(LivkEventPublish livkEventPublish) {
+		applicationContext.publishEvent(new LivkRemoteApplicationEvent(busProperties.getId(), livkEventPublish::value));
+	}
+
 }

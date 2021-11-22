@@ -16,10 +16,11 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class RouteURLValidator implements ConstraintValidator<RouteURL, String> {
 
-    private static final String LOAD_BALANCER_PREFIX = "lb://";
+	private static final String LOAD_BALANCER_PREFIX = "lb://";
 
-    @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return s.startsWith(LOAD_BALANCER_PREFIX) || new UrlValidator().isValid(s);
-    }
+	@Override
+	public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
+		return s.startsWith(LOAD_BALANCER_PREFIX) || new UrlValidator().isValid(s);
+	}
+
 }

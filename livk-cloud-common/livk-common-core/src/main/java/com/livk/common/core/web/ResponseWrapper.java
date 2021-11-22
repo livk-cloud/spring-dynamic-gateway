@@ -29,75 +29,79 @@ import java.io.PrintWriter;
  * @date 2021/8/21
  */
 public class ResponseWrapper extends HttpServletResponseWrapper {
-    private final ByteArrayOutputStream buffer;
-    private final ServletOutputStream out;
-    private final PrintWriter writer;
 
-    public ResponseWrapper(HttpServletResponse response) throws IOException {
-        super(response);
-        buffer = new ByteArrayOutputStream();
-        out = new WrapperOutputStream(buffer);
-        writer = new PrintWriter(new OutputStreamWriter(buffer, this.getCharacterEncoding()));
-    }
+	private final ByteArrayOutputStream buffer;
 
-    @Override
-    public ServletOutputStream getOutputStream() {
-        return out;
-    }
+	private final ServletOutputStream out;
 
-    @Override
-    public PrintWriter getWriter() {
-        return writer;
-    }
+	private final PrintWriter writer;
 
-    @Override
-    public void flushBuffer() throws IOException {
-        if (out != null) {
-            out.flush();
-        }
-        if (writer != null) {
-            writer.flush();
-        }
-    }
+	public ResponseWrapper(HttpServletResponse response) throws IOException {
+		super(response);
+		buffer = new ByteArrayOutputStream();
+		out = new WrapperOutputStream(buffer);
+		writer = new PrintWriter(new OutputStreamWriter(buffer, this.getCharacterEncoding()));
+	}
 
-    @Override
-    public void reset() {
-        buffer.reset();
-    }
+	@Override
+	public ServletOutputStream getOutputStream() {
+		return out;
+	}
 
-    public byte[] getResponseData() throws IOException {
-        this.flushBuffer();
-        return buffer.toByteArray();
-    }
+	@Override
+	public PrintWriter getWriter() {
+		return writer;
+	}
 
-    private static class WrapperOutputStream extends ServletOutputStream {
+	@Override
+	public void flushBuffer() throws IOException {
+		if (out != null) {
+			out.flush();
+		}
+		if (writer != null) {
+			writer.flush();
+		}
+	}
 
-        private final ByteArrayOutputStream stream;
+	@Override
+	public void reset() {
+		buffer.reset();
+	}
 
-        public WrapperOutputStream(ByteArrayOutputStream stream) {
-            this.stream = stream;
-        }
+	public byte[] getResponseData() throws IOException {
+		this.flushBuffer();
+		return buffer.toByteArray();
+	}
 
-        @Override
-        public void write(int b) {
-            stream.write(b);
-        }
+	private static class WrapperOutputStream extends ServletOutputStream {
 
-        @Override
-        public void write(byte[] b) {
-            stream.write(b, 0, b.length);
-        }
+		private final ByteArrayOutputStream stream;
 
-        @SneakyThrows
-        @Override
-        public void setWriteListener(WriteListener writeListener) {
-            writeListener.onWritePossible();
-        }
+		public WrapperOutputStream(ByteArrayOutputStream stream) {
+			this.stream = stream;
+		}
 
-        @Override
-        public boolean isReady() {
-            return false;
-        }
-    }
+		@Override
+		public void write(int b) {
+			stream.write(b);
+		}
+
+		@Override
+		public void write(byte[] b) {
+			stream.write(b, 0, b.length);
+		}
+
+		@SneakyThrows
+		@Override
+		public void setWriteListener(WriteListener writeListener) {
+			writeListener.onWritePossible();
+		}
+
+		@Override
+		public boolean isReady() {
+			return false;
+		}
+
+	}
+
 }
-

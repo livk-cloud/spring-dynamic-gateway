@@ -15,7 +15,9 @@ import java.util.Map;
  */
 @Data
 public class Filter {
-    private String name;
 
-    private Map<String, String> args = new LinkedHashMap<>();
+	private String name;
+
+	private Map<String, String> args = new LinkedHashMap<>();
+
 }

@@ -15,11 +15,12 @@ import java.lang.annotation.*;
  * @author livk
  * @date 2021/11/9
  */
-@Target({ElementType.TYPE})
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
 @EnableOpenApi
-@Import({LivkGateWaySwaggerAutoConfiguration.class, LivkSwaggerAutoConfiguration.class})
+@Import({ LivkGateWaySwaggerAutoConfiguration.class, LivkSwaggerAutoConfiguration.class })
 public @interface EnableLivkOpenApi {
+
 }

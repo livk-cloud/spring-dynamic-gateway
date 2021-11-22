@@ -19,19 +19,20 @@ import org.springframework.lang.Nullable;
 @Slf4j
 public class LivkRemoteListener implements ApplicationListener<LivkRemoteApplicationEvent>, ApplicationContextAware {
 
-    private ApplicationContext applicationContext;
+	private ApplicationContext applicationContext;
 
-    @Override
-    public void onApplicationEvent(@Nullable LivkRemoteApplicationEvent event) {
-        log.info("event:{} Listener", event);
-        var remoteHandlerMap = applicationContext.getBeansOfType(LivkRemoteHandler.class);
-        remoteHandlerMap.values().stream().sorted(OrderComparator.INSTANCE)
-                .peek(livkRemoteHandler -> log.info("handler:{}", livkRemoteHandler))
-                .forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
-    }
+	@Override
+	public void onApplicationEvent(@Nullable LivkRemoteApplicationEvent event) {
+		log.info("event:{} Listener", event);
+		var remoteHandlerMap = applicationContext.getBeansOfType(LivkRemoteHandler.class);
+		remoteHandlerMap.values().stream().sorted(OrderComparator.INSTANCE)
+				.peek(livkRemoteHandler -> log.info("handler:{}", livkRemoteHandler))
+				.forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
+	}
 
-    @Override
-    public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+	@Override
+	public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
+
 }

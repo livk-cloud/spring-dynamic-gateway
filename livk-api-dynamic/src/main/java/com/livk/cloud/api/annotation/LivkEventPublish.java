@@ -10,9 +10,11 @@ import java.lang.annotation.*;
  * @author livk
  * @date 2021/11/15
  */
-@Target({ElementType.METHOD})
+@Target({ ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface LivkEventPublish {
-    String value();
+
+	String value();
+
 }

@@ -17,8 +17,9 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class LivkLogAutoConfiguration {
 
-    @Bean
-    public LogAspect logAspect() {
-        return new LogAspect();
-    }
+	@Bean
+	public LogAspect logAspect() {
+		return new LogAspect();
+	}
+
 }

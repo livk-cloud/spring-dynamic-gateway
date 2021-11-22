@@ -31,30 +31,29 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @AutoConfigureBefore(RedisAutoConfiguration.class)
 public class LivkRedisAutoConfiguration {
 
-    @Bean
-    public LivkRedisTemplate livkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        return new LivkRedisTemplate(redisConnectionFactory);
-    }
+	@Bean
+	public LivkRedisTemplate livkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+		return new LivkRedisTemplate(redisConnectionFactory);
+	}
 
-    @Bean
-    public RedisService redisService(LivkRedisTemplate redisTemplate) {
-        return new RedisServiceImpl(redisTemplate);
-    }
+	@Bean
+	public RedisService redisService(LivkRedisTemplate redisTemplate) {
+		return new RedisServiceImpl(redisTemplate);
+	}
 
-    @Bean
-    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
-        var redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
-        var serializer = new Jackson2JsonRedisSerializer<>(Object.class);
-        var mapper = new ObjectMapper();
-        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        serializer.setObjectMapper(mapper);
-        redisCacheConfiguration = redisCacheConfiguration
-                .disableCachingNullValues()
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer));
-        return RedisCacheManager.builder(RedisCacheWriter
-                        .nonLockingRedisCacheWriter(redisConnectionFactory))
-                .cacheDefaults(redisCacheConfiguration).build();
-    }
+	@Bean
+	public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+		var redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
+		var serializer = new Jackson2JsonRedisSerializer<>(Object.class);
+		var mapper = new ObjectMapper();
+		mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+		serializer.setObjectMapper(mapper);
+		redisCacheConfiguration = redisCacheConfiguration.disableCachingNullValues()
+				.serializeKeysWith(
+						RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+				.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer));
+		return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
+				.cacheDefaults(redisCacheConfiguration).build();
+	}
+
 }
-

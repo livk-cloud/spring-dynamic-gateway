@@ -19,32 +19,34 @@ import java.io.PrintWriter;
  */
 @UtilityClass
 public class ResponseUtil {
-    public HttpServletResponse getResponse() {
-        var requestAttributes = RequestContextHolder.getRequestAttributes();
-        var servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-        assert servletRequestAttributes != null;
-        return servletRequestAttributes.getResponse();
-    }
 
-    public void out(String message) {
-        var response = ResponseUtil.getResponse();
-        assert response != null;
-        ResponseUtil.out(response, message);
-    }
+	public HttpServletResponse getResponse() {
+		var requestAttributes = RequestContextHolder.getRequestAttributes();
+		var servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+		assert servletRequestAttributes != null;
+		return servletRequestAttributes.getResponse();
+	}
 
-    /**
-     * 根据response写入返回值
-     *
-     * @param response response
-     * @param message  写入的信息
-     */
-    public void out(HttpServletResponse response, String message) {
-        var r = R.error(message);
-        try (PrintWriter out = response.getWriter()) {
-            out.print(JacksonUtil.toJson(r));
-            out.flush();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-    }
+	public void out(String message) {
+		var response = ResponseUtil.getResponse();
+		assert response != null;
+		ResponseUtil.out(response, message);
+	}
+
+	/**
+	 * 根据response写入返回值
+	 * @param response response
+	 * @param message 写入的信息
+	 */
+	public void out(HttpServletResponse response, String message) {
+		var r = R.error(message);
+		try (PrintWriter out = response.getWriter()) {
+			out.print(JacksonUtil.toJson(r));
+			out.flush();
+		}
+		catch (IOException exception) {
+			exception.printStackTrace();
+		}
+	}
+
 }

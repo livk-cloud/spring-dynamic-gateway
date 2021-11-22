@@ -29,45 +29,44 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
 
-    @Override
-    public int getOrder() {
-        return -2;
-    }
+	@Override
+	public int getOrder() {
+		return -2;
+	}
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        var originalResponse = exchange.getResponse();
-        var bufferFactory = originalResponse.bufferFactory();
-        URI uri = exchange.getRequest().getURI();
-        if (!uri.getPath().endsWith(GatewaySwaggerResourcesProvider.SWAGGER2URL) &&
-            !uri.getPath().endsWith(GatewaySwaggerResourcesProvider.SWAGGER3URL)) {
-            return chain.filter(exchange);
-        }
-        var decoratedResponse =
-                new ServerHttpResponseDecorator(originalResponse) {
-                    @NonNull
-                    @Override
-                    public Mono<Void> writeWith(@NonNull Publisher<? extends DataBuffer> body) {
-                        if (body instanceof Flux) {
-                            var fluxBody = (Flux<? extends DataBuffer>) body;
-                            return super.writeWith(
-                                    fluxBody.map(dataBuffer -> {
-                                        // probably should reuse buffers
-                                        var content = new byte[dataBuffer.readableByteCount()];
-                                        dataBuffer.read(content);
-                                        // 释放掉内存
-                                        DataBufferUtils.release(dataBuffer);
-                                        var result = new String(content, StandardCharsets.UTF_8);
-                                        result = SysUtil.packageResult(result);
-                                        var uppedContent = result.getBytes();
-                                        return bufferFactory.wrap(uppedContent);
-                                    }));
-                        }
-                        return super.writeWith(body);
-                    }
-                };
-        // replace response with decorator
-        return chain.filter(exchange.mutate().response(decoratedResponse).build());
-    }
+	@SuppressWarnings("unchecked")
+	@Override
+	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+		var originalResponse = exchange.getResponse();
+		var bufferFactory = originalResponse.bufferFactory();
+		URI uri = exchange.getRequest().getURI();
+		if (!uri.getPath().endsWith(GatewaySwaggerResourcesProvider.SWAGGER2URL)
+				&& !uri.getPath().endsWith(GatewaySwaggerResourcesProvider.SWAGGER3URL)) {
+			return chain.filter(exchange);
+		}
+		var decoratedResponse = new ServerHttpResponseDecorator(originalResponse) {
+			@NonNull
+			@Override
+			public Mono<Void> writeWith(@NonNull Publisher<? extends DataBuffer> body) {
+				if (body instanceof Flux) {
+					var fluxBody = (Flux<? extends DataBuffer>) body;
+					return super.writeWith(fluxBody.map(dataBuffer -> {
+						// probably should reuse buffers
+						var content = new byte[dataBuffer.readableByteCount()];
+						dataBuffer.read(content);
+						// 释放掉内存
+						DataBufferUtils.release(dataBuffer);
+						var result = new String(content, StandardCharsets.UTF_8);
+						result = SysUtil.packageResult(result);
+						var uppedContent = result.getBytes();
+						return bufferFactory.wrap(uppedContent);
+					}));
+				}
+				return super.writeWith(body);
+			}
+		};
+		// replace response with decorator
+		return chain.filter(exchange.mutate().response(decoratedResponse).build());
+	}
+
 }

@@ -15,7 +15,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableLivkOpenApi
 @SpringBootApplication
 public class LivkGateWay {
-    public static void main(String[] args) {
-        LivkSpring.run(LivkGateWay.class, args);
-    }
+
+	public static void main(String[] args) {
+		LivkSpring.run(LivkGateWay.class, args);
+	}
+
 }

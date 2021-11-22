@@ -18,5 +18,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class RedisServiceImpl implements RedisService {
 
-    private final LivkRedisTemplate livkRedisTemplate;
+	private final LivkRedisTemplate livkRedisTemplate;
+
 }

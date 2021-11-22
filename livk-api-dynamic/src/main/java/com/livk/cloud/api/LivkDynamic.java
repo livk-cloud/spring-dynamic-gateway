@@ -15,7 +15,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableLivkOpenApi
 @SpringBootApplication
 public class LivkDynamic {
-    public static void main(String[] args) {
-        LivkSpring.run(LivkDynamic.class, args);
-    }
+
+	public static void main(String[] args) {
+		LivkSpring.run(LivkDynamic.class, args);
+	}
+
 }

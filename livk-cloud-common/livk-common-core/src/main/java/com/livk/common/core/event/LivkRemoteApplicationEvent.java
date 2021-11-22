@@ -13,18 +13,19 @@ import org.springframework.cloud.bus.event.RemoteApplicationEvent;
  */
 public class LivkRemoteApplicationEvent extends RemoteApplicationEvent {
 
-    public LivkRemoteApplicationEvent() {
-        super();
-    }
+	public LivkRemoteApplicationEvent() {
+		super();
+	}
 
-    public LivkRemoteApplicationEvent(String originService, Destination destination) {
-        this("livk", originService, destination);
-    }
+	public LivkRemoteApplicationEvent(String originService, Destination destination) {
+		this("livk", originService, destination);
+	}
 
-    /**
-     * {@link org.springframework.cloud.bus.event.RemoteApplicationEvent#RemoteApplicationEvent(Object, String, String)}
-     */
-    public LivkRemoteApplicationEvent(Object source, String originService, Destination destination) {
-        super(source, originService, destination);
-    }
+	/**
+	 * {@link org.springframework.cloud.bus.event.RemoteApplicationEvent#RemoteApplicationEvent(Object, String, String)}
+	 */
+	public LivkRemoteApplicationEvent(Object source, String originService, Destination destination) {
+		super(source, originService, destination);
+	}
+
 }

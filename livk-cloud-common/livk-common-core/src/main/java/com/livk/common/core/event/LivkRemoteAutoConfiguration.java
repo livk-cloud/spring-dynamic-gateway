@@ -21,8 +21,9 @@ import org.springframework.context.annotation.Configuration;
 @RemoteApplicationEventScan(basePackageClasses = LivkRemoteApplicationEvent.class)
 public class LivkRemoteAutoConfiguration {
 
-    @Bean
-    public LivkRemoteListener livkRemoteListener() {
-        return new LivkRemoteListener();
-    }
+	@Bean
+	public LivkRemoteListener livkRemoteListener() {
+		return new LivkRemoteListener();
+	}
+
 }
