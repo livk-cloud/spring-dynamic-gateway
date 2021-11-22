@@ -18,6 +18,7 @@
         <module>livk-common-redis</module>
         <module>livk-common-gateway</module>
         <module>livk-common-swagger</module>
+        <module>livk-common-bus</module>
     </modules>
 
     <properties>

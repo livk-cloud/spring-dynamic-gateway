@@ -89,6 +89,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.livk.cloud</groupId>
+            <artifactId>livk-common-bus</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
         </dependency>

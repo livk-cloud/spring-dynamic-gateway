@@ -3,7 +3,6 @@ package com.livk.common.swagger.annotation;
 import com.livk.common.swagger.LivkGateWaySwaggerAutoConfiguration;
 import com.livk.common.swagger.LivkSwaggerAutoConfiguration;
 import org.springframework.context.annotation.Import;
-import springfox.documentation.oas.annotations.EnableOpenApi;
 
 import java.lang.annotation.*;
 
@@ -19,7 +18,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@EnableOpenApi
 @Import({ LivkGateWaySwaggerAutoConfiguration.class, LivkSwaggerAutoConfiguration.class })
 public @interface EnableLivkOpenApi {
 

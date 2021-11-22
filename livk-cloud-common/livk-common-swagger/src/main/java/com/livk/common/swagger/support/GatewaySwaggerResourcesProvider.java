@@ -3,7 +3,6 @@ package com.livk.common.swagger.support;
 import com.livk.common.swagger.config.SwaggerProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
@@ -23,7 +22,7 @@ import java.util.function.Supplier;
  * @date 2021/11/9
  */
 @Slf4j
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class GatewaySwaggerResourcesProvider implements SwaggerResourcesProvider {
 
 	/**

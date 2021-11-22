@@ -1,7 +1,7 @@
 package com.livk.cloud.api.handler;
 
-import com.livk.cloud.api.annotation.LivkEventPublish;
 import com.livk.cloud.api.domain.RedisRoute;
+import com.livk.common.bus.annotation.LivkEventPublish;
 import com.livk.common.core.util.JacksonUtil;
 import com.livk.common.redis.support.LivkRedisTemplate;
 import lombok.RequiredArgsConstructor;

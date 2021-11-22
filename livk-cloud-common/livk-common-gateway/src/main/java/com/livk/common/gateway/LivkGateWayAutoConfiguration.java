@@ -1,7 +1,7 @@
 package com.livk.common.gateway;
 
-import com.livk.common.core.event.LivkRemoteAutoConfiguration;
-import com.livk.common.core.event.LivkRemoteListener;
+import com.livk.common.bus.LivkBusAutoConfiguration;
+import com.livk.common.bus.listener.LivkRemoteListener;
 import com.livk.common.gateway.support.RedisRouteDefinitionWriter;
 import com.livk.common.gateway.support.RedisRouteHealthIndicator;
 import com.livk.common.gateway.support.RouteHandler;
@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2021/11/3
  */
 @Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter({ LivkRedisAutoConfiguration.class, LivkRemoteAutoConfiguration.class })
+@AutoConfigureAfter({ LivkRedisAutoConfiguration.class, LivkBusAutoConfiguration.class })
 @AutoConfigureBefore(GatewayAutoConfiguration.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class LivkGateWayAutoConfiguration {

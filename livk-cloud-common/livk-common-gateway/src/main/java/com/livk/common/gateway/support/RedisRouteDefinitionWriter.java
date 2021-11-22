@@ -5,7 +5,6 @@ import com.livk.common.gateway.domain.LivkRoute;
 import com.livk.common.redis.support.LivkRedisTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.util.ObjectUtils;
@@ -21,7 +20,7 @@ import reactor.core.publisher.Mono;
  * @date 2021/11/2
  */
 @Slf4j
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
 
 	private final LivkRedisTemplate livkRedisTemplate;

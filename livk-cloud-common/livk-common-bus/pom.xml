@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>livk-common-gateway</artifactId>
+    <artifactId>livk-common-bus</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -17,10 +17,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.livk.cloud</groupId>
-            <artifactId>livk-common-redis</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.livk.cloud</groupId>
@@ -29,12 +25,12 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-gateway-server</artifactId>
+            <artifactId>spring-cloud-bus</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.livk.cloud</groupId>
-            <artifactId>livk-common-bus</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
     </dependencies>
 </project>
