@@ -28,6 +28,7 @@
         <mapstruct-lombok.version>0.2.0</mapstruct-lombok.version>
         <commons-validator.version>1.7</commons-validator.version>
         <livk-common.version>0.0.1</livk-common.version>
+        <spring.checkstyle.version>0.0.29</spring.checkstyle.version>
     </properties>
 
     <dependencies>
@@ -132,6 +133,14 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>${spring.checkstyle.version}</version>
+            </plugin>
+        </plugins>
     </build>
 
     <profiles>
