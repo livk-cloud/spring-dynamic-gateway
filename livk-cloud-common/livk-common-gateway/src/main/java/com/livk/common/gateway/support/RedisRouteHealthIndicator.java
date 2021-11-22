@@ -3,7 +3,6 @@ package com.livk.common.gateway.support;
 import com.livk.common.redis.support.LivkRedisTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 
@@ -16,7 +15,7 @@ import org.springframework.boot.actuate.health.Health;
  * @date 2021/11/3
  */
 @Slf4j
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class RedisRouteHealthIndicator extends AbstractHealthIndicator {
 
 	private final LivkRedisTemplate livkRedisTemplate;

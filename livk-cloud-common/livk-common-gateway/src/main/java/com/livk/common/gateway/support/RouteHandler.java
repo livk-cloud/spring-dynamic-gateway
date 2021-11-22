@@ -1,7 +1,7 @@
 package com.livk.common.gateway.support;
 
-import com.livk.common.core.event.LivkRemoteApplicationEvent;
-import com.livk.common.core.event.LivkRemoteHandler;
+import com.livk.common.bus.event.LivkRemoteEvent;
+import com.livk.common.bus.handler.LivkRemoteHandler;
 import com.livk.common.core.support.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
@@ -17,10 +17,10 @@ import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 @Slf4j
 public class RouteHandler implements LivkRemoteHandler {
 
-	@Override
-	public void remoteHandler(LivkRemoteApplicationEvent livkRemoteApplicationEvent) {
-		SpringContextHolder.publishEvent(new RefreshRoutesEvent(this));
-		log.info("Spring Gateway RefreshRoutesEvent publish!");
-	}
+    @Override
+    public void remoteHandler(LivkRemoteEvent livkRemoteEvent) {
+        SpringContextHolder.publishEvent(new RefreshRoutesEvent(this));
+        log.info("Spring Gateway RefreshRoutesEvent publish!");
+    }
 
 }
