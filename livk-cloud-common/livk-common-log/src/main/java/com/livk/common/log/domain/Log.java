@@ -15,13 +15,15 @@ import java.util.Map;
  */
 @Data
 public class Log {
-    private String method;
 
-    private Map<String, Object> params;
+	private String method;
 
-    private Object result;
+	private Map<String, Object> params;
 
-    private InetAddress ip;
+	private Object result;
 
-    private Long runtime;
+	private InetAddress ip;
+
+	private Long runtime;
+
 }

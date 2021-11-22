@@ -18,21 +18,22 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 public class LivkRedisTemplate extends RedisTemplate<String, Object> {
 
-    public LivkRedisTemplate() {
-        var serializer = new Jackson2JsonRedisSerializer<>(Object.class);
-        var mapper = new ObjectMapper();
-        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        serializer.setObjectMapper(mapper);
-        var stringRedisSerializer = new StringRedisSerializer();
-        this.setKeySerializer(stringRedisSerializer);
-        this.setHashKeySerializer(stringRedisSerializer);
-        this.setValueSerializer(serializer);
-        this.setHashValueSerializer(serializer);
-    }
+	public LivkRedisTemplate() {
+		var serializer = new Jackson2JsonRedisSerializer<>(Object.class);
+		var mapper = new ObjectMapper();
+		mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+		serializer.setObjectMapper(mapper);
+		var stringRedisSerializer = new StringRedisSerializer();
+		this.setKeySerializer(stringRedisSerializer);
+		this.setHashKeySerializer(stringRedisSerializer);
+		this.setValueSerializer(serializer);
+		this.setHashValueSerializer(serializer);
+	}
 
-    public LivkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        this();
-        this.setConnectionFactory(redisConnectionFactory);
-        this.afterPropertiesSet();
-    }
+	public LivkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+		this();
+		this.setConnectionFactory(redisConnectionFactory);
+		this.afterPropertiesSet();
+	}
+
 }

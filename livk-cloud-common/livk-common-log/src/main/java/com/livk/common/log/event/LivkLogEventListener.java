@@ -20,25 +20,26 @@ import java.util.concurrent.*;
 @Slf4j
 public class LivkLogEventListener implements ApplicationListener<LivkLogEvent> {
 
-    private static final ExecutorService executor = new ThreadPoolExecutor(20, 100,
-            60L, TimeUnit.SECONDS,
-            new ArrayBlockingQueue<>(10),
-            r -> new Thread(null, r, "Livk-log-Thread-", 0, false));
+	private static final ExecutorService executor = new ThreadPoolExecutor(20, 100, 60L, TimeUnit.SECONDS,
+			new ArrayBlockingQueue<>(10), r -> new Thread(null, r, "Livk-log-Thread-", 0, false));
 
-    @Override
-    public void onApplicationEvent(@Nullable LivkLogEvent event) {
-        executor.execute(new LogThread(event, log));
-    }
+	@Override
+	public void onApplicationEvent(@Nullable LivkLogEvent event) {
+		executor.execute(new LogThread(event, log));
+	}
+
 }
 
 @RequiredArgsConstructor
 class LogThread implements Runnable {
 
-    private final LivkLogEvent event;
-    private final Logger log;
+	private final LivkLogEvent event;
 
-    @Override
-    public void run() {
-        log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtil.toJson(event.getSource()));
-    }
+	private final Logger log;
+
+	@Override
+	public void run() {
+		log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtil.toJson(event.getSource()));
+	}
+
 }

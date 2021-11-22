@@ -20,60 +20,59 @@ import java.util.function.Function;
  * @date 2021/9/11
  */
 public class LivkBanner implements Banner {
-    private LivkBanner() {
-    }
 
-    private static final String[] banner = {
-            """
-                 ██       ██          ██         ██████   ██                       ██
-                ░██      ░░          ░██        ██░░░░██ ░██                      ░██
-                ░██       ██ ██    ██░██  ██   ██    ░░  ░██  ██████  ██   ██     ░██
-                ░██      ░██░██   ░██░██ ██   ░██        ░██ ██░░░░██░██  ░██  ██████
-                ░██      ░██░░██ ░██ ░████    ░██        ░██░██   ░██░██  ░██ ██░░░██
-                ░██      ░██ ░░████  ░██░██   ░░██    ██ ░██░██   ░██░██  ░██░██  ░██
-                ░████████░██  ░░██   ░██░░██   ░░██████  ███░░██████ ░░██████░░██████
-                ░░░░░░░░ ░░    ░░    ░░  ░░     ░░░░░░  ░░░  ░░░░░░   ░░░░░░  ░░░░░░\s
-                """
-    };
+	private LivkBanner() {
+	}
 
-    @Override
-    public void printBanner(Environment environment, Class<?> sourceClass, PrintStream out) {
-        for (var line : banner) {
-            out.println(line);
-        }
-        Format format = Format.create(out);
-        format.accept("Spring Boot Version:" + SpringBootVersion.getVersion());
-        format.accept("Current time：" + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(LocalDateTime.now()));
-        format.accept("Current JDK Version：" + System.getProperty("java.version"));
-        format.accept("Operating System：" + System.getProperty("os.name"));
-        out.flush();
-    }
+	private static final String[] banner = { """
+			 ██       ██          ██         ██████   ██                       ██
+			░██      ░░          ░██        ██░░░░██ ░██                      ░██
+			░██       ██ ██    ██░██  ██   ██    ░░  ░██  ██████  ██   ██     ░██
+			░██      ░██░██   ░██░██ ██   ░██        ░██ ██░░░░██░██  ░██  ██████
+			░██      ░██░░██ ░██ ░████    ░██        ░██░██   ░██░██  ░██ ██░░░██
+			░██      ░██ ░░████  ░██░██   ░░██    ██ ░██░██   ░██░██  ░██░██  ░██
+			░████████░██  ░░██   ░██░░██   ░░██████  ███░░██████ ░░██████░░██████
+			░░░░░░░░ ░░    ░░    ░░  ░░     ░░░░░░  ░░░  ░░░░░░   ░░░░░░  ░░░░░░\s
+			""" };
 
-    public static LivkBanner create() {
-        return new LivkBanner();
-    }
+	@Override
+	public void printBanner(Environment environment, Class<?> sourceClass, PrintStream out) {
+		for (var line : banner) {
+			out.println(line);
+		}
+		Format format = Format.create(out);
+		format.accept("Spring Boot Version:" + SpringBootVersion.getVersion());
+		format.accept("Current time：" + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(LocalDateTime.now()));
+		format.accept("Current JDK Version：" + System.getProperty("java.version"));
+		format.accept("Operating System：" + System.getProperty("os.name"));
+		out.flush();
+	}
 
-    private static record Format(int n, PrintStream out,
-                                 char ch) implements Function<String, String>, Consumer<String> {
-        @Override
-        public String apply(String str) {
-            int length = str.length();
-            if (length >= n) {
-                return str;
-            }
-            int index = (n - length) >> 1;
-            str = StringUtils.leftPad(str, length + index, ch);
-            return StringUtils.rightPad(str, n, ch);
-        }
+	public static LivkBanner create() {
+		return new LivkBanner();
+	}
 
-        @Override
-        public void accept(String s) {
-            out.println(this.apply(s));
-        }
+	private static record Format(int n, PrintStream out,
+			char ch) implements Function<String, String>, Consumer<String> {
+		@Override
+		public String apply(String str) {
+			int length = str.length();
+			if (length >= n) {
+				return str;
+			}
+			int index = (n - length) >> 1;
+			str = StringUtils.leftPad(str, length + index, ch);
+			return StringUtils.rightPad(str, n, ch);
+		}
 
-        public static Format create(PrintStream out) {
-            return new Format(70, out, '*');
-        }
-    }
+		@Override
+		public void accept(String s) {
+			out.println(this.apply(s));
+		}
+
+		public static Format create(PrintStream out) {
+			return new Format(70, out, '*');
+		}
+	}
+
 }
-

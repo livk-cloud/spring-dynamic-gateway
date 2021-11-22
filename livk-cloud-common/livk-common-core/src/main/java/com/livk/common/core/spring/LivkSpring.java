@@ -21,21 +21,22 @@ import java.util.Optional;
 @Slf4j
 @UtilityClass
 public class LivkSpring {
-    private static final String HTTP = "IP Address: http";
 
-    @SneakyThrows
-    public <T> ConfigurableApplicationContext run(Class<T> targetClass, String[] args) {
-        var context = new SpringApplicationBuilder(targetClass)
-                .banner(LivkBanner.create())
-                .bannerMode(Banner.Mode.CONSOLE)
-                .run(args);
-        new Thread(() -> print(context), InetAddress.getLocalHost().getHostAddress()).start();
-        return context;
-    }
+	private static final String HTTP = "IP Address: http";
 
-    @SneakyThrows
-    private void print(ConfigurableApplicationContext context) {
-        var port = context.getEnvironment().getProperty("server.port");
-        log.info(HTTP.concat("://{}:{}"), InetAddress.getLocalHost().getHostAddress(), Optional.ofNullable(port).orElse("8080"));
-    }
+	@SneakyThrows
+	public <T> ConfigurableApplicationContext run(Class<T> targetClass, String[] args) {
+		var context = new SpringApplicationBuilder(targetClass).banner(LivkBanner.create())
+				.bannerMode(Banner.Mode.CONSOLE).run(args);
+		new Thread(() -> print(context), InetAddress.getLocalHost().getHostAddress()).start();
+		return context;
+	}
+
+	@SneakyThrows
+	private void print(ConfigurableApplicationContext context) {
+		var port = context.getEnvironment().getProperty("server.port");
+		log.info(HTTP.concat("://{}:{}"), InetAddress.getLocalHost().getHostAddress(),
+				Optional.ofNullable(port).orElse("8080"));
+	}
+
 }

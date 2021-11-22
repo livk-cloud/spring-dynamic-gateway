@@ -32,26 +32,27 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class InitializationRoute implements ApplicationRunner {
 
-    private final DynamicRouteService dynamicRouteService;
+	private final DynamicRouteService dynamicRouteService;
 
-    @Value("classpath:sql/initData.json")
-    private Resource initData;
+	@Value("classpath:sql/initData.json")
+	private Resource initData;
 
-    private final Environment env;
+	private final Environment env;
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        String serviceName = env.getProperty("spring.application.name");
-        DynamicRoute dynamicRoute = dynamicRouteService.getOne(Wrappers.lambdaQuery(DynamicRoute.class)
-                .eq(DynamicRoute::getUri, "lb://" + serviceName));
-        if (dynamicRoute == null) {
-            RedisRoute redisRoute = JacksonUtil.toBean(initData.getInputStream(), RedisRoute.class);
-            redisRoute.setId(serviceName);
-            redisRoute.setUri("lb://" + serviceName);
-            redisRoute.setDescription("this is " + serviceName + " route!");
-            dynamicRoute = DynamicRouteConverter.INSTANCE.getTarget(redisRoute);
-            dynamicRouteService.saveOrUpdate(dynamicRoute);
-        }
-        log.info("Route Info init is :{}", dynamicRouteService.reload());
-    }
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		String serviceName = env.getProperty("spring.application.name");
+		DynamicRoute dynamicRoute = dynamicRouteService
+				.getOne(Wrappers.lambdaQuery(DynamicRoute.class).eq(DynamicRoute::getUri, "lb://" + serviceName));
+		if (dynamicRoute == null) {
+			RedisRoute redisRoute = JacksonUtil.toBean(initData.getInputStream(), RedisRoute.class);
+			redisRoute.setId(serviceName);
+			redisRoute.setUri("lb://" + serviceName);
+			redisRoute.setDescription("this is " + serviceName + " route!");
+			dynamicRoute = DynamicRouteConverter.INSTANCE.getTarget(redisRoute);
+			dynamicRouteService.saveOrUpdate(dynamicRoute);
+		}
+		log.info("Route Info init is :{}", dynamicRouteService.reload());
+	}
+
 }

@@ -17,14 +17,16 @@ import java.util.List;
  */
 public class RoutePredicateValidator implements ConstraintValidator<RoutePredicate, List<Predicate>> {
 
-    private static final String PATTERN = "pattern";
+	private static final String PATTERN = "pattern";
 
-    private static final String GENERATED_NAME_PREFIX = "_genkey_";
+	private static final String GENERATED_NAME_PREFIX = "_genkey_";
 
-    @Override
-    public boolean isValid(List<Predicate> predicates, ConstraintValidatorContext constraintValidatorContext) {
-        return predicates.stream().map(predicate -> predicate.getArgs().get(PATTERN) != null ||
-                                                    predicate.getArgs().get(GENERATED_NAME_PREFIX + "0") != null)
-                       .distinct().filter(bool -> bool).count() == 1;
-    }
+	@Override
+	public boolean isValid(List<Predicate> predicates, ConstraintValidatorContext constraintValidatorContext) {
+		return predicates.stream()
+				.map(predicate -> predicate.getArgs().get(PATTERN) != null
+						|| predicate.getArgs().get(GENERATED_NAME_PREFIX + "0") != null)
+				.distinct().filter(bool -> bool).count() == 1;
+	}
+
 }

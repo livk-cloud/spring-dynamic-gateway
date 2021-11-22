@@ -12,11 +12,13 @@ import java.util.stream.Stream;
  * @date 2021/11/4
  */
 public interface BaseConverter<S, T> {
-    S getSource(T t);
 
-    T getTarget(S s);
+	S getSource(T t);
 
-    Stream<S> streamSource(Collection<T> ts);
+	T getTarget(S s);
 
-    Stream<T> streamTarget(Collection<S> s);
+	Stream<S> streamSource(Collection<T> ts);
+
+	Stream<T> streamTarget(Collection<S> s);
+
 }

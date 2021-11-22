@@ -24,16 +24,16 @@ import org.springframework.context.annotation.Primary;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class LivkGateWaySwaggerAutoConfiguration {
 
-    @Bean
-    @Primary
-    public GatewaySwaggerResourcesProvider gatewaySwaggerResourcesProvider(SwaggerProperties swaggerProperties,
-                                                                           DiscoveryClient discoveryClient,
-                                                                           RouteDefinitionRepository routeDefinitionRepository) {
-        return new GatewaySwaggerResourcesProvider(routeDefinitionRepository, discoveryClient, swaggerProperties);
-    }
+	@Bean
+	@Primary
+	public GatewaySwaggerResourcesProvider gatewaySwaggerResourcesProvider(SwaggerProperties swaggerProperties,
+			DiscoveryClient discoveryClient, RouteDefinitionRepository routeDefinitionRepository) {
+		return new GatewaySwaggerResourcesProvider(routeDefinitionRepository, discoveryClient, swaggerProperties);
+	}
 
-    @Bean
-    public WebFluxSwaggerConfig webFluxSwaggerConfig() {
-        return new WebFluxSwaggerConfig();
-    }
+	@Bean
+	public WebFluxSwaggerConfig webFluxSwaggerConfig() {
+		return new WebFluxSwaggerConfig();
+	}
+
 }

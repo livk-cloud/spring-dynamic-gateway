@@ -19,36 +19,38 @@ import java.util.Map;
  */
 @UtilityClass
 public class RequestUtil {
-    public HttpServletRequest getRequest() {
-        var requestAttributes = RequestContextHolder.getRequestAttributes();
-        var servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-        assert servletRequestAttributes != null;
-        return servletRequestAttributes.getRequest();
-    }
 
-    public HttpSession getSession() {
-        return RequestUtil.getRequest().getSession();
-    }
+	public HttpServletRequest getRequest() {
+		var requestAttributes = RequestContextHolder.getRequestAttributes();
+		var servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+		assert servletRequestAttributes != null;
+		return servletRequestAttributes.getRequest();
+	}
 
-    public String getParameter(String name) {
-        return RequestUtil.getRequest().getParameter(name);
-    }
+	public HttpSession getSession() {
+		return RequestUtil.getRequest().getSession();
+	}
 
-    public String getHeader(String headerName) {
-        return RequestUtil.getRequest().getHeader(headerName);
-    }
+	public String getParameter(String name) {
+		return RequestUtil.getRequest().getParameter(name);
+	}
 
-    public Map<String, String> getHeaders() {
-        var request = RequestUtil.getRequest();
-        var map = new LinkedHashMap<String, String>();
-        var enumeration = request.getHeaderNames();
-        if (enumeration != null) {
-            while (enumeration.hasMoreElements()) {
-                var key = enumeration.nextElement();
-                var value = request.getHeader(key);
-                map.put(key, value);
-            }
-        }
-        return map;
-    }
+	public String getHeader(String headerName) {
+		return RequestUtil.getRequest().getHeader(headerName);
+	}
+
+	public Map<String, String> getHeaders() {
+		var request = RequestUtil.getRequest();
+		var map = new LinkedHashMap<String, String>();
+		var enumeration = request.getHeaderNames();
+		if (enumeration != null) {
+			while (enumeration.hasMoreElements()) {
+				var key = enumeration.nextElement();
+				var value = request.getHeader(key);
+				map.put(key, value);
+			}
+		}
+		return map;
+	}
+
 }

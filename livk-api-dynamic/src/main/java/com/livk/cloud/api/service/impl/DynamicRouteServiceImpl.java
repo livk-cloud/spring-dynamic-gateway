@@ -24,38 +24,40 @@ import java.util.stream.Stream;
  */
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, DynamicRoute> implements DynamicRouteService {
+public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, DynamicRoute>
+		implements DynamicRouteService {
 
-    private final RedisRouteHandler redisRouteHandler;
+	private final RedisRouteHandler redisRouteHandler;
 
-    @Override
-    public Boolean saveOrUpdate(RedisRoute redisRoute) {
-        redisRouteHandler.push(redisRoute);
-        DynamicRoute dynamicRoute = DynamicRouteConverter.INSTANCE.getTarget(redisRoute);
-        return this.saveOrUpdate(dynamicRoute);
-    }
+	@Override
+	public Boolean saveOrUpdate(RedisRoute redisRoute) {
+		redisRouteHandler.push(redisRoute);
+		DynamicRoute dynamicRoute = DynamicRouteConverter.INSTANCE.getTarget(redisRoute);
+		return this.saveOrUpdate(dynamicRoute);
+	}
 
-    @Override
-    public Boolean delete(String routeId) {
-        redisRouteHandler.delete(routeId);
-        return this.removeById(routeId);
-    }
+	@Override
+	public Boolean delete(String routeId) {
+		redisRouteHandler.delete(routeId);
+		return this.removeById(routeId);
+	}
 
-    @Override
-    public RedisRoute getById(String routeId) {
-        return redisRouteHandler.getByRouteId(routeId);
-    }
+	@Override
+	public RedisRoute getById(String routeId) {
+		return redisRouteHandler.getByRouteId(routeId);
+	}
 
-    @Override
-    public List<RedisRoute> selectList() {
-        return redisRouteHandler.list();
-    }
+	@Override
+	public List<RedisRoute> selectList() {
+		return redisRouteHandler.list();
+	}
 
-    @Override
-    public Boolean reload() {
-        List<DynamicRoute> dynamicRouteList = this.list();
-        Stream<RedisRoute> redisRouteStream = DynamicRouteConverter.INSTANCE.streamSource(dynamicRouteList);
-        redisRouteHandler.reload(redisRouteStream.toList());
-        return true;
-    }
+	@Override
+	public Boolean reload() {
+		List<DynamicRoute> dynamicRouteList = this.list();
+		Stream<RedisRoute> redisRouteStream = DynamicRouteConverter.INSTANCE.streamSource(dynamicRouteList);
+		redisRouteHandler.reload(redisRouteStream.toList());
+		return true;
+	}
+
 }

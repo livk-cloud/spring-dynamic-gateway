@@ -14,10 +14,11 @@ import org.springframework.context.ApplicationEvent;
 @Getter
 public class LivkLogEvent extends ApplicationEvent {
 
-    private final String serviceName;
+	private final String serviceName;
 
-    public LivkLogEvent(Object source, String serviceName) {
-        super(source);
-        this.serviceName = serviceName;
-    }
+	public LivkLogEvent(Object source, String serviceName) {
+		super(source);
+		this.serviceName = serviceName;
+	}
+
 }

@@ -24,26 +24,27 @@ import org.springframework.context.annotation.Configuration;
  * @date 2021/11/3
  */
 @Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter({LivkRedisAutoConfiguration.class, LivkRemoteAutoConfiguration.class})
+@AutoConfigureAfter({ LivkRedisAutoConfiguration.class, LivkRemoteAutoConfiguration.class })
 @AutoConfigureBefore(GatewayAutoConfiguration.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class LivkGateWayAutoConfiguration {
 
-    @Bean
-    @ConditionalOnBean(LivkRedisTemplate.class)
-    public RedisRouteDefinitionWriter redisRouteDefinitionWriter(LivkRedisTemplate livkRedisTemplate) {
-        return new RedisRouteDefinitionWriter(livkRedisTemplate);
-    }
+	@Bean
+	@ConditionalOnBean(LivkRedisTemplate.class)
+	public RedisRouteDefinitionWriter redisRouteDefinitionWriter(LivkRedisTemplate livkRedisTemplate) {
+		return new RedisRouteDefinitionWriter(livkRedisTemplate);
+	}
 
-    @Bean
-    @ConditionalOnBean(LivkRedisTemplate.class)
-    public RedisRouteHealthIndicator redisRouteHealthIndicator(LivkRedisTemplate livkRedisTemplate) {
-        return new RedisRouteHealthIndicator(livkRedisTemplate);
-    }
+	@Bean
+	@ConditionalOnBean(LivkRedisTemplate.class)
+	public RedisRouteHealthIndicator redisRouteHealthIndicator(LivkRedisTemplate livkRedisTemplate) {
+		return new RedisRouteHealthIndicator(livkRedisTemplate);
+	}
 
-    @Bean
-    @ConditionalOnBean(LivkRemoteListener.class)
-    public RouteHandler routeHandler() {
-        return new RouteHandler();
-    }
+	@Bean
+	@ConditionalOnBean(LivkRemoteListener.class)
+	public RouteHandler routeHandler() {
+		return new RouteHandler();
+	}
+
 }

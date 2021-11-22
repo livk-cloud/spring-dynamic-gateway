@@ -19,86 +19,88 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName(value = "dynamic_route")
 public class DynamicRoute implements Serializable {
-    /**
-     * 路由id
-     */
-    @TableId(value = "id", type = IdType.INPUT)
-    private String id;
 
-    /**
-     * url地址
-     */
-    @TableField(value = "uri")
-    private String uri;
+	/**
+	 * 路由id
+	 */
+	@TableId(value = "id", type = IdType.INPUT)
+	private String id;
 
-    /**
-     * 断言
-     */
-    @TableField(value = "predicates")
-    private String predicates;
+	/**
+	 * url地址
+	 */
+	@TableField(value = "uri")
+	private String uri;
 
-    /**
-     * 过滤器
-     */
-    @TableField(value = "filters")
-    private String filters;
+	/**
+	 * 断言
+	 */
+	@TableField(value = "predicates")
+	private String predicates;
 
-    /**
-     * 元数据
-     */
-    @TableField(value = "metadata")
-    private String metadata;
+	/**
+	 * 过滤器
+	 */
+	@TableField(value = "filters")
+	private String filters;
 
-    /**
-     * 排序
-     */
-    @TableField(value = "`order`")
-    private Integer order;
+	/**
+	 * 元数据
+	 */
+	@TableField(value = "metadata")
+	private String metadata;
 
-    /**
-     * 描述
-     */
-    @TableField(value = "description")
-    private String description;
+	/**
+	 * 排序
+	 */
+	@TableField(value = "`order`")
+	private Integer order;
 
-    /**
-     * 状态值:0-禁用 1-启用
-     */
-    @TableField(value = "`status`")
-    private Integer status;
+	/**
+	 * 描述
+	 */
+	@TableField(value = "description")
+	private String description;
 
-    /**
-     * 插入时间
-     */
-    @TableField(value = "insert_time", fill = FieldFill.INSERT)
-    private Date insertTime;
+	/**
+	 * 状态值:0-禁用 1-启用
+	 */
+	@TableField(value = "`status`")
+	private Integer status;
 
-    /**
-     * 更新时间
-     */
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
+	/**
+	 * 插入时间
+	 */
+	@TableField(value = "insert_time", fill = FieldFill.INSERT)
+	private Date insertTime;
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	/**
+	 * 更新时间
+	 */
+	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+	private Date updateTime;
 
-    public static final String COL_ID = "id";
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    public static final String COL_URI = "uri";
+	public static final String COL_ID = "id";
 
-    public static final String COL_PREDICATES = "predicates";
+	public static final String COL_URI = "uri";
 
-    public static final String COL_FILTERS = "filters";
+	public static final String COL_PREDICATES = "predicates";
 
-    public static final String COL_METADATA = "metadata";
+	public static final String COL_FILTERS = "filters";
 
-    public static final String COL_ORDER = "order";
+	public static final String COL_METADATA = "metadata";
 
-    public static final String COL_DESCRIPTION = "description";
+	public static final String COL_ORDER = "order";
 
-    public static final String COL_STATUS = "status";
+	public static final String COL_DESCRIPTION = "description";
 
-    public static final String COL_INSERT_TIME = "insert_time";
+	public static final String COL_STATUS = "status";
 
-    public static final String COL_UPDATE_TIME = "update_time";
+	public static final String COL_INSERT_TIME = "insert_time";
+
+	public static final String COL_UPDATE_TIME = "update_time";
+
 }
