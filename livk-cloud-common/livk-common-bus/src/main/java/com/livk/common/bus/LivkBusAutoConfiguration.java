@@ -23,13 +23,14 @@ import org.springframework.context.annotation.Configuration;
 @RemoteApplicationEventScan(basePackageClasses = LivkRemoteEvent.class)
 public class LivkBusAutoConfiguration {
 
-    @Bean
-    public LivkRemoteListener livkRemoteListener() {
-        return new LivkRemoteListener();
-    }
+	@Bean
+	public LivkRemoteListener livkRemoteListener() {
+		return new LivkRemoteListener();
+	}
 
-    @Bean
-    public RemoteAspect remoteAspect(BusProperties busProperties) {
-        return new RemoteAspect(busProperties);
-    }
+	@Bean
+	public RemoteAspect remoteAspect(BusProperties busProperties) {
+		return new RemoteAspect(busProperties);
+	}
+
 }

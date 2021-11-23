@@ -17,13 +17,15 @@ import org.springframework.cloud.bus.BusProperties;
  */
 @RequiredArgsConstructor
 public class RemoteAspect {
-    private final BusProperties busProperties;
 
-    /**
-     * 需添加配置文件，设置通知那个serviceId 例如"api-gateway:9852:**"
-     */
-    @After("@annotation(livkEventPublish)")
-    public void publishEvent(LivkEventPublish livkEventPublish) {
-        SpringContextHolder.publishEvent(new LivkRemoteEvent(busProperties.getId(), livkEventPublish::value));
-    }
+	private final BusProperties busProperties;
+
+	/**
+	 * 需添加配置文件，设置通知那个serviceId 例如"api-gateway:9852:**"
+	 */
+	@After("@annotation(livkEventPublish)")
+	public void publishEvent(LivkEventPublish livkEventPublish) {
+		SpringContextHolder.publishEvent(new LivkRemoteEvent(busProperties.getId(), livkEventPublish::value));
+	}
+
 }

@@ -11,5 +11,7 @@ import com.livk.common.bus.event.LivkRemoteEvent;
  * @date 2021/11/22
  */
 public interface LivkRemoteHandler {
-    void remoteHandler(LivkRemoteEvent livkRemoteEvent);
+
+	void remoteHandler(LivkRemoteEvent livkRemoteEvent);
+
 }

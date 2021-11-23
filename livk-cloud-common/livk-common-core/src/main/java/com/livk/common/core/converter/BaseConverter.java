@@ -17,8 +17,8 @@ public interface BaseConverter<S, T> {
 
 	T getTarget(S s);
 
-	Stream<S> streamSource(Collection<T> ts);
+	Stream<S> streamSource(Collection<T> ct);
 
-	Stream<T> streamTarget(Collection<S> s);
+	Stream<T> streamTarget(Collection<S> cs);
 
 }

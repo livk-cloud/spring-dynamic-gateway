@@ -19,13 +19,13 @@ import org.springframework.lang.Nullable;
 @Slf4j
 public class LivkRemoteListener implements ApplicationListener<LivkRemoteEvent> {
 
-    @Override
-    public void onApplicationEvent(@Nullable LivkRemoteEvent event) {
-        log.info("event:{} Listener", event);
-        var remoteHandlerMap = SpringContextHolder.getApplicationContext()
-                .getBeansOfType(LivkRemoteHandler.class);
-        remoteHandlerMap.values().stream().sorted(OrderComparator.INSTANCE)
-                .peek(livkRemoteHandler -> log.info("handler:{}", livkRemoteHandler))
-                .forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
-    }
+	@Override
+	public void onApplicationEvent(@Nullable LivkRemoteEvent event) {
+		log.info("event:{} Listener", event);
+		var remoteHandlerMap = SpringContextHolder.getApplicationContext().getBeansOfType(LivkRemoteHandler.class);
+		remoteHandlerMap.values().stream().sorted(OrderComparator.INSTANCE)
+				.peek(livkRemoteHandler -> log.info("handler:{}", livkRemoteHandler))
+				.forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
+	}
+
 }

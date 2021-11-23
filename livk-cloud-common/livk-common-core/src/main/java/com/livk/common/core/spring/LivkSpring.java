@@ -25,7 +25,7 @@ public class LivkSpring {
 	private static final String HTTP = "IP Address: http";
 
 	@SneakyThrows
-	public <T> ConfigurableApplicationContext run(Class<T> targetClass, String[] args) {
+	public <T> ConfigurableApplicationContext run(Class<T> targetClass, String... args) {
 		var context = new SpringApplicationBuilder(targetClass).banner(LivkBanner.create())
 				.bannerMode(Banner.Mode.CONSOLE).run(args);
 		new Thread(() -> print(context), InetAddress.getLocalHost().getHostAddress()).start();
