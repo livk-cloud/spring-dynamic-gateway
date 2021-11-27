@@ -48,7 +48,7 @@ public class LogAspect {
 			log.setParams(map);
 		}
 		log.setResult(proceed);
-		log.setMethod(methodName);
+		log.setMethodName(methodName);
 		log.setIp(InetAddress.getByName(SysUtil.getRealIp(request)));
 		log.setRuntime(end - start);
 		SpringContextHolder

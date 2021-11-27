@@ -16,7 +16,7 @@ import java.util.Map;
 @Data
 public class Log {
 
-	private String method;
+	private String methodName;
 
 	private Map<String, Object> params;
 

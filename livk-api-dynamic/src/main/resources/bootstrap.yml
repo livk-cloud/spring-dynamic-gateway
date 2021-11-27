@@ -12,7 +12,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: ${NACOS_HOST:livk.com}:${NACOS_PORT:9966}
+        server-addr: ${NACOS_HOST:livk.com}:${NACOS_PORT:8848}
   boot:
     admin:
       client:
