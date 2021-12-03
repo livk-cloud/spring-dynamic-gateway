@@ -118,9 +118,8 @@ server{
 	}
 }
 ```
-
-### 0.0.1
-
+###停止维护(SpringCloud GateWay 3.1.0开始支持Redis存储RouteDefinition)
+参考org.springframework.cloud.gateway.route.RedisRouteDefinitionRepository
 > 表SQL详见[SQL](./table.sql).<br>
 > 每一个XXXAutoConfiguration，请注意bean生成的条件，非必要不要修改，以免服务启动报错.<br>
 > Spring Cloud Bus需要与Spring Cloud Stream结合使用，同时需要一个Message Queue(官方使用RabbitMQ或者Kafka).<br>
