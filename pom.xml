@@ -18,8 +18,8 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <boot.version>2.5.7</boot.version>
-        <cloud.version>2020.0.4</cloud.version>
+        <boot.version>2.6.1</boot.version>
+        <cloud.version>2021.0.0</cloud.version>
         <cloud-alibaba.version>2021.1</cloud-alibaba.version>
         <spring-boot-admin.version>2.5.4</spring-boot-admin.version>
         <swagger.version>3.0.0</swagger.version>
