@@ -5,7 +5,6 @@ import com.livk.common.bus.annotation.LivkEventPublish;
 import com.livk.common.core.util.JacksonUtil;
 import com.livk.common.redis.support.LivkRedisTemplate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
  * @date 2021/11/4
  */
 @Component
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class RedisRouteHandler {
 
 	static final String ROUTE_KEY = "route_key";

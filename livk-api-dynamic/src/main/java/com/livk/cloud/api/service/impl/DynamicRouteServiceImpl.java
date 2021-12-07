@@ -8,7 +8,6 @@ import com.livk.cloud.api.handler.RedisRouteHandler;
 import com.livk.cloud.api.mapper.DynamicRouteMapper;
 import com.livk.cloud.api.service.DynamicRouteService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
  * @date 2021/11/4
  */
 @Service
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, DynamicRoute>
 		implements DynamicRouteService {
 
