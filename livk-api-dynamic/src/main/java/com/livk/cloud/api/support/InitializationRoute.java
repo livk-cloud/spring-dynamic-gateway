@@ -42,11 +42,11 @@ public class InitializationRoute implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		String serviceName = env.getProperty("spring.application.name");
-		DynamicRoute dynamicRoute = dynamicRouteService
+		var serviceName = env.getProperty("spring.application.name");
+		var dynamicRoute = dynamicRouteService
 				.getOne(Wrappers.lambdaQuery(DynamicRoute.class).eq(DynamicRoute::getUri, "lb://" + serviceName));
 		if (dynamicRoute == null) {
-			RedisRoute redisRoute = JacksonUtil.toBean(initData.getInputStream(), RedisRoute.class);
+			var redisRoute = JacksonUtil.toBean(initData.getInputStream(), RedisRoute.class);
 			redisRoute.setId(serviceName);
 			redisRoute.setUri("lb://" + serviceName);
 			redisRoute.setDescription("this is " + serviceName + " route!");

@@ -22,7 +22,7 @@ public class RedisRouteHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) {
-		if (Boolean.TRUE.equals(livkRedisTemplate.hasKey(RedisRouteDefinitionWriter.ROUTE_KEY))) {
+		if (Boolean.TRUE.equals(livkRedisTemplate.hasKey(LivkRedisRouteDefinitionRepository.ROUTE_KEY))) {
 			builder.up();
 		}
 		else {

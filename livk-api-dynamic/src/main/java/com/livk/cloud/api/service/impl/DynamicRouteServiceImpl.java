@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * <p>
@@ -32,7 +31,7 @@ public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, Dyn
 	@Override
 	public Boolean saveOrUpdate(RedisRoute redisRoute) {
 		redisRouteHandler.push(redisRoute);
-		DynamicRoute dynamicRoute = DynamicRouteConverter.INSTANCE.getTarget(redisRoute);
+		var dynamicRoute = DynamicRouteConverter.INSTANCE.getTarget(redisRoute);
 		return this.saveOrUpdate(dynamicRoute);
 	}
 
@@ -54,8 +53,8 @@ public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, Dyn
 
 	@Override
 	public Boolean reload() {
-		List<DynamicRoute> dynamicRouteList = this.list();
-		Stream<RedisRoute> redisRouteStream = DynamicRouteConverter.INSTANCE.streamSource(dynamicRouteList);
+		var dynamicRouteList = this.list();
+		var redisRouteStream = DynamicRouteConverter.INSTANCE.streamSource(dynamicRouteList);
 		redisRouteHandler.reload(redisRouteStream.toList());
 		return true;
 	}

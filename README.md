@@ -9,7 +9,7 @@
 
 ### 项目结构
 
-```
+```text
 |--spring-dynamic-gateway
     |--livk-api-dynamic(动态路由操作服务)
         |--java(代码)

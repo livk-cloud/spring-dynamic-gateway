@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -35,7 +34,7 @@ public class RedisRouteHandler {
 	@LivkEventPublish(STREAM_BUS_EVENT)
 	public void reload(List<RedisRoute> redisRouteList) {
 		livkRedisTemplate.delete(ROUTE_KEY);
-		Map<String, RedisRoute> redisRouteMap = redisRouteList.stream()
+		var redisRouteMap = redisRouteList.stream()
 				.collect(Collectors.toMap(RedisRoute::getId, Function.identity()));
 		livkRedisTemplate.opsForHash().putAll(ROUTE_KEY, redisRouteMap);
 	}
