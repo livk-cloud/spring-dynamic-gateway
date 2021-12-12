@@ -15,7 +15,7 @@ public enum RouteType {
     /**
      *
      */
-    InMemory,
-    Redis_Str,
-    Redis_Hash;
+    IN_MEMORY,
+    REDIS_SRT,
+    REDIS_HASH;
 }

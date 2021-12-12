@@ -42,7 +42,7 @@ public class LivkRedisRouteDefinitionRepository implements RouteDefinitionReposi
     @Override
     public Mono<Void> save(Mono<RouteDefinition> route) {
         return route.flatMap(r -> this.reactiveHashOperations.put(ROUTE_KEY, r.getId(), r)
-                .flatMap(success -> success ? Mono.empty() : Mono.defer(
+                .flatMap(success -> Boolean.TRUE.equals(success) ? Mono.empty() : Mono.defer(
                         () -> Mono.error(new RuntimeException(String.format("Could not add route to redis repository: %s", r))))));
     }
 

@@ -64,17 +64,19 @@ public class R<T> {
         return result(e.getCode(), e.getMessage(), null);
     }
 
-    public interface Constant {
+    public class Constant {
 
-        String SUCCESS = "success";
+        private Constant(){}
 
-        String ERROR = "error";
+        public static final String SUCCESS = "success";
 
-        String CODE = "code";
+        public static final String ERROR = "error";
 
-        String MSG = "msg";
+        public static final String CODE = "code";
 
-        String DATA = "data";
+        public static final String MSG = "msg";
+
+        public static final String DATA = "data";
 
     }
 

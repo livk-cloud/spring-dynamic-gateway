@@ -36,16 +36,12 @@ public class LivkSwaggerAutoConfiguration {
     /**
      * 默认的排除路径，排除Spring Boot默认的错误处理路径和端点
      */
-    private static final String ERROR_PATH = "/error";
-
-    private static final String ACTUATOR_PATH = "/actuator/**";
-
     @Bean
     public Docket createRestApi(SwaggerProperties swaggerProperties) {
         var apis = new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo(swaggerProperties)).select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()));
         var excludePath = new ArrayList<>(swaggerProperties.getExcludePath());
-        excludePath.addAll(Arrays.asList(ERROR_PATH, ACTUATOR_PATH));
+        excludePath.addAll(Arrays.asList("/error", "/actuator/**"));
         apis.paths(PathSelectors.any());
         excludePath.forEach(path -> apis.paths(PathSelectors.ant(path).negate()));
         return apis.build().pathMapping("/");
