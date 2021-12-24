@@ -22,7 +22,7 @@ import java.util.Map;
 @Slf4j
 public class LivkRedisRouteDefinitionRepository implements RouteDefinitionRepository {
 
-    static final String ROUTE_KEY = "RouteDefinition";
+    public static final String ROUTE_KEY = "RouteDefinition";
 
     private final ReactiveHashOperations<String, String, RouteDefinition> reactiveHashOperations;
 
@@ -30,6 +30,10 @@ public class LivkRedisRouteDefinitionRepository implements RouteDefinitionReposi
         reactiveHashOperations = livkReactiveRedisTemplate.opsForHash();
     }
 
+    /**
+     *
+     * @return Flux<RouteDefinition>
+     */
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
         return reactiveHashOperations.entries(ROUTE_KEY).map(Map.Entry::getValue);

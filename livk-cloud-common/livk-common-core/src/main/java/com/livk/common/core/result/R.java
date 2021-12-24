@@ -64,7 +64,7 @@ public class R<T> {
         return result(e.getCode(), e.getMessage(), null);
     }
 
-    public class Constant {
+    public static class Constant {
 
         private Constant(){}
 
