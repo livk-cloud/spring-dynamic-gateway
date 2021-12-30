@@ -1,13 +1,14 @@
 package com.livk.common.core.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
@@ -99,13 +100,17 @@ public class JacksonUtil {
         return MAPPER.readValue(json, mapType);
     }
 
-    @SneakyThrows
     public <K, V> Map<K, V> toMap(byte[] json, Class<K> kClass, Class<V> vClass) {
         if (json == null || kClass == null || vClass == null) {
             return Collections.emptyMap();
         }
-        var mapType = MAPPER.getTypeFactory().constructMapType(Map.class, kClass, vClass);
-        return MAPPER.readValue(json, mapType);
+        try {
+            var mapType = MAPPER.getTypeFactory().constructMapType(Map.class, kClass, vClass);
+            return MAPPER.readValue(json, mapType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -128,14 +133,19 @@ public class JacksonUtil {
      * "d": 5
      * }    getNodeFirst(json,"d")==>4
      */
-    @SneakyThrows
     public JsonNode getNodeFirst(String json, String nodeName) {
-        if (!StringUtils.hasText(json) || !StringUtils.hasText(nodeName)) {
+        if (!StringUtils.hasText(nodeName)) {
             return null;
         }
-        JsonNode jsonNode = MAPPER.readTree(json);
-        if (jsonNode.isArray() && jsonNode instanceof ArrayNode arrayNode) {
-            Iterator<JsonNode> elements = arrayNode.elements();
+        JsonNode jsonNode = null;
+        try {
+            jsonNode = MAPPER.readTree(json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if (jsonNode.isArray()) {
+            Iterator<JsonNode> elements = jsonNode.elements();
             while (elements.hasNext()) {
                 JsonNode result = getNodeFirst(elements.next().toString(), nodeName);
                 if (result != null) {
@@ -150,8 +160,11 @@ public class JacksonUtil {
                     return jsonNode.get(nodeName);
                 } else {
                     JsonNode child = jsonNode.get(node);
-                    if (child.isArray() || child.isObject()) {
-                        return getNodeFirst(child.toString(), nodeName);
+                    if (child.isContainerNode()) {
+                        JsonNode result = getNodeFirst(child.toString(), nodeName);
+                        if (result != null) {
+                            return result;
+                        }
                     }
                 }
             }
@@ -181,14 +194,19 @@ public class JacksonUtil {
      * getNode(json, "b.d.ab"))==>6
      * getNode(json, "d"))==>null
      */
-    @SneakyThrows
     public JsonNode getNode(String json, String nodePath) {
-        if (!StringUtils.hasText(json) || !StringUtils.hasText(nodePath)) {
+        if (!StringUtils.hasText(nodePath)) {
             return null;
         }
-        JsonNode jsonNode = MAPPER.readTree(json);
-        if (jsonNode.isArray() && jsonNode instanceof ArrayNode arrayNode) {
-            Iterator<JsonNode> elements = arrayNode.elements();
+        JsonNode jsonNode = null;
+        try {
+            jsonNode = MAPPER.readTree(json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if (jsonNode.isArray()) {
+            Iterator<JsonNode> elements = jsonNode.elements();
             while (elements.hasNext()) {
                 JsonNode result = getNode(elements.next().toString(), nodePath);
                 if (result != null) {
@@ -208,41 +226,17 @@ public class JacksonUtil {
                     String parentNode = nodePath.substring(0, index);
                     if (node.equals(parentNode)) {
                         JsonNode child = jsonNode.get(node);
-                        if (child.isArray() || child.isObject()) {
+                        if (child.isContainerNode()) {
                             String childNode = nodePath.substring(index + 1);
-                            return getNode(child.toString(), childNode);
+                            JsonNode result = getNode(child.toString(), childNode);
+                            if (result != null) {
+                                return result;
+                            }
                         }
                     }
                 }
             }
         }
         return null;
-    }
-
-    public JsonNode getNodeNo(String json, String nodeName, int no) {
-        return null;
-    }
-
-    public static void main(String[] args) {
-        String json = """
-                {
-                  "a": [
-                    {
-                      "b": {
-                        "c": "dd"
-                      }
-                    },
-                    {
-                      "b": {
-                        "c": "cc"
-                      }
-                    }
-                  ]
-                }""";
-        System.out.println(JacksonUtil.getNode(json, "a"));
-        System.out.println(JacksonUtil.getNode(json, "a.b"));
-        System.out.println(JacksonUtil.getNode(json, "a.b.c"));
-//        System.out.println(JacksonUtil.getNode(json, "b.d.ab"));
-//        System.out.println(JacksonUtil.getNode(json, "d"));
     }
 }
