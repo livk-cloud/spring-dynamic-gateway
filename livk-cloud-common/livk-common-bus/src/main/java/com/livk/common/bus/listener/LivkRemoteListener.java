@@ -22,8 +22,9 @@ public class LivkRemoteListener implements ApplicationListener<LivkRemoteEvent> 
 	@Override
 	public void onApplicationEvent(@Nullable LivkRemoteEvent event) {
 		log.info("event:{} Listener", event);
-		var remoteHandlerMap = SpringContextHolder.getApplicationContext().getBeansOfType(LivkRemoteHandler.class);
-		remoteHandlerMap.values()
+		SpringContextHolder.getApplicationContext()
+				.getBeansOfType(LivkRemoteHandler.class)
+				.values()
 				.stream()
 				.sorted(OrderComparator.INSTANCE)
 				.forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));

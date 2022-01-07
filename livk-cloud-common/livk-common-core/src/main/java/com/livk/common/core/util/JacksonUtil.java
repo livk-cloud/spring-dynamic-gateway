@@ -10,10 +10,7 @@ import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -25,6 +22,11 @@ public class JacksonUtil {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     /**
+     * The constant JSON_EMPTY.
+     */
+    public static final String JSON_EMPTY = "{}";
+
+    /**
      * To bean t.
      *
      * @param <T>   the type parameter
@@ -32,39 +34,59 @@ public class JacksonUtil {
      * @param clazz the clazz
      * @return the t
      */
-    @SneakyThrows
     @SuppressWarnings("unchecked")
     public <T> T toBean(String json, Class<T> clazz) {
         if (json == null || json.isEmpty() || clazz == null) {
             return null;
         }
-        return clazz.isInstance(json) ? (T) json : MAPPER.readValue(json, clazz);
+        try {
+            return clazz.isInstance(json) ? (T) json : MAPPER.readValue(json, clazz);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    @SneakyThrows
+    /**
+     * 读取文件反序列化为Bean
+     *
+     * @param <T>         the type parameter
+     * @param inputStream inputStream
+     * @param clazz       clazz
+     * @return t
+     */
     public <T> T toBean(InputStream inputStream, Class<T> clazz) {
         if (inputStream == null) {
             return null;
         }
-        return MAPPER.readValue(inputStream, clazz);
+        try {
+            return MAPPER.readValue(inputStream, clazz);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
-     * To stream.
+     * 反序列化成集合属性
      *
      * @param <T>   the type parameter
      * @param json  the json
      * @param clazz the clazz
      * @return the stream
      */
-    @SneakyThrows
     @SuppressWarnings("unchecked")
     public <T> Stream<T> toStream(String json, Class<T> clazz) {
         if (json == null || json.isEmpty() || clazz == null) {
             return Stream.empty();
         }
         var collectionType = MAPPER.getTypeFactory().constructCollectionType(Collection.class, clazz);
-        return ((Collection<T>) MAPPER.readValue(json, collectionType)).stream();
+        try {
+            return ((Collection<T>) MAPPER.readValue(json, collectionType)).stream();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return Stream.empty();
     }
 
     /**
@@ -73,12 +95,16 @@ public class JacksonUtil {
      * @param obj the obj
      * @return the string
      */
-    @SneakyThrows
     public String toJson(Object obj) {
         if (ObjectUtils.isEmpty(obj)) {
-            return null;
+            return JSON_EMPTY;
         }
-        return obj instanceof String str ? str : MAPPER.writeValueAsString(obj);
+        try {
+            return obj instanceof String str ? str : MAPPER.writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return JSON_EMPTY;
     }
 
     /**
@@ -93,13 +119,19 @@ public class JacksonUtil {
      */
     @SneakyThrows
     public <K, V> Map<K, V> toMap(String json, Class<K> kClass, Class<V> vClass) {
-        if (json == null || json.isEmpty() || kClass == null || vClass == null) {
-            return Collections.emptyMap();
-        }
-        var mapType = MAPPER.getTypeFactory().constructMapType(Map.class, kClass, vClass);
-        return MAPPER.readValue(json, mapType);
+        return toMap(json.getBytes(), kClass, vClass);
     }
 
+    /**
+     * To map map.
+     *
+     * @param <K>    the type parameter
+     * @param <V>    the type parameter
+     * @param json   the json
+     * @param kClass the k class
+     * @param vClass the v class
+     * @return the map
+     */
     public <K, V> Map<K, V> toMap(byte[] json, Class<K> kClass, Class<V> vClass) {
         if (json == null || kClass == null || vClass == null) {
             return Collections.emptyMap();
@@ -119,19 +151,11 @@ public class JacksonUtil {
      *
      * @param json     json
      * @param nodeName node
-     * @return str
-     * @example {
-     * "c": "1",
-     * "a": "2",
-     * "b": {"c": 3}
-     * }   getNodeFirst(json,"c")==>1
-     * <p>
-     * {
-     * "c": "1",
-     * "a": "2",
-     * "b": {"c": 3,"d":4},
-     * "d": 5
-     * }    getNodeFirst(json,"d")==>4
+     * @return str node first
+     * @example { "c": "1", "a": "2", "b": {"c": 3} }
+     * getNodeFirst(json,"c")==>1
+     * <p> { "c": "1", "a": "2", "b": {"c": 3,"d":4}, "d": 5 }
+     * getNodeFirst(json,"d")==>4
      */
     public JsonNode getNodeFirst(String json, String nodeName) {
         if (!StringUtils.hasText(nodeName)) {
@@ -177,17 +201,8 @@ public class JacksonUtil {
      *
      * @param json     json
      * @param nodePath node(节点之间以.隔开)
-     * @return node
-     * @example {
-     * "c": "1",
-     * "a": "2",
-     * "b": {
-     * "c": 3,
-     * "d": {
-     * "ab": 6
-     * }
-     * }
-     * }
+     * @return node node
+     * @example { "c": "1", "a": "2", "b": { "c": 3, "d": { "ab": 6 } } }
      * getNode(json, "b"))==>{"c":3,"d":{"ab":6}}
      * getNode(json, "b.c"))==>3
      * getNode(json, "b.d"))==>{"ab":6}

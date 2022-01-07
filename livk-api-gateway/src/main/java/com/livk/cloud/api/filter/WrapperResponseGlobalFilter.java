@@ -54,9 +54,7 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
                         dataBuffer.read(content);
                         DataBufferUtils.release(dataBuffer);
                         var result = new String(content, StandardCharsets.UTF_8);
-                        result = SysUtil.packageResult(result);
-                        var uppedContent = result.getBytes();
-                        return bufferFactory.wrap(uppedContent);
+                        return bufferFactory.wrap(SysUtil.packageResult(result).getBytes(StandardCharsets.UTF_8));
                     }));
                 }
                 return super.writeWith(body);

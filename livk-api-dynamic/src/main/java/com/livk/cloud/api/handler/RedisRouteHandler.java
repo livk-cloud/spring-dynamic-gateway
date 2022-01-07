@@ -24,7 +24,10 @@ public class RedisRouteHandler {
 
     static final String ROUTE_KEY = "RouteDefinition";
 
-    static final String STREAM_BUS_EVENT = "livk-api-gateway:9852:**";
+    /**
+     * spring.application.name:server.port:**
+     */
+    static final String LIVK_API_GATEWAY = "livk-api-gateway:9852:**";
 
     private final LivkRedisTemplate livkRedisTemplate;
     private final HashOperations<String, String, RedisRoute> forHash;
@@ -34,7 +37,7 @@ public class RedisRouteHandler {
         this.forHash = livkRedisTemplate.opsForHash();
     }
 
-    @LivkEventPublish(STREAM_BUS_EVENT)
+    @LivkEventPublish(LIVK_API_GATEWAY)
     public void reload(List<RedisRoute> redisRouteList) {
         livkRedisTemplate.delete(ROUTE_KEY);
         var redisRouteMap = redisRouteList.stream()
@@ -42,12 +45,12 @@ public class RedisRouteHandler {
         forHash.putAll(ROUTE_KEY, redisRouteMap);
     }
 
-    @LivkEventPublish(STREAM_BUS_EVENT)
+    @LivkEventPublish(LIVK_API_GATEWAY)
     public void push(RedisRoute redisRoute) {
         forHash.put(ROUTE_KEY, redisRoute.getId(), redisRoute);
     }
 
-    @LivkEventPublish(STREAM_BUS_EVENT)
+    @LivkEventPublish(LIVK_API_GATEWAY)
     public void delete(String id) {
         forHash.delete(ROUTE_KEY, id);
     }
