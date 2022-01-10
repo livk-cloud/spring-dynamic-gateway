@@ -16,9 +16,8 @@ public interface ThrowException {
      * Throw exception.
      *
      * @param t the message
-     * @throws Throwable the throwable
      */
-    void throwException(Throwable t) throws Throwable;
+    void throwException(Exception t) throws Exception;
 
     /**
      * Is true throw exception.
@@ -28,7 +27,7 @@ public interface ThrowException {
      * @return the throw exception
      */
     static <T> ThrowException isTrue(Predicate<T> predicate) {
-        return (t) -> {
+        return t -> {
             if (predicate.test(null)) throw t;
         };
     }
