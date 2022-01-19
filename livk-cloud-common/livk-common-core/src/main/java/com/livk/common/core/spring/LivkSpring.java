@@ -30,7 +30,7 @@ public class LivkSpring {
     }
 
     public <T> ConfigurableApplicationContext runReactive(Class<T> targetClass, String[] args) {
-        return LivkSpring.run(targetClass, args, WebApplicationType.SERVLET);
+        return LivkSpring.run(targetClass, args, WebApplicationType.REACTIVE);
     }
 
     @SneakyThrows

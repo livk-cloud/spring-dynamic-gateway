@@ -8,7 +8,6 @@ import com.livk.common.gateway.support.RedisRouteHealthIndicator;
 import com.livk.common.gateway.support.RouteHandler;
 import com.livk.common.redis.LivkRedisAutoConfiguration;
 import com.livk.common.redis.support.LivkReactiveRedisTemplate;
-import com.livk.common.redis.support.LivkRedisTemplate;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -41,9 +40,9 @@ public class LivkGateWayAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnBean(LivkRedisTemplate.class)
-    public RedisRouteHealthIndicator redisRouteHealthIndicator(LivkRedisTemplate livkRedisTemplate) {
-        return new RedisRouteHealthIndicator(livkRedisTemplate);
+    @ConditionalOnBean(LivkReactiveRedisTemplate.class)
+    public RedisRouteHealthIndicator redisRouteHealthIndicator(LivkReactiveRedisTemplate livkReactiveRedisTemplate) {
+        return new RedisRouteHealthIndicator(livkReactiveRedisTemplate);
     }
 
     @Bean
