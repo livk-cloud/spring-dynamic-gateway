@@ -2,10 +2,12 @@ package com.livk.cloud.api.validation.config;
 
 import com.livk.cloud.api.domain.route.Predicate;
 import com.livk.cloud.api.validation.annotation.RoutePredicate;
+import org.springframework.util.CollectionUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -17,16 +19,21 @@ import java.util.List;
  */
 public class RoutePredicateValidator implements ConstraintValidator<RoutePredicate, List<Predicate>> {
 
-	private static final String PATTERN = "pattern";
+    private static final String PATTERN = "pattern";
 
-	private static final String GENERATED_NAME_PREFIX = "_genkey_";
+    private static final String GENERATED_NAME_PREFIX = "_genkey_";
 
-	@Override
-	public boolean isValid(List<Predicate> predicates, ConstraintValidatorContext constraintValidatorContext) {
-		return predicates.stream()
-				.map(predicate -> predicate.getArgs().get(PATTERN) != null
-						|| predicate.getArgs().get(GENERATED_NAME_PREFIX + "0") != null)
-				.distinct().filter(bool -> bool).count() == 1;
-	}
+    @Override
+    public boolean isValid(List<Predicate> predicates, ConstraintValidatorContext constraintValidatorContext) {
+        return predicates.stream()
+                .allMatch(this::verify);
+    }
 
+    private boolean verify(Predicate predicate) {
+        return !CollectionUtils.isEmpty(predicate.getArgs()) && containsRoute(predicate.getArgs());
+    }
+
+    private boolean containsRoute(Map<String, String> args) {
+        return args.get(PATTERN) != null || args.get(GENERATED_NAME_PREFIX + "0") != null;
+    }
 }
