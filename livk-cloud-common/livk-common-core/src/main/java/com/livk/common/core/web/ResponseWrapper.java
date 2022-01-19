@@ -1,14 +1,5 @@
 package com.livk.common.core.web;
 
-/**
- * <p>
- * ResponseWrapper
- * </p>
- *
- * @author livk
- * @date 2021/11/2
- */
-
 import lombok.SneakyThrows;
 
 import javax.servlet.ServletOutputStream;
