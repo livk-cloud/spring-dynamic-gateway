@@ -1,8 +1,6 @@
 package com.livk.common.redis.support;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.livk.common.redis.util.SerializerUtils;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -18,12 +16,10 @@ import reactor.util.annotation.NonNull;
  */
 public class LivkRedisSerializationContext implements RedisSerializationContext<String, Object> {
 
-    private final Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
+    private final Jackson2JsonRedisSerializer<Object> serializer;
 
-    public LivkRedisSerializationContext(){
-        var mapper = new ObjectMapper();
-        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        serializer.setObjectMapper(mapper);
+    public LivkRedisSerializationContext() {
+        this.serializer = SerializerUtils.getJacksonSerializer(Object.class);
     }
 
     @NonNull

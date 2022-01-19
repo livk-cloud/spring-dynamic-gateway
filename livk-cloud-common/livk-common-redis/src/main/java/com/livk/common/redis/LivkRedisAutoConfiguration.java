@@ -1,14 +1,12 @@
 package com.livk.common.redis;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.livk.common.redis.service.RedisService;
 import com.livk.common.redis.service.impl.RedisServiceImpl;
 import com.livk.common.redis.support.LivkReactiveRedisTemplate;
 import com.livk.common.redis.support.LivkRedisTemplate;
+import com.livk.common.redis.util.SerializerUtils;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +16,6 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -35,34 +32,38 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class LivkRedisAutoConfiguration {
 
     @Bean
-    @ConditionalOnClass(ReactiveRedisConnectionFactory.class)
+    @ConditionalOnBean(ReactiveRedisConnectionFactory.class)
     public LivkReactiveRedisTemplate livkReactiveRedisTemplate(ReactiveRedisConnectionFactory redisConnectionFactory) {
         return new LivkReactiveRedisTemplate(redisConnectionFactory);
     }
 
     @Bean
+    @ConditionalOnBean(RedisConnectionFactory.class)
     public LivkRedisTemplate livkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         return new LivkRedisTemplate(redisConnectionFactory);
     }
 
     @Bean
+    @ConditionalOnBean(LivkRedisTemplate.class)
     public RedisService redisService(LivkRedisTemplate redisTemplate) {
         return new RedisServiceImpl(redisTemplate);
     }
 
     @Bean
+    @ConditionalOnBean(RedisConnectionFactory.class)
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
-        var redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
-        var serializer = new Jackson2JsonRedisSerializer<>(Object.class);
-        var mapper = new ObjectMapper();
-        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        serializer.setObjectMapper(mapper);
-        redisCacheConfiguration = redisCacheConfiguration.disableCachingNullValues()
-                .serializeKeysWith(
-                        RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer));
-        return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
-                .cacheDefaults(redisCacheConfiguration).build();
+        var serializer = SerializerUtils.getJacksonSerializer(Object.class);
+        return RedisCacheManager.builder(RedisCacheWriter
+                        .nonLockingRedisCacheWriter(redisConnectionFactory))
+                .cacheDefaults(RedisCacheConfiguration
+                        .defaultCacheConfig()
+                        .disableCachingNullValues()
+                        .serializeKeysWith(RedisSerializationContext
+                                .SerializationPair
+                                .fromSerializer(new StringRedisSerializer()))
+                        .serializeValuesWith(RedisSerializationContext
+                                .SerializationPair
+                                .fromSerializer(serializer))).build();
     }
 
 }
