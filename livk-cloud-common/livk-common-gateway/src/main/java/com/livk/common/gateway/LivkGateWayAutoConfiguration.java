@@ -15,8 +15,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.config.GatewayAutoConfiguration;
+import org.springframework.cloud.gateway.route.RedisRouteDefinitionRepository;
+import org.springframework.cloud.gateway.route.RouteDefinition;
+import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.ReactiveRedisTemplate;
 
 /**
  * <p>
@@ -37,6 +41,12 @@ public class LivkGateWayAutoConfiguration {
     @ConditionalOnProperty(prefix = "livk.gateway.route", name = "type", havingValue = "Redis_Hash")
     public LivkRedisRouteDefinitionRepository redisRouteDefinitionWriter(LivkReactiveRedisTemplate livkReactiveRedisTemplate) {
         return new LivkRedisRouteDefinitionRepository(livkReactiveRedisTemplate);
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "livk.gateway.route", name = "type", havingValue = "REDIS_STR")
+    public RouteDefinitionRepository redisRouteDefinitionRepository(ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisTemplate) {
+        return new RedisRouteDefinitionRepository(reactiveRedisTemplate);
     }
 
     @Bean
