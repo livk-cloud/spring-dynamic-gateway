@@ -1,6 +1,9 @@
 server:
   port: 5599
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   application:
     name: @artifactId@
   redis:
@@ -16,7 +19,7 @@ spring:
   boot:
     admin:
       client:
-        url: lb://api-monitor
+        url: lb://livk-api-monitor
         username: livk
         password: 123456
         instance:

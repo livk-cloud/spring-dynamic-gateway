@@ -22,7 +22,7 @@ public class LivkRemoteEvent extends RemoteApplicationEvent {
 	}
 
 	/**
-	 * {@link org.springframework.cloud.bus.event.RemoteApplicationEvent#RemoteApplicationEvent(Object, String, String)}
+	 * {@see org.springframework.cloud.bus.event.RemoteApplicationEvent#RemoteApplicationEvent(Object, String, String)}
 	 */
 	public LivkRemoteEvent(Object source, String originService, Destination destination) {
 		super(source, originService, destination);

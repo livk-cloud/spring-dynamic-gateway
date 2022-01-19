@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LivkDynamic {
 
 	public static void main(String[] args) {
-		LivkSpring.run(LivkDynamic.class, args);
+		LivkSpring.runServlet(LivkDynamic.class, args);
 	}
 
 }

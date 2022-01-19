@@ -1,6 +1,7 @@
 package com.livk.common.gateway.support;
 
-import com.livk.common.redis.support.LivkRedisTemplate;
+import com.livk.common.core.function.Present;
+import com.livk.common.redis.support.LivkReactiveRedisTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
@@ -18,17 +19,17 @@ import org.springframework.boot.actuate.health.Health;
 @RequiredArgsConstructor
 public class RedisRouteHealthIndicator extends AbstractHealthIndicator {
 
-	private final LivkRedisTemplate livkRedisTemplate;
+    private final LivkReactiveRedisTemplate livkReactiveRedisTemplate;
 
-	@Override
-	protected void doHealthCheck(Health.Builder builder) {
-		if (Boolean.TRUE.equals(livkRedisTemplate.hasKey(RedisRouteDefinitionWriter.ROUTE_KEY))) {
-			builder.up();
-		}
-		else {
-			log.warn("Redis路由信息丢失！");
-			builder.down();
-		}
-	}
+    @Override
+    protected void doHealthCheck(Health.Builder builder) {
+        livkReactiveRedisTemplate.hasKey(LivkRedisRouteDefinitionRepository.ROUTE_KEY).subscribe(exit -> {
+            Present.handler(exit, Boolean.TRUE::equals)
+                    .present(bool -> builder.up(), () -> {
+                        log.warn("Redis路由信息丢失！");
+                        builder.down();
+                    });
+        });
+    }
 
 }

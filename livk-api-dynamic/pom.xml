@@ -97,14 +97,6 @@
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
         </dependency>
-
-        <!-- torna插件  -->
-        <dependency>
-            <groupId>cn.torna</groupId>
-            <artifactId>swagger-plugin</artifactId>
-            <version>1.2.10</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>

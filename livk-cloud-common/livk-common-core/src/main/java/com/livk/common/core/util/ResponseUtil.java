@@ -2,6 +2,7 @@ package com.livk.common.core.util;
 
 import com.livk.common.core.result.R;
 import lombok.experimental.UtilityClass;
+import org.springframework.util.Assert;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -23,13 +24,13 @@ public class ResponseUtil {
 	public HttpServletResponse getResponse() {
 		var requestAttributes = RequestContextHolder.getRequestAttributes();
 		var servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-		assert servletRequestAttributes != null;
+		Assert.notNull(servletRequestAttributes,"attributes not null!");
 		return servletRequestAttributes.getResponse();
 	}
 
 	public void out(String message) {
 		var response = ResponseUtil.getResponse();
-		assert response != null;
+		Assert.notNull(response,"response not null!");
 		ResponseUtil.out(response, message);
 	}
 

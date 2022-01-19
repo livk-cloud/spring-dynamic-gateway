@@ -15,7 +15,6 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -39,7 +38,7 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         var originalResponse = exchange.getResponse();
         var bufferFactory = originalResponse.bufferFactory();
-        URI uri = exchange.getRequest().getURI();
+        var uri = exchange.getRequest().getURI();
         if (!uri.getPath().endsWith(GatewaySwaggerResourcesProvider.SWAGGER2URL)
             && !uri.getPath().endsWith(GatewaySwaggerResourcesProvider.SWAGGER3URL)) {
             return chain.filter(exchange);
@@ -55,9 +54,7 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
                         dataBuffer.read(content);
                         DataBufferUtils.release(dataBuffer);
                         var result = new String(content, StandardCharsets.UTF_8);
-                        result = SysUtil.packageResult(result);
-                        var uppedContent = result.getBytes();
-                        return bufferFactory.wrap(uppedContent);
+                        return bufferFactory.wrap(SysUtil.packageResult(result).getBytes(StandardCharsets.UTF_8));
                     }));
                 }
                 return super.writeWith(body);

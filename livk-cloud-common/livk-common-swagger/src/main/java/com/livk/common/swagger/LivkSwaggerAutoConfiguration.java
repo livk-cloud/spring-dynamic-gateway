@@ -3,7 +3,6 @@ package com.livk.common.swagger;
 import com.livk.common.swagger.config.SwaggerProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,35 +30,30 @@ import java.util.Arrays;
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(SwaggerProperties.class)
 @ConditionalOnProperty(prefix = "swagger", name = "enable", havingValue = "true")
-@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-@ConditionalOnMissingClass("com.livk.common.gateway.LivkGateWayAutoConfiguration")
+@ConditionalOnMissingClass(value = "org.springframework.cloud.gateway.config.GatewayAutoConfiguration")
 public class LivkSwaggerAutoConfiguration {
 
-	/**
-	 * 默认的排除路径，排除Spring Boot默认的错误处理路径和端点
-	 */
-	private static final String ERROR_PATH = "/error";
+    /**
+     * 默认的排除路径，排除Spring Boot默认的错误处理路径和端点
+     */
+    @Bean
+    public Docket createRestApi(SwaggerProperties swaggerProperties) {
+        var apis = new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo(swaggerProperties)).select()
+                .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()));
+        var excludePath = new ArrayList<>(swaggerProperties.getExcludePath());
+        excludePath.addAll(Arrays.asList("/error", "/actuator/**"));
+        apis.paths(PathSelectors.any());
+        excludePath.forEach(path -> apis.paths(PathSelectors.ant(path).negate()));
+        return apis.build().pathMapping("/");
+    }
 
-	private static final String ACTUATOR_PATH = "/actuator/**";
-
-	@Bean
-	public Docket createRestApi(SwaggerProperties swaggerProperties) {
-		var apis = new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo(swaggerProperties)).select()
-				.apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()));
-		var excludePath = new ArrayList<>(swaggerProperties.getExcludePath());
-		excludePath.addAll(Arrays.asList(ERROR_PATH, ACTUATOR_PATH));
-		apis.paths(PathSelectors.any());
-		excludePath.forEach(path -> apis.paths(PathSelectors.ant(path).negate()));
-		return apis.build().pathMapping("/");
-	}
-
-	private ApiInfo apiInfo(SwaggerProperties swaggerProperties) {
-		return new ApiInfoBuilder().title(swaggerProperties.getTitle()).description(swaggerProperties.getDescription())
-				.license(swaggerProperties.getLicense()).licenseUrl(swaggerProperties.getLicenseUrl())
-				.termsOfServiceUrl(swaggerProperties.getTermsOfServiceUrl())
-				.contact(new Contact(swaggerProperties.getContact().getName(), swaggerProperties.getContact().getUrl(),
-						swaggerProperties.getContact().getEmail()))
-				.version(swaggerProperties.getVersion()).build();
-	}
+    private ApiInfo apiInfo(SwaggerProperties swaggerProperties) {
+        return new ApiInfoBuilder().title(swaggerProperties.getTitle()).description(swaggerProperties.getDescription())
+                .license(swaggerProperties.getLicense()).licenseUrl(swaggerProperties.getLicenseUrl())
+                .termsOfServiceUrl(swaggerProperties.getTermsOfServiceUrl())
+                .contact(new Contact(swaggerProperties.getContact().getName(), swaggerProperties.getContact().getUrl(),
+                        swaggerProperties.getContact().getEmail()))
+                .version(swaggerProperties.getVersion()).build();
+    }
 
 }

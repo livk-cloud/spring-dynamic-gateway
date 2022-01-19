@@ -9,7 +9,7 @@
 
 ### 项目结构
 
-```
+```text
 |--spring-dynamic-gateway
     |--livk-api-dynamic(动态路由操作服务)
         |--java(代码)
@@ -123,7 +123,7 @@ server{
 > 表SQL详见[SQL](./table.sql).<br>
 > 每一个XXXAutoConfiguration，请注意bean生成的条件，非必要不要修改，以免服务启动报错.<br>
 > Spring Cloud Bus需要与Spring Cloud Stream结合使用，同时需要一个Message Queue(官方使用RabbitMQ或者Kafka).<br>
-> [Gateway路由信息与Redis操作结合](./livk-cloud-common/livk-common-gateway/src/main/java/com/livk/common/gateway/support/RedisRouteDefinitionWriter.java).<br>
+> [Gateway路由信息与Redis操作结合](./livk-cloud-common/livk-common-gateway/src/main/java/com/livk/common/gateway/support/LivkRedisRouteDefinitionRepository.java).<br>
 > [Bus操作远程Event](./livk-cloud-common/livk-common-bus/src/main/java/com/livk/common/bus/event/LivkRemoteEvent.java).<br>
 > [Mapstruct转化器通用接口](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/converter/BaseConverter.java).<br>
 > [Swagger整合Gateway](./livk-cloud-common/livk-common-swagger/src/main/java/com/livk/common/swagger/support/GatewaySwaggerResourcesProvider.java).<br>

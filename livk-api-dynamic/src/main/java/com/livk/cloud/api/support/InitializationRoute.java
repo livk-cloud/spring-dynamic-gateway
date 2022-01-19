@@ -9,7 +9,6 @@ import com.livk.common.bus.annotation.LivkEventPublish;
 import com.livk.common.core.util.JacksonUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -18,19 +17,17 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>
- * 此处选{@link org.springframework.boot.ApplicationRunner}
- * 考虑到{@link com.livk.common.bus.handler.RemoteAspect#publishEvent(LivkEventPublish)}
- * 方法需要引用{@link org.springframework.context.ApplicationContext}
- * 暂定排除掉{@link org.springframework.beans.factory.InitializingBean}
- * </p>
+ * <p>此处选{@link org.springframework.boot.ApplicationRunner}</p>
+ * <p>考虑到{@link com.livk.common.bus.handler.RemoteAspect#publishEvent(LivkEventPublish)}</p>
+ * <p>方法需要引用{@link org.springframework.context.ApplicationContext}</p>
+ * <p>暂定排除掉{@link org.springframework.beans.factory.InitializingBean}</p>
  *
  * @author livk
  * @date 2021/11/10
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class InitializationRoute implements ApplicationRunner {
 
 	private final DynamicRouteService dynamicRouteService;
@@ -42,18 +39,18 @@ public class InitializationRoute implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		String serviceName = env.getProperty("spring.application.name");
-		DynamicRoute dynamicRoute = dynamicRouteService
+		var serviceName = env.getProperty("spring.application.name");
+		var dynamicRoute = dynamicRouteService
 				.getOne(Wrappers.lambdaQuery(DynamicRoute.class).eq(DynamicRoute::getUri, "lb://" + serviceName));
 		if (dynamicRoute == null) {
-			RedisRoute redisRoute = JacksonUtil.toBean(initData.getInputStream(), RedisRoute.class);
+			var redisRoute = JacksonUtil.toBean(initData.getInputStream(), RedisRoute.class);
 			redisRoute.setId(serviceName);
 			redisRoute.setUri("lb://" + serviceName);
 			redisRoute.setDescription("this is " + serviceName + " route!");
 			dynamicRoute = DynamicRouteConverter.INSTANCE.getTarget(redisRoute);
 			dynamicRouteService.saveOrUpdate(dynamicRoute);
+			log.info("Route Info init is :{}", dynamicRouteService.reload());
 		}
-		log.info("Route Info init is :{}", dynamicRouteService.reload());
 	}
 
 }

@@ -52,8 +52,8 @@ public class LivkBanner implements Banner {
 		return new LivkBanner();
 	}
 
-	private static record Format(int n, PrintStream out,
-			char ch) implements Function<String, String>, Consumer<String> {
+	private record Format(int n, PrintStream out,
+						  char ch) implements Function<String, String>, Consumer<String> {
 		@Override
 		public String apply(String str) {
 			var length = str.length();

@@ -8,11 +8,9 @@ import com.livk.cloud.api.handler.RedisRouteHandler;
 import com.livk.cloud.api.mapper.DynamicRouteMapper;
 import com.livk.cloud.api.service.DynamicRouteService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * <p>
@@ -23,7 +21,7 @@ import java.util.stream.Stream;
  * @date 2021/11/4
  */
 @Service
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, DynamicRoute>
 		implements DynamicRouteService {
 
@@ -32,7 +30,7 @@ public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, Dyn
 	@Override
 	public Boolean saveOrUpdate(RedisRoute redisRoute) {
 		redisRouteHandler.push(redisRoute);
-		DynamicRoute dynamicRoute = DynamicRouteConverter.INSTANCE.getTarget(redisRoute);
+		var dynamicRoute = DynamicRouteConverter.INSTANCE.getTarget(redisRoute);
 		return this.saveOrUpdate(dynamicRoute);
 	}
 
@@ -54,8 +52,8 @@ public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, Dyn
 
 	@Override
 	public Boolean reload() {
-		List<DynamicRoute> dynamicRouteList = this.list();
-		Stream<RedisRoute> redisRouteStream = DynamicRouteConverter.INSTANCE.streamSource(dynamicRouteList);
+		var dynamicRouteList = this.list();
+		var redisRouteStream = DynamicRouteConverter.INSTANCE.streamSource(dynamicRouteList);
 		redisRouteHandler.reload(redisRouteStream.toList());
 		return true;
 	}

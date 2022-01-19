@@ -23,56 +23,60 @@ import org.springframework.stereotype.Component;
 @Lazy(false)
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 
-	private static ApplicationContext applicationContext = null;
+    private static ApplicationContext applicationContext = null;
 
-	@Override
-	public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {
-		if (SpringContextHolder.applicationContext != null) {
-			log.warn("SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:"
-					+ SpringContextHolder.applicationContext);
-		}
-		setSpringContext(applicationContext);
-	}
+    @Override
+    public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {
+        if (SpringContextHolder.applicationContext != null) {
+            log.warn("SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:"
+                     + SpringContextHolder.applicationContext);
+        }
+        this.setSpringContext(applicationContext);
+    }
 
-	public static ApplicationContext getApplicationContext() {
-		return applicationContext;
-	}
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
 
-	@Override
-	public void destroy() {
-		if (log.isDebugEnabled()) {
-			log.debug("清除SpringContextHolder中的ApplicationContext:" + applicationContext);
-		}
-		this.setSpringContext(null);
-	}
+    @Override
+    public void destroy() {
+        if (log.isDebugEnabled()) {
+            log.debug("清除SpringContextHolder中的ApplicationContext:" + applicationContext);
+        }
+        this.setSpringContext(null);
+    }
 
-	private synchronized void setSpringContext(ApplicationContext applicationContext) {
-		SpringContextHolder.applicationContext = applicationContext;
-	}
+    private synchronized void setSpringContext(ApplicationContext applicationContext) {
+        SpringContextHolder.applicationContext = applicationContext;
+    }
 
-	/**
-	 * Spring事件发布
-	 * @param event 事件
-	 */
-	public static void publishEvent(ApplicationEvent event) {
-		applicationContext.publishEvent(event);
-	}
+    /**
+     * Spring事件发布
+     *
+     * @param event 事件
+     */
+    public static void publishEvent(ApplicationEvent event) {
+        applicationContext.publishEvent(event);
+    }
 
-	@SuppressWarnings("unchecked")
-	public static <T> T getBean(String name) {
-		return (T) applicationContext.getBean(name);
-	}
+    @SuppressWarnings("unchecked")
+    public static <T> T getBean(String name) {
+        return (T) applicationContext.getBean(name);
+    }
 
-	public static <T> T getBean(Class<T> typeClass) {
-		return applicationContext.getBean(typeClass);
-	}
+    public static <T> T getBean(Class<T> typeClass) {
+        return applicationContext.getBean(typeClass);
+    }
 
-	public static <T> T getBean(String name, Class<T> typeClass) {
-		return applicationContext.getBean(name, typeClass);
-	}
+    public static <T> T getBean(String name, Class<T> typeClass) {
+        return applicationContext.getBean(name, typeClass);
+    }
 
-	public static String getProperty(String key) {
-		return applicationContext.getEnvironment().getProperty(key);
-	}
+    public static String getProperty(String key, String defaultValue) {
+        return applicationContext.getEnvironment().getProperty(key, defaultValue);
+    }
 
+    public static String getProperty(String key) {
+        return getProperty(key, null);
+    }
 }

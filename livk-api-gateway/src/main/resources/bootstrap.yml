@@ -18,7 +18,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: ${NACOS_HOST:livk.com}:${NACOS_PORT:9966}
+        server-addr: ${NACOS_HOST:livk.com}:${NACOS_PORT:8848}
   boot:
     admin:
       client:
@@ -27,6 +27,14 @@ spring:
         password: 123456
   profiles:
     active: @profiles.active@
+
 swagger:
   enable: true
   version: @version@
+springfox:
+  documentation:
+    swagger:
+      v2:
+        enabled: true
+    swagger-ui:
+      enabled: true
