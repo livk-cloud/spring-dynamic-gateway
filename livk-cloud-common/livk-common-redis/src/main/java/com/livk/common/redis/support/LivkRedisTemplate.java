@@ -3,7 +3,7 @@ package com.livk.common.redis.support;
 import com.livk.common.redis.util.SerializerUtils;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
  * <p>
@@ -16,12 +16,10 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class LivkRedisTemplate extends RedisTemplate<String, Object> {
 
     private LivkRedisTemplate() {
-        var serializer = SerializerUtils.getJacksonSerializer(Object.class);
-        var stringRedisSerializer = new StringRedisSerializer();
-        this.setKeySerializer(stringRedisSerializer);
-        this.setHashKeySerializer(stringRedisSerializer);
-        this.setValueSerializer(serializer);
-        this.setHashValueSerializer(serializer);
+        this.setKeySerializer(RedisSerializer.string());
+        this.setHashKeySerializer(RedisSerializer.string());
+        this.setValueSerializer(SerializerUtils.getJacksonSerializer(Object.class));
+        this.setHashValueSerializer(SerializerUtils.getJacksonSerializer(Object.class));
     }
 
     public LivkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {

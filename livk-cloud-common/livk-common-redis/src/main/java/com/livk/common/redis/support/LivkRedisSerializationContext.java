@@ -4,7 +4,7 @@ import com.livk.common.redis.util.SerializerUtils;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import reactor.util.annotation.NonNull;
+import org.springframework.lang.NonNull;
 
 /**
  * <p>
@@ -14,12 +14,12 @@ import reactor.util.annotation.NonNull;
  * @author livk
  * @date 2021/12/5
  */
-public class LivkRedisSerializationContext implements RedisSerializationContext<String, Object> {
+public class LivkRedisSerializationContext<T> implements RedisSerializationContext<String, T> {
 
-    private final Jackson2JsonRedisSerializer<Object> serializer;
+    private final Jackson2JsonRedisSerializer<T> serializer;
 
-    public LivkRedisSerializationContext() {
-        this.serializer = SerializerUtils.getJacksonSerializer(Object.class);
+    public LivkRedisSerializationContext(Class<T> targetClass) {
+        this.serializer = SerializerUtils.getJacksonSerializer(targetClass);
     }
 
     @NonNull
@@ -30,22 +30,22 @@ public class LivkRedisSerializationContext implements RedisSerializationContext<
 
     @NonNull
     @Override
-    public SerializationPair<Object> getValueSerializationPair() {
+    public SerializationPair<T> getValueSerializationPair() {
         return RedisSerializationContext.SerializationPair.fromSerializer(serializer);
     }
 
-    @NonNull
     @SuppressWarnings("unchecked")
+    @NonNull
     @Override
     public SerializationPair<String> getHashKeySerializationPair() {
         return RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string());
     }
 
-    @NonNull
     @SuppressWarnings("unchecked")
+    @NonNull
     @Override
-    public SerializationPair<Object> getHashValueSerializationPair() {
-        return RedisSerializationContext.SerializationPair.fromSerializer(serializer);
+    public SerializationPair<T> getHashValueSerializationPair() {
+        return SerializationPair.fromSerializer(serializer);
     }
 
     @NonNull
