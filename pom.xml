@@ -29,6 +29,7 @@
         <commons-validator.version>1.7</commons-validator.version>
         <livk-common.version>0.0.1</livk-common.version>
         <spring.checkstyle.version>0.0.29</spring.checkstyle.version>
+        <burningwave.version>12.41.2</burningwave.version>
     </properties>
 
     <dependencies>
@@ -121,6 +122,12 @@
                 <groupId>commons-validator</groupId>
                 <artifactId>commons-validator</artifactId>
                 <version>${commons-validator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.burningwave</groupId>
+                <artifactId>core</artifactId>
+                <version>${burningwave.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

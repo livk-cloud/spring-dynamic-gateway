@@ -33,7 +33,14 @@ public class RoutePredicateValidator implements ConstraintValidator<RoutePredica
         return !CollectionUtils.isEmpty(predicate.getArgs()) && containsRoute(predicate.getArgs());
     }
 
+    /**
+     * args
+     * {@link org.springframework.cloud.gateway.handler.predicate.PredicateDefinition#args}
+     *
+     * @param args Predicate args
+     * @return bool
+     */
     private boolean containsRoute(Map<String, String> args) {
-        return args.get(PATTERN) != null || args.get(GENERATED_NAME_PREFIX + "0") != null;
+        return args.get(PATTERN) != null ^ args.get(GENERATED_NAME_PREFIX + "0") != null;
     }
 }
