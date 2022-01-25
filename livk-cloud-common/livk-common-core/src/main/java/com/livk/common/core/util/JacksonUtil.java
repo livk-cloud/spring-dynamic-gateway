@@ -5,15 +5,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -39,7 +35,7 @@ public class JacksonUtil {
      */
     @SuppressWarnings("unchecked")
     public <T> T toBean(String json, Class<T> clazz) {
-        if (json == null || json.isEmpty() || clazz == null) {
+        if (!StringUtils.hasText(json) || clazz == null) {
             return null;
         }
         try {
@@ -80,7 +76,7 @@ public class JacksonUtil {
      */
     @SuppressWarnings("unchecked")
     public <T> Stream<T> toStream(String json, Class<T> clazz) {
-        if (json == null || json.isEmpty() || clazz == null) {
+        if (!StringUtils.hasText(json) || clazz == null) {
             return Stream.empty();
         }
         var collectionType = MAPPER.getTypeFactory().constructCollectionType(Collection.class, clazz);
@@ -99,7 +95,7 @@ public class JacksonUtil {
      * @return the string
      */
     public String toJson(Object obj) {
-        if (ObjectUtils.isEmpty(obj)) {
+        if (Objects.isNull(obj)) {
             return JSON_EMPTY;
         }
         try {
@@ -122,6 +118,9 @@ public class JacksonUtil {
      */
     @SneakyThrows
     public <K, V> Map<K, V> toMap(String json, Class<K> kClass, Class<V> vClass) {
+        if (!StringUtils.hasText(json)) {
+            return Collections.emptyMap();
+        }
         return toMap(json.getBytes(), kClass, vClass);
     }
 
@@ -136,7 +135,7 @@ public class JacksonUtil {
      * @return the map
      */
     public <K, V> Map<K, V> toMap(byte[] json, Class<K> kClass, Class<V> vClass) {
-        if (json == null || kClass == null || vClass == null) {
+        if (ObjectUtils.allChecked(Objects::isNull, json, kClass, vClass)) {
             return Collections.emptyMap();
         }
         try {
