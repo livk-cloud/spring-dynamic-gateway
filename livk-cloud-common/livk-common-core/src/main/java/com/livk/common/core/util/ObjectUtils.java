@@ -1,7 +1,9 @@
 package com.livk.common.core.util;
 
 import lombok.experimental.UtilityClass;
-import org.springframework.util.StringUtils;
+
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * <p>
@@ -14,12 +16,13 @@ import org.springframework.util.StringUtils;
 @UtilityClass
 public class ObjectUtils {
 
-    public boolean allHasText(String... str) {
-        for (String s : str) {
-            if (!StringUtils.hasText(s)) {
-                return false;
-            }
-        }
-        return true;
+    @SafeVarargs
+    public <T> boolean allChecked(Predicate<T> predicate, T... ts) {
+        return Stream.of(ts).allMatch(predicate);
+    }
+
+    @SafeVarargs
+    public <T> boolean anyChecked(Predicate<T> predicate, T... ts) {
+        return Stream.of(ts).anyMatch(predicate);
     }
 }
