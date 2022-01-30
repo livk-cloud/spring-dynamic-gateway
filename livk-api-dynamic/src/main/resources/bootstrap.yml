@@ -13,9 +13,11 @@ spring:
   kafka:
     bootstrap-servers: ${KAFKA_HOST:livk.com}:${KAFKA_PORT:9092}
   cloud:
-    nacos:
+    consul:
       discovery:
-        server-addr: ${NACOS_HOST:livk.com}:${NACOS_PORT:8848}
+        service-name: ${spring.application.name}
+      host: ${CONSUL_HOST:livk.com}
+      port: ${CONSUL_PORT:8500}
   boot:
     admin:
       client:
