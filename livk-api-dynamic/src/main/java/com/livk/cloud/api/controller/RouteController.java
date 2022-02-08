@@ -4,11 +4,11 @@ import com.livk.cloud.api.domain.RedisRoute;
 import com.livk.cloud.api.service.DynamicRouteService;
 import com.livk.common.log.annotation.LivkLog;
 import io.swagger.annotations.Api;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**

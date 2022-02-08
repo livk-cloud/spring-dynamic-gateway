@@ -21,7 +21,7 @@
         <boot.version>3.0.0-M1</boot.version>
         <boot.plugin.version>2.6.3</boot.plugin.version>
         <cloud.version>2022.0.0-M1</cloud.version>
-        <spring-boot-admin.version>2.5.5</spring-boot-admin.version>
+        <spring-boot-admin.version>2.6.2</spring-boot-admin.version>
         <swagger.version>3.0.0</swagger.version>
         <mybatis-plus.version>3.5.0</mybatis-plus.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
