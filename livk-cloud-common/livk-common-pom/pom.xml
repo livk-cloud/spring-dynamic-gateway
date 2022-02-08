@@ -13,6 +13,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <livk-common.version>0.0.1</livk-common.version>
+        <guava.version>31.0.1-jre</guava.version>
     </properties>
 
     <dependencyManagement>
@@ -51,6 +52,12 @@
                 <groupId>com.livk.cloud</groupId>
                 <artifactId>livk-common-swagger</artifactId>
                 <version>${livk-common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

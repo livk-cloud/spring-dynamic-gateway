@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
  * SpringContextHolder
@@ -25,6 +28,9 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 
     private static ApplicationContext applicationContext = null;
 
+    private static final List<CallBack> CALL_BACKS = new ArrayList<>();
+    private static boolean executor = true;
+
     @Override
     public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {
         if (SpringContextHolder.applicationContext != null) {
@@ -32,10 +38,15 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
                      + SpringContextHolder.applicationContext);
         }
         this.setSpringContext(applicationContext);
-    }
-
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
+        synchronized (CALL_BACKS) {
+            if (executor) {
+                for (CallBack callBack : SpringContextHolder.CALL_BACKS) {
+                    callBack.executor();
+                }
+                CALL_BACKS.clear();
+                executor = false;
+            }
+        }
     }
 
     @Override
@@ -46,8 +57,21 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
         this.setSpringContext(null);
     }
 
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
     private synchronized void setSpringContext(ApplicationContext applicationContext) {
         SpringContextHolder.applicationContext = applicationContext;
+    }
+
+    public synchronized void callBack(CallBack callBack) {
+        if (executor) {
+            SpringContextHolder.CALL_BACKS.add(callBack);
+        } else {
+            log.warn("CallBack：{} 已无法添加！立即执行", callBack.getCallBackName());
+            callBack.executor();
+        }
     }
 
     /**
@@ -72,11 +96,15 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
         return applicationContext.getBean(name, typeClass);
     }
 
-    public static String getProperty(String key, String defaultValue) {
-        return applicationContext.getEnvironment().getProperty(key, defaultValue);
+    public static String getProperty(String key) {
+        return getProperty(key, String.class);
     }
 
-    public static String getProperty(String key) {
-        return getProperty(key, null);
+    public static <T> T getProperty(String key, Class<T> requiredType) {
+        return getProperty(key, requiredType, null);
+    }
+
+    public static <T> T getProperty(String key, Class<T> requiredType, T defaultValue) {
+        return applicationContext.getEnvironment().getProperty(key, requiredType, defaultValue);
     }
 }

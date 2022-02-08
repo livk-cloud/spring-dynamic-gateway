@@ -1,9 +1,9 @@
 package com.livk.common.core.util;
 
 import com.livk.common.core.result.R;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
