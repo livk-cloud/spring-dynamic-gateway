@@ -1,6 +1,6 @@
 package com.livk.cloud.api.filter;
 
-import com.livk.common.core.util.SysUtil;
+import com.livk.common.core.util.SysUtils;
 import com.livk.common.swagger.support.GatewaySwaggerResourcesProvider;
 import org.reactivestreams.Publisher;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -60,7 +60,7 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
                         dataBuffer.read(content);
                         DataBufferUtils.release(dataBuffer);
                         var result = new String(content, StandardCharsets.UTF_8);
-                        return bufferFactory.wrap(SysUtil.packageResult(result).getBytes(StandardCharsets.UTF_8));
+                        return bufferFactory.wrap(SysUtils.packageResult(result).getBytes(StandardCharsets.UTF_8));
                     }));
                 }
                 return super.writeWith(body);

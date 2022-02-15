@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  * @date 2021/12/24
  */
 @UtilityClass
-public class ObjectUtils {
+public class ObjectUtils extends org.springframework.util.ObjectUtils {
 
     @SafeVarargs
     public <T> boolean allChecked(Predicate<T> predicate, T... ts) {

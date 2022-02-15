@@ -15,7 +15,7 @@ import java.util.Map;
  * @date 2021/11/2
  */
 @UtilityClass
-public class SysUtil {
+public class SysUtils {
 
 	private static final String UNKNOWN = "unknown";
 
@@ -64,19 +64,19 @@ public class SysUtil {
 	 */
 	public static String packageResult(String result) {
 		if (result == null || "".equals(result)) {
-			return JacksonUtil.toJson(R.ok(R.Constant.SUCCESS));
+			return JacksonUtils.toJson(R.ok(R.Constant.SUCCESS));
 		}
 		if (checkBool(result)) {
 			var parseBoolean = Boolean.parseBoolean(result);
-			return JacksonUtil.toJson(parseBoolean ? R.ok() : R.error(R.Constant.ERROR));
+			return JacksonUtils.toJson(parseBoolean ? R.ok() : R.error(R.Constant.ERROR));
 		}
 		if (!(result.startsWith("[") && result.endsWith("]"))) {
-			var map = JacksonUtil.toMap(result, String.class, Object.class);
+			var map = JacksonUtils.toMap(result, String.class, Object.class);
 			if (checkMap(map)) {
 				return result;
 			}
 		}
-		return JacksonUtil.toJson(R.ok(result));
+		return JacksonUtils.toJson(R.ok(result));
 	}
 
 	/**

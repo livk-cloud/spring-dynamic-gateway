@@ -1,12 +1,12 @@
 package com.livk.common.core.util;
 
 import com.livk.common.core.result.R;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -19,7 +19,7 @@ import java.io.PrintWriter;
  * @date 2021/11/2
  */
 @UtilityClass
-public class ResponseUtil {
+public class ResponseUtils {
 
 	public HttpServletResponse getResponse() {
 		var requestAttributes = RequestContextHolder.getRequestAttributes();
@@ -29,9 +29,9 @@ public class ResponseUtil {
 	}
 
 	public void out(String message) {
-		var response = ResponseUtil.getResponse();
+		var response = ResponseUtils.getResponse();
 		Assert.notNull(response,"response not null!");
-		ResponseUtil.out(response, message);
+		ResponseUtils.out(response, message);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class ResponseUtil {
 	public void out(HttpServletResponse response, String message) {
 		var r = R.error(message);
 		try (PrintWriter out = response.getWriter()) {
-			out.print(JacksonUtil.toJson(r));
+			out.print(JacksonUtils.toJson(r));
 			out.flush();
 		}
 		catch (IOException exception) {

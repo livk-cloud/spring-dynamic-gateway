@@ -1,7 +1,5 @@
 package com.livk.common.redis;
 
-import com.livk.common.redis.service.RedisService;
-import com.livk.common.redis.service.impl.RedisServiceImpl;
 import com.livk.common.redis.support.LivkReactiveRedisTemplate;
 import com.livk.common.redis.support.LivkRedisTemplate;
 import com.livk.common.redis.util.SerializerUtils;
@@ -41,12 +39,6 @@ public class LivkRedisAutoConfiguration {
     @ConditionalOnBean(RedisConnectionFactory.class)
     public LivkRedisTemplate livkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         return new LivkRedisTemplate(redisConnectionFactory);
-    }
-
-    @Bean
-    @ConditionalOnBean(LivkRedisTemplate.class)
-    public RedisService redisService(LivkRedisTemplate redisTemplate) {
-        return new RedisServiceImpl(redisTemplate);
     }
 
     @Bean

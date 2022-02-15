@@ -1,6 +1,6 @@
 package com.livk.common.log.event;
 
-import com.livk.common.core.util.JacksonUtil;
+import com.livk.common.core.util.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.context.ApplicationListener;
@@ -36,7 +36,7 @@ record LogThread(LivkLogEvent event, Logger log) implements Runnable {
 
     @Override
     public void run() {
-        log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtil.toJson(event.getSource()));
+        log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtils.toJson(event.getSource()));
     }
 
 }

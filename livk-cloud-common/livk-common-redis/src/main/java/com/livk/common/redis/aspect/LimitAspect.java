@@ -1,8 +1,8 @@
 package com.livk.common.redis.aspect;
 
 import com.google.common.collect.ImmutableList;
-import com.livk.common.core.util.RequestUtil;
-import com.livk.common.core.util.SysUtil;
+import com.livk.common.core.util.RequestUtils;
+import com.livk.common.core.util.SysUtils;
 import com.livk.common.redis.annoration.Limit;
 import com.livk.common.redis.constant.LimitType;
 import com.livk.common.redis.support.LivkRedisTemplate;
@@ -40,14 +40,14 @@ public class LimitAspect {
 
     @Around("@annotation(limit)||@within(limit)")
     public Object around(ProceedingJoinPoint joinPoint, Limit limit) throws Throwable {
-        HttpServletRequest request = RequestUtil.getRequest();
+        HttpServletRequest request = RequestUtils.getRequest();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         LimitType limitType = limit.limitType();
         String key = limit.key();
         if (StringUtils.isEmpty(key)) {
             if (limitType == LimitType.IP) {
-                key = SysUtil.getRealIp(request);
+                key = SysUtils.getRealIp(request);
             } else {
                 key = method.getName();
             }

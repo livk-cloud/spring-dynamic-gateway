@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  * The type Jackson util.
  */
 @UtilityClass
-public class JacksonUtil {
+public class JacksonUtils {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 

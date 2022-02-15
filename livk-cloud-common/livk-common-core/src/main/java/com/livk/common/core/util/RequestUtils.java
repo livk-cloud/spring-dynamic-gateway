@@ -19,7 +19,7 @@ import java.util.Map;
  * @date 2021/11/2
  */
 @UtilityClass
-public class RequestUtil {
+public class RequestUtils {
 
 	public HttpServletRequest getRequest() {
 		var requestAttributes = RequestContextHolder.getRequestAttributes();
@@ -29,19 +29,19 @@ public class RequestUtil {
 	}
 
 	public HttpSession getSession() {
-		return RequestUtil.getRequest().getSession();
+		return RequestUtils.getRequest().getSession();
 	}
 
 	public String getParameter(String name) {
-		return RequestUtil.getRequest().getParameter(name);
+		return RequestUtils.getRequest().getParameter(name);
 	}
 
 	public String getHeader(String headerName) {
-		return RequestUtil.getRequest().getHeader(headerName);
+		return RequestUtils.getRequest().getHeader(headerName);
 	}
 
 	public Map<String, String> getHeaders() {
-		var request = RequestUtil.getRequest();
+		var request = RequestUtils.getRequest();
 		var map = new LinkedHashMap<String, String>();
 		var enumeration = request.getHeaderNames();
 		if (enumeration != null) {

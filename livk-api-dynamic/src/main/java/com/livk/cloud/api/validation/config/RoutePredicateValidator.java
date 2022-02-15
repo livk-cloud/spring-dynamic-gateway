@@ -2,10 +2,10 @@ package com.livk.cloud.api.validation.config;
 
 import com.livk.cloud.api.domain.route.Predicate;
 import com.livk.cloud.api.validation.annotation.RoutePredicate;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.util.CollectionUtils;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 import java.util.Map;
 
