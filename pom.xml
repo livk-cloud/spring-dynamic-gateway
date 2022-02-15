@@ -22,14 +22,8 @@
         <boot.plugin.version>2.6.3</boot.plugin.version>
         <cloud.version>2022.0.0-M1</cloud.version>
         <spring-boot-admin.version>2.6.2</spring-boot-admin.version>
-        <swagger.version>3.0.0</swagger.version>
-        <mybatis-plus.version>3.5.1</mybatis-plus.version>
-        <mapstruct.version>1.5.0.Beta2</mapstruct.version>
-        <mapstruct-lombok.version>0.2.0</mapstruct-lombok.version>
-        <commons-validator.version>1.7</commons-validator.version>
         <livk-common.version>0.0.1</livk-common.version>
         <spring.checkstyle.version>0.0.31</spring.checkstyle.version>
-        <burningwave.version>12.45.1</burningwave.version>
     </properties>
 
     <dependencies>
@@ -78,48 +72,6 @@
                 <version>${livk-common.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-processor</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok-mapstruct-binding</artifactId>
-                <version>${mapstruct-lombok.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-validator</groupId>
-                <artifactId>commons-validator</artifactId>
-                <version>${commons-validator.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.burningwave</groupId>
-                <artifactId>core</artifactId>
-                <version>${burningwave.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
