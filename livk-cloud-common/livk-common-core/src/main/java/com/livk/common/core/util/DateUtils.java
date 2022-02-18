@@ -16,8 +16,8 @@ import java.util.Date;
  */
 @UtilityClass
 public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
-    public static final DateTimeFormatter DFY_MD_HMS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    public static final DateTimeFormatter DFY_MD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter YMD_HMS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter YMD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * LocalDateTime 转时间戳

@@ -118,6 +118,28 @@ server{
 	}
 }
 ```
+
+```shell
+docker run --name minio \
+-p 9010:9000 \
+-p 9999:9999 \
+-d --restart=always \
+-e "MINIO_ROOT_USER=admin" \
+-e "MINIO_ROOT_PASSWORD=1375632510" \
+-v /home/minio/data:/data \
+-v /home/minio/config:/root/.minio \
+minio/minio server /data \
+--console-address '0.0.0.0:9999'
+
+docker run -p 3306:3306 --name mysql \
+-e MYSQL_ROOT_PASSWORD=123456 \
+-d mysql
+
+docker run -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=192.168.75.129:2181/kafka -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.75.129:9092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -e ALLOW_PLAINTEXT_LISTENER=yes bitnami/kafka
+
+
+docker run -d -p 15672:15672  -p  5672:5672  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin --name rabbitmq rabbitmq:management
+```
 ###停止维护(SpringCloud GateWay 3.1.0开始支持Redis存储RouteDefinition)
 参考org.springframework.cloud.gateway.route.RedisRouteDefinitionRepository
 > 表SQL详见[SQL](./table.sql).<br>

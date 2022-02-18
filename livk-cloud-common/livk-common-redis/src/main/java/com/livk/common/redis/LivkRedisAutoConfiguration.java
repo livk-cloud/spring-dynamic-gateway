@@ -45,17 +45,11 @@ public class LivkRedisAutoConfiguration {
     @ConditionalOnBean(RedisConnectionFactory.class)
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         var serializer = SerializerUtils.getJacksonSerializer(Object.class);
-        return RedisCacheManager.builder(RedisCacheWriter
-                        .nonLockingRedisCacheWriter(redisConnectionFactory))
-                .cacheDefaults(RedisCacheConfiguration
-                        .defaultCacheConfig()
-                        .disableCachingNullValues()
-                        .serializeKeysWith(RedisSerializationContext
-                                .SerializationPair
-                                .fromSerializer(new StringRedisSerializer()))
-                        .serializeValuesWith(RedisSerializationContext
-                                .SerializationPair
-                                .fromSerializer(serializer))).build();
+        return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
+                .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().disableCachingNullValues()
+                        .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer)))
+                .build();
     }
 
 }
