@@ -5,6 +5,7 @@ import com.livk.common.redis.support.LivkRedisTemplate;
 import com.livk.common.redis.util.SerializerUtils;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -30,18 +31,21 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class LivkRedisAutoConfiguration {
 
     @Bean
+    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
     @ConditionalOnBean(ReactiveRedisConnectionFactory.class)
     public LivkReactiveRedisTemplate livkReactiveRedisTemplate(ReactiveRedisConnectionFactory redisConnectionFactory) {
         return new LivkReactiveRedisTemplate(redisConnectionFactory);
     }
 
     @Bean
+    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
     @ConditionalOnBean(RedisConnectionFactory.class)
     public LivkRedisTemplate livkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         return new LivkRedisTemplate(redisConnectionFactory);
     }
 
     @Bean
+    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
     @ConditionalOnBean(RedisConnectionFactory.class)
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         var serializer = SerializerUtils.getJacksonSerializer(Object.class);
