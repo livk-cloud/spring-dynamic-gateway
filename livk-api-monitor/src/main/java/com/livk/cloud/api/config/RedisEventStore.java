@@ -1,11 +1,13 @@
 package com.livk.cloud.api.config;
 
 import com.livk.common.core.util.ObjectUtils;
+import com.livk.common.redis.support.JdkRedisSerializationContext;
 import com.livk.common.redis.support.LivkReactiveRedisTemplate;
 import de.codecentric.boot.admin.server.domain.events.InstanceEvent;
 import de.codecentric.boot.admin.server.domain.values.InstanceId;
 import de.codecentric.boot.admin.server.eventstore.InstanceEventPublisher;
 import de.codecentric.boot.admin.server.eventstore.InstanceEventStore;
+import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.core.ReactiveHashOperations;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -30,7 +32,8 @@ public class RedisEventStore extends InstanceEventPublisher implements InstanceE
 
     private final ReactiveHashOperations<String, String, List<InstanceEvent>> hashOperations;
 
-    public RedisEventStore(LivkReactiveRedisTemplate reactiveRedisTemplate) {
+    public RedisEventStore(ReactiveRedisConnectionFactory redisConnectionFactory) {
+        LivkReactiveRedisTemplate reactiveRedisTemplate = new LivkReactiveRedisTemplate(redisConnectionFactory, new JdkRedisSerializationContext());
         hashOperations = reactiveRedisTemplate.opsForHash();
     }
 

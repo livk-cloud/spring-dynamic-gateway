@@ -1,26 +1,19 @@
 package com.livk.common.redis.support;
 
-import com.livk.common.redis.util.SerializerUtils;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.lang.NonNull;
 
 /**
  * <p>
- * LivkRedisSerializationContext
+ * JdkRedisSerializationContext
  * </p>
  *
  * @author livk
- * @date 2021/12/5
+ * @date 2022/2/21
  */
-public class LivkRedisSerializationContext<T> implements RedisSerializationContext<String, T> {
-
-    private final Jackson2JsonRedisSerializer<T> serializer;
-
-    public LivkRedisSerializationContext(Class<T> targetClass) {
-        this.serializer = SerializerUtils.getJacksonSerializer(targetClass);
-    }
+public class JdkRedisSerializationContext implements RedisSerializationContext<String, Object> {
 
     @NonNull
     @Override
@@ -30,8 +23,8 @@ public class LivkRedisSerializationContext<T> implements RedisSerializationConte
 
     @NonNull
     @Override
-    public SerializationPair<T> getValueSerializationPair() {
-        return RedisSerializationContext.SerializationPair.fromSerializer(serializer);
+    public SerializationPair<Object> getValueSerializationPair() {
+        return RedisSerializationContext.SerializationPair.fromSerializer(new JdkSerializationRedisSerializer());
     }
 
     @SuppressWarnings("unchecked")
@@ -44,8 +37,8 @@ public class LivkRedisSerializationContext<T> implements RedisSerializationConte
     @SuppressWarnings("unchecked")
     @NonNull
     @Override
-    public SerializationPair<T> getHashValueSerializationPair() {
-        return SerializationPair.fromSerializer(serializer);
+    public SerializationPair<Object> getHashValueSerializationPair() {
+        return SerializationPair.fromSerializer(new JdkSerializationRedisSerializer());
     }
 
     @NonNull
