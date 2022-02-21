@@ -29,31 +29,31 @@ import java.util.HashMap;
 @Order(-1)
 public class LogAspect {
 
-    @Around("@annotation(livkLog)||@within(livkLog)")
-    public Object around(ProceedingJoinPoint joinPoint, LivkLog livkLog) throws Throwable {
-        var log = new Log();
-        var request = RequestUtils.getRequest();
-        var signature = (MethodSignature) joinPoint.getSignature();
-        var methodName = signature.getMethod().getName();
-        var parameterNames = signature.getParameterNames();
-        var args = joinPoint.getArgs();
-        var start = System.currentTimeMillis();
-        var proceed = joinPoint.proceed();
-        var end = System.currentTimeMillis();
-        if (parameterNames.length != 0 && args.length != 0) {
-            var map = new HashMap<String, Object>(SysUtils.getMapSize(parameterNames.length));
-            for (var i = 0; i < parameterNames.length; i++) {
-                map.put(parameterNames[i], args[i]);
-            }
-            log.setParams(map);
-        }
-        log.setResult(proceed);
-        log.setMethodName(methodName);
-        log.setIp(InetAddress.getByName(SysUtils.getRealIp(request)));
-        log.setRuntime(end - start);
-        SpringContextHolder
-                .publishEvent(new LivkLogEvent(log, SpringContextHolder.getProperty("spring.application.name")));
-        return proceed;
-    }
+	@Around("@annotation(livkLog)||@within(livkLog)")
+	public Object around(ProceedingJoinPoint joinPoint, LivkLog livkLog) throws Throwable {
+		var log = new Log();
+		var request = RequestUtils.getRequest();
+		var signature = (MethodSignature) joinPoint.getSignature();
+		var methodName = signature.getMethod().getName();
+		var parameterNames = signature.getParameterNames();
+		var args = joinPoint.getArgs();
+		var start = System.currentTimeMillis();
+		var proceed = joinPoint.proceed();
+		var end = System.currentTimeMillis();
+		if (parameterNames.length != 0 && args.length != 0) {
+			var map = new HashMap<String, Object>(SysUtils.getMapSize(parameterNames.length));
+			for (var i = 0; i < parameterNames.length; i++) {
+				map.put(parameterNames[i], args[i]);
+			}
+			log.setParams(map);
+		}
+		log.setResult(proceed);
+		log.setMethodName(methodName);
+		log.setIp(InetAddress.getByName(SysUtils.getRealIp(request)));
+		log.setRuntime(end - start);
+		SpringContextHolder
+				.publishEvent(new LivkLogEvent(log, SpringContextHolder.getProperty("spring.application.name")));
+		return proceed;
+	}
 
 }

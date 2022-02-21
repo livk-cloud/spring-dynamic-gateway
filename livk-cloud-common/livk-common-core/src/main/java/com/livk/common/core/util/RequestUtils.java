@@ -1,6 +1,5 @@
 package com.livk.common.core.util;
 
-
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -25,7 +24,7 @@ public class RequestUtils {
 	public HttpServletRequest getRequest() {
 		var requestAttributes = RequestContextHolder.getRequestAttributes();
 		var servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-		Assert.notNull(servletRequestAttributes,"attributes not null!");
+		Assert.notNull(servletRequestAttributes, "attributes not null!");
 		return servletRequestAttributes.getRequest();
 	}
 

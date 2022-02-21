@@ -15,9 +15,12 @@ import org.springframework.lang.Nullable;
  * @date 2022/1/24
  */
 @Configuration
-public class CglibApplicationContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-    @Override
-    public void initialize(@Nullable ConfigurableApplicationContext applicationContext) {
-        StaticComponentContainer.Modules.exportAllToAll();
-    }
+public class CglibApplicationContextInitializer
+		implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
+	@Override
+	public void initialize(@Nullable ConfigurableApplicationContext applicationContext) {
+		StaticComponentContainer.Modules.exportAllToAll();
+	}
+
 }

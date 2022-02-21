@@ -14,7 +14,6 @@ public interface LivkRemoteHandler {
 
 	/**
 	 * Remote handler.
-	 *
 	 * @param livkRemoteEvent the livk remote event
 	 */
 	void remoteHandler(LivkRemoteEvent livkRemoteEvent);

@@ -29,25 +29,26 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @AutoConfigureBefore(RedisAutoConfiguration.class)
 public class LivkRedisAutoConfiguration {
 
-    @Bean
-    public LivkReactiveRedisTemplate livkReactiveRedisTemplate(ReactiveRedisConnectionFactory redisConnectionFactory) {
-        return new LivkReactiveRedisTemplate(redisConnectionFactory);
-    }
+	@Bean
+	public LivkReactiveRedisTemplate livkReactiveRedisTemplate(ReactiveRedisConnectionFactory redisConnectionFactory) {
+		return new LivkReactiveRedisTemplate(redisConnectionFactory);
+	}
 
-    @Bean
-    public LivkRedisTemplate livkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        return new LivkRedisTemplate(redisConnectionFactory);
-    }
+	@Bean
+	public LivkRedisTemplate livkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+		return new LivkRedisTemplate(redisConnectionFactory);
+	}
 
-    @Bean
-    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
-        var serializer = SerializerUtils.getJacksonSerializer(Object.class);
-        return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
-                .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().disableCachingNullValues()
-                        .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer)))
-                .build();
-    }
+	@Bean
+	@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+	public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+		var serializer = SerializerUtils.getJacksonSerializer(Object.class);
+		return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
+				.cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().disableCachingNullValues()
+						.serializeKeysWith(
+								RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+						.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer)))
+				.build();
+	}
 
 }

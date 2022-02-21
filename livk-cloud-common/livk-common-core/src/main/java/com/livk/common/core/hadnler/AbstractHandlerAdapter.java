@@ -17,24 +17,22 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractHandlerAdapter<T> {
 
-    public static final Class<HandlerType> ANNOTATION_TYPE = HandlerType.class;
+	public static final Class<HandlerType> ANNOTATION_TYPE = HandlerType.class;
 
-    protected final Map<String, T> handlerMap;
+	protected final Map<String, T> handlerMap;
 
-    protected AbstractHandlerAdapter(List<T> targetList) {
-        handlerMap = targetList.stream()
-                .filter(t -> AnnotationUtils.isCandidateClass(t.getClass(), ANNOTATION_TYPE))
-                .collect(Collectors.toMap(t -> t.getClass().getAnnotation(ANNOTATION_TYPE).value(),
-                        Function.identity(),
-                        (t1, t2) -> t2,
-                        () -> Collections.synchronizedMap(new LinkedHashMap<>())));
-    }
+	protected AbstractHandlerAdapter(List<T> targetList) {
+		handlerMap = targetList.stream().filter(t -> AnnotationUtils.isCandidateClass(t.getClass(), ANNOTATION_TYPE))
+				.collect(Collectors.toMap(t -> t.getClass().getAnnotation(ANNOTATION_TYPE).value(), Function.identity(),
+						(t1, t2) -> t2, () -> Collections.synchronizedMap(new LinkedHashMap<>())));
+	}
 
-    public T get(String value) {
-        return handlerMap.get(value);
-    }
+	public T get(String value) {
+		return handlerMap.get(value);
+	}
 
-    public Set<String> keySet() {
-        return handlerMap.keySet();
-    }
+	public Set<String> keySet() {
+		return handlerMap.keySet();
+	}
+
 }

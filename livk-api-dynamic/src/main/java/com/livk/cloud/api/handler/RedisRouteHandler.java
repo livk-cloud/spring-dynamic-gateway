@@ -22,45 +22,45 @@ import java.util.stream.Collectors;
 @Component
 public class RedisRouteHandler {
 
-    static final String ROUTE_KEY = "RouteDefinition";
+	static final String ROUTE_KEY = "RouteDefinition";
 
-    /**
-     * spring.application.name:server.port:**
-     */
-    static final String LIVK_API_GATEWAY = "livk-api-gateway:9852:**";
+	/**
+	 * spring.application.name:server.port:**
+	 */
+	static final String LIVK_API_GATEWAY = "livk-api-gateway:9852:**";
 
-    private final LivkRedisTemplate livkRedisTemplate;
-    private final HashOperations<String, String, RedisRoute> forHash;
+	private final LivkRedisTemplate livkRedisTemplate;
 
-    public RedisRouteHandler(LivkRedisTemplate livkRedisTemplate) {
-        this.livkRedisTemplate = livkRedisTemplate;
-        this.forHash = livkRedisTemplate.opsForHash();
-    }
+	private final HashOperations<String, String, RedisRoute> forHash;
 
-    @LivkEventPublish(LIVK_API_GATEWAY)
-    public void reload(List<RedisRoute> redisRouteList) {
-        livkRedisTemplate.delete(ROUTE_KEY);
-        var redisRouteMap = redisRouteList.stream()
-                .collect(Collectors.toMap(RedisRoute::getId, Function.identity()));
-        forHash.putAll(ROUTE_KEY, redisRouteMap);
-    }
+	public RedisRouteHandler(LivkRedisTemplate livkRedisTemplate) {
+		this.livkRedisTemplate = livkRedisTemplate;
+		this.forHash = livkRedisTemplate.opsForHash();
+	}
 
-    @LivkEventPublish(LIVK_API_GATEWAY)
-    public void push(RedisRoute redisRoute) {
-        forHash.put(ROUTE_KEY, redisRoute.getId(), redisRoute);
-    }
+	@LivkEventPublish(LIVK_API_GATEWAY)
+	public void reload(List<RedisRoute> redisRouteList) {
+		livkRedisTemplate.delete(ROUTE_KEY);
+		var redisRouteMap = redisRouteList.stream().collect(Collectors.toMap(RedisRoute::getId, Function.identity()));
+		forHash.putAll(ROUTE_KEY, redisRouteMap);
+	}
 
-    @LivkEventPublish(LIVK_API_GATEWAY)
-    public void delete(String id) {
-        forHash.delete(ROUTE_KEY, id);
-    }
+	@LivkEventPublish(LIVK_API_GATEWAY)
+	public void push(RedisRoute redisRoute) {
+		forHash.put(ROUTE_KEY, redisRoute.getId(), redisRoute);
+	}
 
-    public List<RedisRoute> list() {
-        return forHash.entries(ROUTE_KEY).values().stream().toList();
-    }
+	@LivkEventPublish(LIVK_API_GATEWAY)
+	public void delete(String id) {
+		forHash.delete(ROUTE_KEY, id);
+	}
 
-    public RedisRoute getByRouteId(String routeId) {
-        return Optional.ofNullable(forHash.get(ROUTE_KEY, routeId)).orElse(new RedisRoute());
-    }
+	public List<RedisRoute> list() {
+		return forHash.entries(ROUTE_KEY).values().stream().toList();
+	}
+
+	public RedisRoute getByRouteId(String routeId) {
+		return Optional.ofNullable(forHash.get(ROUTE_KEY, routeId)).orElse(new RedisRoute());
+	}
 
 }

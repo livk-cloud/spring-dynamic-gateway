@@ -17,7 +17,6 @@ public interface BaseConverter<S, T> {
 
 	/**
 	 * Gets source.
-	 *
 	 * @param t the t
 	 * @return the source
 	 */
@@ -25,7 +24,6 @@ public interface BaseConverter<S, T> {
 
 	/**
 	 * Gets target.
-	 *
 	 * @param s the s
 	 * @return the target
 	 */
@@ -33,7 +31,6 @@ public interface BaseConverter<S, T> {
 
 	/**
 	 * Stream source stream.
-	 *
 	 * @param ct the ct
 	 * @return the stream
 	 */
@@ -41,7 +38,6 @@ public interface BaseConverter<S, T> {
 
 	/**
 	 * Stream target stream.
-	 *
 	 * @param cs the cs
 	 * @return the stream
 	 */

@@ -19,28 +19,27 @@ import java.util.Map;
  */
 public class RoutePredicateValidator implements ConstraintValidator<RoutePredicate, List<Predicate>> {
 
-    private static final String PATTERN = "pattern";
+	private static final String PATTERN = "pattern";
 
-    private static final String GENERATED_NAME_PREFIX = "_genkey_";
+	private static final String GENERATED_NAME_PREFIX = "_genkey_";
 
-    @Override
-    public boolean isValid(List<Predicate> predicates, ConstraintValidatorContext constraintValidatorContext) {
-        return predicates.stream()
-                .allMatch(this::verify);
-    }
+	@Override
+	public boolean isValid(List<Predicate> predicates, ConstraintValidatorContext constraintValidatorContext) {
+		return predicates.stream().allMatch(this::verify);
+	}
 
-    private boolean verify(Predicate predicate) {
-        return !CollectionUtils.isEmpty(predicate.getArgs()) && containsRoute(predicate.getArgs());
-    }
+	private boolean verify(Predicate predicate) {
+		return !CollectionUtils.isEmpty(predicate.getArgs()) && containsRoute(predicate.getArgs());
+	}
 
-    /**
-     * args
-     * {@link org.springframework.cloud.gateway.handler.predicate.PredicateDefinition#args}
-     *
-     * @param args Predicate args
-     * @return bool
-     */
-    private boolean containsRoute(Map<String, String> args) {
-        return args.get(PATTERN) != null ^ args.get(GENERATED_NAME_PREFIX + "0") != null;
-    }
+	/**
+	 * args
+	 * {@link org.springframework.cloud.gateway.handler.predicate.PredicateDefinition#args}
+	 * @param args Predicate args
+	 * @return bool
+	 */
+	private boolean containsRoute(Map<String, String> args) {
+		return args.get(PATTERN) != null ^ args.get(GENERATED_NAME_PREFIX + "0") != null;
+	}
+
 }

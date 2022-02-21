@@ -10,9 +10,11 @@ import java.lang.annotation.*;
  * @author livk
  * @date 2022/2/19
  */
-@Target({ElementType.TYPE})
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface HandlerType {
-    String value();
+
+	String value();
+
 }

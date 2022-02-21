@@ -34,9 +34,9 @@ public class LivkLogEventListener implements ApplicationListener<LivkLogEvent> {
 
 record LogThread(LivkLogEvent event, Logger log) implements Runnable {
 
-    @Override
-    public void run() {
-        log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtils.toJson(event.getSource()));
-    }
+	@Override
+	public void run() {
+		log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtils.toJson(event.getSource()));
+	}
 
 }

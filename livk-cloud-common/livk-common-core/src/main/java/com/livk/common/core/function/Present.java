@@ -15,26 +15,27 @@ import java.util.function.Predicate;
 @FunctionalInterface
 public interface Present<T> {
 
-    /**
-     * Present.
-     *
-     * @param action      the action
-     * @param emptyAction the empty action
-     */
-    void present(Consumer<T> action, Runnable emptyAction);
+	/**
+	 * Present.
+	 * @param action the action
+	 * @param emptyAction the empty action
+	 */
+	void present(Consumer<T> action, Runnable emptyAction);
 
-    /**
-     * Handler present.
-     *
-     * @param <T>       the type parameter
-     * @param t         the t
-     * @param predicate the predicate
-     * @return the present
-     */
-    static <T> Present<T> handler(T t, Predicate<T> predicate) {
-        return (action, emptyAction) -> {
-            if (predicate.test(t)) action.accept(t);
-            else emptyAction.run();
-        };
-    }
+	/**
+	 * Handler present.
+	 * @param <T> the type parameter
+	 * @param t the t
+	 * @param predicate the predicate
+	 * @return the present
+	 */
+	static <T> Present<T> handler(T t, Predicate<T> predicate) {
+		return (action, emptyAction) -> {
+			if (predicate.test(t))
+				action.accept(t);
+			else
+				emptyAction.run();
+		};
+	}
+
 }

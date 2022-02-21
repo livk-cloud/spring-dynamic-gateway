@@ -16,6 +16,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "livk.gateway.route")
 public class LivkRouteProperties {
 
-    private RouteType type;
+	private RouteType type;
 
 }

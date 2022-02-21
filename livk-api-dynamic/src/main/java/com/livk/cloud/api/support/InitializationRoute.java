@@ -17,10 +17,18 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>此处选{@link org.springframework.boot.ApplicationRunner}</p>
- * <p>考虑到{@link com.livk.common.bus.handler.RemoteAspect#publishEvent(LivkEventPublish)}</p>
- * <p>方法需要引用{@link org.springframework.context.ApplicationContext}</p>
- * <p>暂定排除掉{@link org.springframework.beans.factory.InitializingBean}</p>
+ * <p>
+ * 此处选{@link org.springframework.boot.ApplicationRunner}
+ * </p>
+ * <p>
+ * 考虑到{@link com.livk.common.bus.handler.RemoteAspect#publishEvent(LivkEventPublish)}
+ * </p>
+ * <p>
+ * 方法需要引用{@link org.springframework.context.ApplicationContext}
+ * </p>
+ * <p>
+ * 暂定排除掉{@link org.springframework.beans.factory.InitializingBean}
+ * </p>
  *
  * @author livk
  * @date 2021/11/10

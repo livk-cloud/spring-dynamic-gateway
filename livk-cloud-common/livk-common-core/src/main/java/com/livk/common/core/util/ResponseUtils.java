@@ -24,13 +24,13 @@ public class ResponseUtils {
 	public HttpServletResponse getResponse() {
 		var requestAttributes = RequestContextHolder.getRequestAttributes();
 		var servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-		Assert.notNull(servletRequestAttributes,"attributes not null!");
+		Assert.notNull(servletRequestAttributes, "attributes not null!");
 		return servletRequestAttributes.getResponse();
 	}
 
 	public void out(String message) {
 		var response = ResponseUtils.getResponse();
-		Assert.notNull(response,"response not null!");
+		Assert.notNull(response, "response not null!");
 		ResponseUtils.out(response, message);
 	}
 
