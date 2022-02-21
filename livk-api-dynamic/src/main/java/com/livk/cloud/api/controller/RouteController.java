@@ -3,12 +3,11 @@ package com.livk.cloud.api.controller;
 import com.livk.cloud.api.domain.RedisRoute;
 import com.livk.cloud.api.service.DynamicRouteService;
 import com.livk.common.log.annotation.LivkLog;
-import io.swagger.annotations.Api;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -19,7 +18,6 @@ import java.util.List;
  * @author livk
  * @date 2021/11/3
  */
-@Api("路由接口")
 @Slf4j
 @LivkLog
 @RestController

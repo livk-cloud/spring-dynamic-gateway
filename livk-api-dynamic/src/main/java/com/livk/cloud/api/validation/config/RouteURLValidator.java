@@ -1,9 +1,10 @@
 package com.livk.cloud.api.validation.config;
 
 import com.livk.cloud.api.validation.annotation.RouteURL;
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.validator.routines.UrlValidator;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 /**
  * <p>

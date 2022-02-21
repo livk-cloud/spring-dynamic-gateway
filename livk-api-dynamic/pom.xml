@@ -83,10 +83,10 @@
             <artifactId>livk-common-log</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.livk.cloud</groupId>
-            <artifactId>livk-common-swagger</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.livk.cloud</groupId>-->
+<!--            <artifactId>livk-common-swagger</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.livk.cloud</groupId>
