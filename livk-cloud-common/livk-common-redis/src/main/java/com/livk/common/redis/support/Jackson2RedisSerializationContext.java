@@ -14,11 +14,11 @@ import org.springframework.lang.NonNull;
  * @author livk
  * @date 2021/12/5
  */
-public class JacksonRedisSerializationContext<T> implements RedisSerializationContext<String, T> {
+public class Jackson2RedisSerializationContext<T> implements RedisSerializationContext<String, T> {
 
     private final Jackson2JsonRedisSerializer<T> serializer;
 
-    public JacksonRedisSerializationContext(Class<T> targetClass) {
+    public Jackson2RedisSerializationContext(Class<T> targetClass) {
         this.serializer = SerializerUtils.getJacksonSerializer(targetClass);
     }
 
