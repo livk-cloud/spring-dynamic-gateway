@@ -1,22 +1,18 @@
 package com.livk.cloud.api.config;
 
 import com.livk.common.core.util.ObjectUtils;
-import com.livk.common.redis.support.JdkRedisSerializationContext;
 import com.livk.common.redis.support.LivkReactiveRedisTemplate;
-import com.livk.common.redis.support.RedisSerialization;
 import de.codecentric.boot.admin.server.domain.events.InstanceEvent;
 import de.codecentric.boot.admin.server.domain.values.InstanceId;
-import de.codecentric.boot.admin.server.eventstore.InstanceEventPublisher;
-import de.codecentric.boot.admin.server.eventstore.InstanceEventStore;
-import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
+import de.codecentric.boot.admin.server.eventstore.ConcurrentMapEventStore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ReactiveHashOperations;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>
@@ -27,28 +23,23 @@ import java.util.function.Function;
  * @date 2022/2/21
  */
 @Component
-public class RedisEventStore extends InstanceEventPublisher implements InstanceEventStore {
+public class RedisEventStore extends ConcurrentMapEventStore {
 
 	private static final String INSTANCE_EVENT_KEY = "Event";
 
 	private final ReactiveHashOperations<String, String, List<InstanceEvent>> hashOperations;
 
-	public RedisEventStore(ReactiveRedisConnectionFactory redisConnectionFactory) {
-		LivkReactiveRedisTemplate reactiveRedisTemplate = new LivkReactiveRedisTemplate(redisConnectionFactory,
-				RedisSerialization.java());
+	@Autowired
+	public RedisEventStore(LivkReactiveRedisTemplate reactiveRedisTemplate) {
+		this(reactiveRedisTemplate, 100);
+	}
+
+	public RedisEventStore(LivkReactiveRedisTemplate reactiveRedisTemplate, int maxLogSizePerAggregate) {
+		super(maxLogSizePerAggregate, new ConcurrentHashMap<>());
 		hashOperations = reactiveRedisTemplate.opsForHash();
 	}
 
-	@Override
-	public Flux<InstanceEvent> findAll() {
-		return hashOperations.entries(INSTANCE_EVENT_KEY).map(Map.Entry::getValue).flatMapIterable(Function.identity());
-	}
-
-	@Override
-	public Flux<InstanceEvent> find(InstanceId id) {
-		return hashOperations.get(INSTANCE_EVENT_KEY, id.getValue()).flatMapIterable(Function.identity());
-	}
-
+	@NonNull
 	@Override
 	public Mono<Void> append(List<InstanceEvent> events) {
 		if (events.isEmpty()) {
@@ -56,9 +47,10 @@ public class RedisEventStore extends InstanceEventPublisher implements InstanceE
 		}
 		InstanceId id = events.get(0).getInstance();
 		if (ObjectUtils.allChecked(o -> !id.equals(o.getInstance()), events)) {
-			throw new IllegalArgumentException("'events' must only refer to the same instance.");
+			throw new IllegalArgumentException("events must only refer to the same instance.");
 		}
-		return hashOperations.put(INSTANCE_EVENT_KEY, id.getValue(), events).then();
+		return hashOperations.put(INSTANCE_EVENT_KEY, id.getValue(), events)
+				.flatMap(bool -> super.append(events).then(Mono.fromRunnable(() -> this.publish(events))));
 	}
 
 }

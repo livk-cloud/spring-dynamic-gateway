@@ -16,6 +16,8 @@ spring:
     consul:
       discovery:
         service-name: ${spring.application.name}
+        heartbeat:
+          enabled: true
       host: ${CONSUL_HOST:livk.com}
       port: ${CONSUL_PORT:8500}
   boot:
@@ -25,7 +27,7 @@ spring:
         username: livk
         password: 123456
         instance:
-          prefer-ip: true
+          service-host-type: ip
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${MYSQL_HOST:livk.com}:${MYSQL_PORT:3306}/${MYSQL_DB:sc_gateway}
@@ -38,9 +40,6 @@ spring:
 mybatis-plus:
   global-config:
     banner: false
-swagger:
-  enable: true
-  version: @version@
 management:
   endpoints:
     web:

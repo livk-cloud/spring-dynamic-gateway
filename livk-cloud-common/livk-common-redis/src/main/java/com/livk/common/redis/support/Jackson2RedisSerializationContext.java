@@ -3,6 +3,7 @@ package com.livk.common.redis.support;
 import com.livk.common.redis.util.SerializerUtils;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.lang.NonNull;
 
 /**
@@ -25,6 +26,13 @@ public class Jackson2RedisSerializationContext<T> implements RedisSerialization<
 	@Override
 	public SerializationPair<T> getValueSerializationPair() {
 		return RedisSerializationContext.SerializationPair.fromSerializer(serializer);
+	}
+
+	@NonNull
+	@SuppressWarnings("unchecked")
+	@Override
+	public SerializationPair<String> getHashKeySerializationPair() {
+		return RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string());
 	}
 
 	@SuppressWarnings("unchecked")

@@ -57,8 +57,8 @@ public class InitializationRoute implements ApplicationRunner {
 			redisRoute.setDescription("this is " + serviceName + " route!");
 			dynamicRoute = DynamicRouteConverter.INSTANCE.getTarget(redisRoute);
 			dynamicRouteService.saveOrUpdate(dynamicRoute);
-			log.info("Route Info init is :{}", dynamicRouteService.reload());
 		}
+		log.info("Route Info init is :{}", dynamicRouteService.reload());
 	}
 
 }

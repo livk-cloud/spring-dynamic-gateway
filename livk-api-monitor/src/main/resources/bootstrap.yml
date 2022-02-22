@@ -10,6 +10,8 @@ spring:
       instance-auth:
         default-user-name: ${spring.security.user.name}
         default-password: ${spring.security.user.password}
+      discovery:
+        ignored-services: consul
   security:
     user:
       name: livk
@@ -19,7 +21,12 @@ spring:
   cloud:
     consul:
       discovery:
+        metadata:
+          user-name: ${spring.security.user.name}
+          user-password: ${spring.security.user.password}
         service-name: ${spring.application.name}
+        heartbeat:
+          enabled: true
       host: ${CONSUL_HOST:livk.com}
       port: ${CONSUL_PORT:8500}
   profiles:

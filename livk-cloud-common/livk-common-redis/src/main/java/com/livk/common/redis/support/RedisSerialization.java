@@ -21,13 +21,6 @@ public interface RedisSerialization<V> extends RedisSerializationContext<String,
 	}
 
 	@NonNull
-	@SuppressWarnings("unchecked")
-	@Override
-	default SerializationPair<String> getHashKeySerializationPair() {
-		return RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string());
-	}
-
-	@NonNull
 	@Override
 	default SerializationPair<String> getStringSerializationPair() {
 		return RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string());

@@ -34,7 +34,6 @@ public class RoutePredicateValidator implements ConstraintValidator<RoutePredica
 
 	/**
 	 * args
-	 * {@link org.springframework.cloud.gateway.handler.predicate.PredicateDefinition#args}
 	 * @param args Predicate args
 	 * @return bool
 	 */
