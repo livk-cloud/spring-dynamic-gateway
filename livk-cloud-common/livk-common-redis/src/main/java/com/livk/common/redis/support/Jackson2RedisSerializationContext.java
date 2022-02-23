@@ -2,7 +2,6 @@ package com.livk.common.redis.support;
 
 import com.livk.common.redis.util.SerializerUtils;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.lang.NonNull;
 
@@ -16,30 +15,30 @@ import org.springframework.lang.NonNull;
  */
 public class Jackson2RedisSerializationContext<T> implements RedisSerialization<T> {
 
-	private final Jackson2JsonRedisSerializer<T> serializer;
+    private final Jackson2JsonRedisSerializer<T> serializer;
 
-	public Jackson2RedisSerializationContext(Class<T> targetClass) {
-		this.serializer = SerializerUtils.getJacksonSerializer(targetClass);
-	}
+    public Jackson2RedisSerializationContext(Class<T> targetClass) {
+        this.serializer = SerializerUtils.getJacksonSerializer(targetClass);
+    }
 
-	@NonNull
-	@Override
-	public SerializationPair<T> getValueSerializationPair() {
-		return RedisSerializationContext.SerializationPair.fromSerializer(serializer);
-	}
+    @NonNull
+    @Override
+    public SerializationPair<T> getValueSerializationPair() {
+        return SerializationPair.fromSerializer(serializer);
+    }
 
-	@NonNull
-	@SuppressWarnings("unchecked")
-	@Override
-	public SerializationPair<String> getHashKeySerializationPair() {
-		return RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string());
-	}
+    @NonNull
+    @SuppressWarnings("unchecked")
+    @Override
+    public <HK> SerializationPair<HK> getHashKeySerializationPair() {
+        return (SerializationPair<HK>) SerializationPair.fromSerializer(RedisSerializer.string());
+    }
 
-	@SuppressWarnings("unchecked")
-	@NonNull
-	@Override
-	public SerializationPair<T> getHashValueSerializationPair() {
-		return SerializationPair.fromSerializer(serializer);
-	}
+    @SuppressWarnings("unchecked")
+    @NonNull
+    @Override
+    public <HV> SerializationPair<HV> getHashValueSerializationPair() {
+        return (SerializationPair<HV>) SerializationPair.fromSerializer(serializer);
+    }
 
 }

@@ -17,13 +17,13 @@ public interface RedisSerialization<V> extends RedisSerializationContext<String,
 	@NonNull
 	@Override
 	default SerializationPair<String> getKeySerializationPair() {
-		return RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string());
+		return SerializationPair.fromSerializer(RedisSerializer.string());
 	}
 
 	@NonNull
 	@Override
 	default SerializationPair<String> getStringSerializationPair() {
-		return RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string());
+		return SerializationPair.fromSerializer(RedisSerializer.string());
 	}
 
 	static <T> Jackson2RedisSerializationContext<T> json(Class<T> targetClass) {

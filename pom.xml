@@ -91,6 +91,15 @@
                 <artifactId>spring-javaformat-maven-plugin</artifactId>
                 <version>${spring.checkstyle.version}</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.0</version>
+                <configuration>
+                    <compilerArgument>-Xlint:unchecked</compilerArgument>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
