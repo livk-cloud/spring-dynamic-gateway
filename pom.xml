@@ -24,6 +24,7 @@
         <spring-boot-admin.version>2.6.2</spring-boot-admin.version>
         <livk-common.version>0.0.1</livk-common.version>
         <spring.checkstyle.version>0.0.31</spring.checkstyle.version>
+        <maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>
     </properties>
 
     <dependencies>
@@ -95,7 +96,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
