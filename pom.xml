@@ -18,8 +18,8 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <boot.version>2.6.3</boot.version>
-        <boot.plugin.version>2.6.3</boot.plugin.version>
+        <boot.version>2.6.4</boot.version>
+        <boot.plugin.version>2.6.4</boot.plugin.version>
         <cloud.version>2021.0.1</cloud.version>
         <spring-boot-admin.version>2.6.2</spring-boot-admin.version>
         <livk-common.version>0.0.1</livk-common.version>

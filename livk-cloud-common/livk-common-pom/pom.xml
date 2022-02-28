@@ -19,7 +19,7 @@
         <mapstruct-lombok.version>0.2.0</mapstruct-lombok.version>
         <commons-validator.version>1.7</commons-validator.version>
         <guava.version>31.0.1-jre</guava.version>
-        <burningwave.version>12.45.1</burningwave.version>
+        <burningwave.version>12.45.2</burningwave.version>
     </properties>
 
     <dependencyManagement>
