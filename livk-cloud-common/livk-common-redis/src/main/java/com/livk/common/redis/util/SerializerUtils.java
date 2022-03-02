@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.experimental.UtilityClass;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
  * <p>
@@ -18,7 +19,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 @UtilityClass
 public class SerializerUtils {
 
-	public <T> Jackson2JsonRedisSerializer<T> getJacksonSerializer(ObjectMapper mapper, Class<T> targetClass) {
+	public <T> RedisSerializer<T> getJacksonSerializer(ObjectMapper mapper, Class<T> targetClass) {
 		var serializer = new Jackson2JsonRedisSerializer<>(targetClass);
 		mapper.registerModule(new JavaTimeModule());
 		mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
@@ -26,7 +27,7 @@ public class SerializerUtils {
 		return serializer;
 	}
 
-	public <T> Jackson2JsonRedisSerializer<T> getJacksonSerializer(Class<T> targetClass) {
+	public <T> RedisSerializer<T> getJacksonSerializer(Class<T> targetClass) {
 		return getJacksonSerializer(new ObjectMapper(), targetClass);
 	}
 

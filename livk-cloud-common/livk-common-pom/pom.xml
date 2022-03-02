@@ -107,6 +107,8 @@
                 <artifactId>core</artifactId>
                 <version>${burningwave.version}</version>
             </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 

@@ -1,6 +1,5 @@
 package com.livk.common.redis.support;
 
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.lang.NonNull;
 
@@ -17,7 +16,7 @@ public class JdkRedisSerializationContext implements RedisSerialization<Object> 
 	@NonNull
 	@Override
 	public SerializationPair<Object> getValueSerializationPair() {
-		return SerializationPair.fromSerializer(new JdkSerializationRedisSerializer());
+		return SerializationPair.fromSerializer(RedisSerializer.java());
 	}
 
 	@NonNull
@@ -31,7 +30,7 @@ public class JdkRedisSerializationContext implements RedisSerialization<Object> 
 	@NonNull
 	@Override
 	public <HV> SerializationPair<HV> getHashValueSerializationPair() {
-		return (SerializationPair<HV>)SerializationPair.fromSerializer(new JdkSerializationRedisSerializer());
+		return (SerializationPair<HV>)SerializationPair.fromSerializer(RedisSerializer.java());
 	}
 
 }
