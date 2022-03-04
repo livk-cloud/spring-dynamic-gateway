@@ -210,7 +210,7 @@ public class JacksonUtils {
         if (!StringUtils.hasText(nodePath)) {
             return null;
         }
-        JsonNode jsonNode = null;
+        JsonNode jsonNode;
         try {
             jsonNode = MAPPER.readTree(json);
         } catch (JsonProcessingException e) {

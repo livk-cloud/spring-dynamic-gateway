@@ -1,6 +1,5 @@
 package com.livk.cloud.api.config;
 
-import com.livk.common.core.util.ObjectUtils;
 import com.livk.common.redis.support.LivkReactiveRedisTemplate;
 import de.codecentric.boot.admin.server.domain.events.InstanceEvent;
 import de.codecentric.boot.admin.server.domain.values.InstanceId;
@@ -25,32 +24,32 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class RedisEventStore extends ConcurrentMapEventStore {
 
-	private static final String INSTANCE_EVENT_KEY = "Event";
+    private static final String INSTANCE_EVENT_KEY = "Event";
 
-	private final ReactiveHashOperations<String, String, List<InstanceEvent>> hashOperations;
+    private final ReactiveHashOperations<String, String, List<InstanceEvent>> hashOperations;
 
-	@Autowired
-	public RedisEventStore(LivkReactiveRedisTemplate reactiveRedisTemplate) {
-		this(reactiveRedisTemplate, 100);
-	}
+    @Autowired
+    public RedisEventStore(LivkReactiveRedisTemplate reactiveRedisTemplate) {
+        this(reactiveRedisTemplate, 100);
+    }
 
-	public RedisEventStore(LivkReactiveRedisTemplate reactiveRedisTemplate, int maxLogSizePerAggregate) {
-		super(maxLogSizePerAggregate, new ConcurrentHashMap<>());
-		hashOperations = reactiveRedisTemplate.opsForHash();
-	}
+    public RedisEventStore(LivkReactiveRedisTemplate reactiveRedisTemplate, int maxLogSizePerAggregate) {
+        super(maxLogSizePerAggregate, new ConcurrentHashMap<>());
+        hashOperations = reactiveRedisTemplate.opsForHash();
+    }
 
-	@NonNull
-	@Override
-	public Mono<Void> append(List<InstanceEvent> events) {
-		if (events.isEmpty()) {
-			return Mono.empty();
-		}
-		InstanceId id = events.get(0).getInstance();
-		if (ObjectUtils.allChecked(o -> !id.equals(o.getInstance()), events)) {
-			throw new IllegalArgumentException("events must only refer to the same instance.");
-		}
-		return hashOperations.put(INSTANCE_EVENT_KEY, id.getValue(), events)
-				.flatMap(bool -> super.append(events).then(Mono.fromRunnable(() -> this.publish(events))));
-	}
+    @NonNull
+    @Override
+    public Mono<Void> append(List<InstanceEvent> events) {
+        if (events.isEmpty()) {
+            return Mono.empty();
+        }
+        InstanceId id = events.get(0).getInstance();
+        if (!events.stream().map(InstanceEvent::getInstance).allMatch(id::equals)) {
+            throw new IllegalArgumentException("events must only refer to the same instance.");
+        }
+        return hashOperations.put(INSTANCE_EVENT_KEY, id.getValue(), events)
+                .flatMap(bool -> super.append(events).then(Mono.fromRunnable(() -> this.publish(events))));
+    }
 
 }
