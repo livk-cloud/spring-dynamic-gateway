@@ -30,9 +30,11 @@ spring:
   profiles:
     active: @profiles.active@
 
-swagger:
-  enable: true
-  version: @version@
+livk:
+  gateway:
+    route:
+      type: Redis_Hash
+
 springfox:
   documentation:
     swagger:

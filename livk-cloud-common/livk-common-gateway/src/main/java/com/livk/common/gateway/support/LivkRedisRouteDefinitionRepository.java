@@ -1,6 +1,8 @@
 package com.livk.common.gateway.support;
 
+import com.livk.common.gateway.domain.LivkRoute;
 import com.livk.common.redis.support.LivkReactiveRedisTemplate;
+import com.livk.common.redis.support.RedisSerialization;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
@@ -27,7 +29,7 @@ public class LivkRedisRouteDefinitionRepository implements RouteDefinitionReposi
 	private final ReactiveHashOperations<String, String, RouteDefinition> reactiveHashOperations;
 
 	public LivkRedisRouteDefinitionRepository(LivkReactiveRedisTemplate livkReactiveRedisTemplate) {
-		reactiveHashOperations = livkReactiveRedisTemplate.opsForHash();
+		reactiveHashOperations = livkReactiveRedisTemplate.opsForHash(RedisSerialization.json(LivkRoute.class));
 	}
 
 	/**

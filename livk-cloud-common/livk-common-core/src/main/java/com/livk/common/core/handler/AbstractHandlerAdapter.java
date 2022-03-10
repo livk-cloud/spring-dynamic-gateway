@@ -30,17 +30,13 @@ public abstract class AbstractHandlerAdapter<T> {
 	protected AbstractHandlerAdapter(List<T> targetList) throws NoSuchMethodException {
 		this.targetClass = ResolvableType.forConstructorParameter(this.getClass().getConstructor(List.class), 0)
 				.resolveGeneric(0);
-		handlerMap = targetList.stream()
-				.filter(t -> AnnotatedElementUtils.hasAnnotation(t.getClass(), ANNOTATION_TYPE))
-				.collect(Collectors.toMap(this::apply,
-						Function.identity(),
-						(t1, t2) -> t2,
-						ConcurrentHashMap::new));
+		handlerMap = targetList.stream().filter(t -> AnnotatedElementUtils.hasAnnotation(t.getClass(), ANNOTATION_TYPE))
+				.collect(Collectors.toMap(this::apply, Function.identity(), (t1, t2) -> t2, ConcurrentHashMap::new));
 	}
 
 	@SuppressWarnings("unchecked")
 	public T get(String value) {
-		return (T) Proxy.newProxyInstance(targetClass.getClassLoader(), new Class[]{targetClass},
+		return (T) Proxy.newProxyInstance(targetClass.getClassLoader(), new Class[] { targetClass },
 				(proxy, method, args) -> method.invoke(handlerMap.get(value), args));
 	}
 

@@ -25,4 +25,5 @@ public class ObjectUtils extends org.springframework.util.ObjectUtils {
 	public <T> boolean anyChecked(Predicate<T> predicate, T... ts) {
 		return Stream.of(ts).anyMatch(predicate);
 	}
+
 }

@@ -26,34 +26,35 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @RequiredArgsConstructor
 public class RedisCacheConfig implements CachingConfigurer {
 
-    private final RedisConnectionFactory redisConnectionFactory;
+	private final RedisConnectionFactory redisConnectionFactory;
 
-    @Bean
-    @Override
-    public CacheManager cacheManager() {
-        var serializer = SerializerUtils.getJacksonSerializer(Object.class);
-        return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
-                .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().disableCachingNullValues()
-                        .serializeKeysWith(
-                                RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer)))
-                .build();
-    }
+	@Bean
+	@Override
+	public CacheManager cacheManager() {
+		var serializer = SerializerUtils.getJacksonSerializer(Object.class);
+		return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
+				.cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().disableCachingNullValues()
+						.serializeKeysWith(
+								RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+						.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer)))
+				.build();
+	}
 
-    @Bean
-    @Override
-    public CacheResolver cacheResolver() {
-        return new SimpleCacheResolver();
-    }
+	@Bean
+	@Override
+	public CacheResolver cacheResolver() {
+		return new SimpleCacheResolver();
+	}
 
-    @Bean
-    @Override
-    public KeyGenerator keyGenerator() {
-        return new SimpleKeyGenerator();
-    }
+	@Bean
+	@Override
+	public KeyGenerator keyGenerator() {
+		return new SimpleKeyGenerator();
+	}
 
-    @Override
-    public CacheErrorHandler errorHandler() {
-        return new SimpleCacheErrorHandler();
-    }
+	@Override
+	public CacheErrorHandler errorHandler() {
+		return new SimpleCacheErrorHandler();
+	}
+
 }

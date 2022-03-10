@@ -26,8 +26,7 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
 	 */
 	@SneakyThrows
 	public <T> T copy(Object source, Class<T> targetClass) {
-		var constructor = targetClass.getConstructor();
-		var t = constructor.newInstance();
+		var t = instantiateClass(targetClass);
 		copyProperties(source, t);
 		return t;
 	}

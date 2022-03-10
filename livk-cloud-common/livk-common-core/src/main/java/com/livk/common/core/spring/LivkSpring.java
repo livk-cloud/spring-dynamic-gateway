@@ -21,22 +21,20 @@ import java.net.InetAddress;
 @UtilityClass
 public class LivkSpring {
 
-    private static final String HTTP = "IP Address: http";
+	private static final String HTTP = "IP Address: http";
 
+	@SneakyThrows
+	public <T> ConfigurableApplicationContext run(Class<T> targetClass, String[] args) {
+		var context = new SpringApplicationBuilder(targetClass).banner(LivkBanner.create())
+				.bannerMode(Banner.Mode.CONSOLE).run(args);
+		new Thread(() -> print(context), InetAddress.getLocalHost().getHostAddress()).start();
+		return context;
+	}
 
-    @SneakyThrows
-    public <T> ConfigurableApplicationContext run(Class<T> targetClass, String[] args) {
-        var context = new SpringApplicationBuilder(targetClass)
-                .banner(LivkBanner.create())
-                .bannerMode(Banner.Mode.CONSOLE).run(args);
-        new Thread(() -> print(context), InetAddress.getLocalHost().getHostAddress()).start();
-        return context;
-    }
-
-    @SneakyThrows
-    private void print(ConfigurableApplicationContext context) {
-        var port = context.getEnvironment().getProperty("server.port", "8080");
-        log.info(HTTP.concat("://{}:{}"), InetAddress.getLocalHost().getHostAddress(), port);
-    }
+	@SneakyThrows
+	private void print(ConfigurableApplicationContext context) {
+		var port = context.getEnvironment().getProperty("server.port", "8080");
+		log.info(HTTP.concat("://{}:{}"), InetAddress.getLocalHost().getHostAddress(), port);
+	}
 
 }

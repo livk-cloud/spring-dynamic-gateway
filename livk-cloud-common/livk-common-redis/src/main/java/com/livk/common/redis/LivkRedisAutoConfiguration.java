@@ -30,4 +30,5 @@ public class LivkRedisAutoConfiguration {
 	public LivkRedisTemplate livkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
 		return new LivkRedisTemplate(redisConnectionFactory);
 	}
+
 }
