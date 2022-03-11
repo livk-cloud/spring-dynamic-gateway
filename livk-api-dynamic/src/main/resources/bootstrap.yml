@@ -33,8 +33,6 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:livk.com}:${MYSQL_PORT:3306}/${MYSQL_DB:sc_gateway}
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:123456}
-    hikari:
-      schema: classpath:sql/table.sql
   profiles:
     active: @profiles.active@
 mybatis-plus:
