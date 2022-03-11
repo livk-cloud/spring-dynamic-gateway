@@ -26,13 +26,6 @@ public class Jackson2RedisSerializationContext<T> implements RedisSerialization<
 		return SerializationPair.fromSerializer(serializer);
 	}
 
-	@NonNull
-	@SuppressWarnings("unchecked")
-	@Override
-	public <HK> SerializationPair<HK> getHashKeySerializationPair() {
-		return (SerializationPair<HK>) SerializationPair.fromSerializer(RedisSerializer.string());
-	}
-
 	@SuppressWarnings("unchecked")
 	@NonNull
 	@Override

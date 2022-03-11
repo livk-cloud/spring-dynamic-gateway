@@ -19,13 +19,6 @@ public class JdkRedisSerializationContext implements RedisSerialization<Object> 
 		return SerializationPair.fromSerializer(RedisSerializer.java());
 	}
 
-	@NonNull
-	@SuppressWarnings("unchecked")
-	@Override
-	public <HK> SerializationPair<HK> getHashKeySerializationPair() {
-		return (SerializationPair<HK>) SerializationPair.fromSerializer(RedisSerializer.string());
-	}
-
 	@SuppressWarnings("unchecked")
 	@NonNull
 	@Override
