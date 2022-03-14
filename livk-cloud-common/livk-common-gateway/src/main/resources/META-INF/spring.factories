@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.livk.common.gateway.LivkGateWayAutoConfiguration
+org.springframework.boot.diagnostics.FailureAnalyzer=\
+  com.livk.common.gateway.support.RouteCheckFailureAnalyzer
