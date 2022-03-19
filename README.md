@@ -32,8 +32,8 @@
 
 > 全局采用docker搭建环境<br>
 > Mysql、Redis、kafka(RabbitMq)百度自行搭建<br>
-> Nacos(2.0.3)集群搭建，配置Nginx转发<br>
-> [Nacos官方](https://nacos.io/zh-cn/)
+> Nacos(2.0.3)集群搭建，配置Nginx转发(废弃)<br>
+> 采用Consul注册中心
 
 ```shell
 docker run -d \   
@@ -140,7 +140,7 @@ docker run -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_
 
 docker run -d -p 15672:15672  -p  5672:5672  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin --name rabbitmq rabbitmq:management
 ```
-###停止维护(SpringCloud GateWay 3.1.0开始支持Redis存储RouteDefinition)
+
 参考org.springframework.cloud.gateway.route.RedisRouteDefinitionRepository
 > 表SQL详见[SQL](./table.sql).<br>
 > 每一个XXXAutoConfiguration，请注意bean生成的条件，非必要不要修改，以免服务启动报错.<br>
@@ -149,3 +149,5 @@ docker run -d -p 15672:15672  -p  5672:5672  -e RABBITMQ_DEFAULT_USER=admin -e R
 > [Bus操作远程Event](./livk-cloud-common/livk-common-bus/src/main/java/com/livk/common/bus/event/LivkRemoteEvent.java).<br>
 > [Mapstruct转化器通用接口](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/converter/BaseConverter.java).<br>
 > [Swagger整合Gateway](./livk-cloud-common/livk-common-swagger/src/main/java/com/livk/common/swagger/support/GatewaySwaggerResourcesProvider.java).<br>
+
+#等待SpringBoot3与Spring Cloud 2022
