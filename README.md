@@ -149,5 +149,8 @@ docker run -d -p 15672:15672  -p  5672:5672  -e RABBITMQ_DEFAULT_USER=admin -e R
 > [Bus操作远程Event](./livk-cloud-common/livk-common-bus/src/main/java/com/livk/common/bus/event/LivkRemoteEvent.java).<br>
 > [Mapstruct转化器通用接口](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/converter/BaseConverter.java).<br>
 > [Swagger整合Gateway](./livk-cloud-common/livk-common-swagger/src/main/java/com/livk/common/swagger/support/GatewaySwaggerResourcesProvider.java).<br>
+> [方法引用获取字段](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/function/FieldFunction.java)
+> [策略模式抽象类](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/handler/AbstractHandlerAdapter.java)
+> [ReactiveRedis配置](./livk-cloud-common/livk-common-redis/src/main/java/com/livk/common/redis/support/LivkReactiveRedisTemplate.java)
 
-#等待SpringBoot3与Spring Cloud 2022
+# 等待SpringBoot3与Spring Cloud 2022
