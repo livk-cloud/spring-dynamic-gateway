@@ -1,4 +1,4 @@
-package com.livk.common.gateway;
+package com.livk.common.gateway.exception;
 
 /**
  * <p>

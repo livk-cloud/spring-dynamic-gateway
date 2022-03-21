@@ -1,6 +1,6 @@
 package com.livk.common.gateway.support;
 
-import com.livk.common.gateway.RouteCheckException;
+import com.livk.common.gateway.exception.RouteCheckException;
 import org.springframework.boot.diagnostics.AbstractFailureAnalyzer;
 import org.springframework.boot.diagnostics.FailureAnalysis;
 
