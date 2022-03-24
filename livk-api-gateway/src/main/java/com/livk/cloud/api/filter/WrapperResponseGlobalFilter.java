@@ -17,6 +17,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.annotation.Nonnull;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
@@ -52,9 +53,9 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
 			return chain.filter(exchange);
 		}
 		var decoratedResponse = new ServerHttpResponseDecorator(originalResponse) {
-			@NonNull
+			@Nonnull
 			@Override
-			public Mono<Void> writeWith(@NonNull Publisher<? extends DataBuffer> body) {
+			public Mono<Void> writeWith(@Nonnull Publisher<? extends DataBuffer> body) {
 				if (body instanceof Flux) {
 					var fluxBody = (Flux<? extends DataBuffer>) body;
 					return super.writeWith(fluxBody.map(dataBuffer -> {

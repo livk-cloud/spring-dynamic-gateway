@@ -2,7 +2,8 @@ package com.livk.common.redis.support;
 
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.lang.NonNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * <p>
@@ -14,13 +15,13 @@ import org.springframework.lang.NonNull;
  */
 public interface RedisSerialization<V> extends RedisSerializationContext<String, V> {
 
-	@NonNull
+	@Nonnull
 	@Override
 	default SerializationPair<String> getKeySerializationPair() {
 		return SerializationPair.fromSerializer(RedisSerializer.string());
 	}
 
-	@NonNull
+	@Nonnull
 	@SuppressWarnings("unchecked")
 	@Override
 	default <HK> SerializationPair<HK> getHashKeySerializationPair() {

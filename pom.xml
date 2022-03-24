@@ -13,6 +13,7 @@
         <module>livk-api-gateway</module>
         <module>livk-api-dynamic</module>
         <module>livk-api-monitor</module>
+        <module>livk-api-sys</module>
     </modules>
 
     <properties>

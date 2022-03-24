@@ -4,6 +4,8 @@ import com.livk.common.redis.util.SerializerUtils;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.lang.NonNull;
 
+import javax.annotation.Nonnull;
+
 /**
  * <p>
  * LivkRedisSerializationContext
@@ -20,14 +22,14 @@ public class Jackson2RedisSerializationContext<T> implements RedisSerialization<
 		this.serializer = SerializerUtils.getJacksonSerializer(targetClass);
 	}
 
-	@NonNull
+	@Nonnull
 	@Override
 	public SerializationPair<T> getValueSerializationPair() {
 		return SerializationPair.fromSerializer(serializer);
 	}
 
 	@SuppressWarnings("unchecked")
-	@NonNull
+	@Nonnull
 	@Override
 	public <HV> SerializationPair<HV> getHashValueSerializationPair() {
 		return (SerializationPair<HV>) SerializationPair.fromSerializer(serializer);

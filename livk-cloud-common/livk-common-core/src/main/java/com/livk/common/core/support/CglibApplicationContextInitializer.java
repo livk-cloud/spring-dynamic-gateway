@@ -6,6 +6,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.Nullable;
 
+import javax.annotation.Nonnull;
+
 /**
  * <p>
  * CglibApplicationContextInitializer
@@ -19,7 +21,7 @@ public class CglibApplicationContextInitializer
 		implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
 	@Override
-	public void initialize(@Nullable ConfigurableApplicationContext applicationContext) {
+	public void initialize(@Nonnull ConfigurableApplicationContext applicationContext) {
 		StaticComponentContainer.Modules.exportAllToAll();
 	}
 

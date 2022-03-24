@@ -13,14 +13,14 @@ import org.springframework.lang.NonNull;
  */
 public class JdkRedisSerializationContext implements RedisSerialization<Object> {
 
-	@NonNull
+	@Nonnull
 	@Override
 	public SerializationPair<Object> getValueSerializationPair() {
 		return SerializationPair.fromSerializer(RedisSerializer.java());
 	}
 
 	@SuppressWarnings("unchecked")
-	@NonNull
+	@Nonnull
 	@Override
 	public <HV> SerializationPair<HV> getHashValueSerializationPair() {
 		return (SerializationPair<HV>) SerializationPair.fromSerializer(RedisSerializer.java());

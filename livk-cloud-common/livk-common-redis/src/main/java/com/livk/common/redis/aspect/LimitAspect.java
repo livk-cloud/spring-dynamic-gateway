@@ -14,9 +14,11 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -36,54 +38,55 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LimitAspect {
 
-	private final LivkRedisTemplate livkRedisTemplate;
+    private final LivkRedisTemplate livkRedisTemplate;
 
-	@Around("@annotation(limit)||@within(limit)")
-	public Object around(ProceedingJoinPoint joinPoint, Limit limit) throws Throwable {
-		HttpServletRequest request = RequestUtils.getRequest();
-		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-		Method method = signature.getMethod();
-		LimitType limitType = limit.limitType();
-		String key = limit.key();
-		if (StringUtils.isEmpty(key)) {
-			if (limitType == LimitType.IP) {
-				key = SysUtils.getRealIp(request);
-			}
-			else {
-				key = method.getName();
-			}
-		}
-		List<String> keys = ImmutableList
-				.of(StringUtils.join(limit.prefix(), "_", key, "_", request.getRequestURI().replaceAll("/", "_")));
+    @Around("@annotation(limit)||@within(limit)")
+    public Object around(ProceedingJoinPoint joinPoint, Limit limit) throws Throwable {
+        HttpServletRequest request = RequestUtils.getRequest();
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        if (limit == null) {
+            limit = AnnotationUtils.findAnnotation(method, Limit.class);
+        }
+        Assert.notNull(limit, "Limit Not Null");
+        LimitType limitType = limit.limitType();
+        String key = limit.key();
+        if (StringUtils.isEmpty(key)) {
+            if (limitType == LimitType.IP) {
+                key = SysUtils.getRealIp(request);
+            } else {
+                key = method.getName();
+            }
+        }
+        List<String> keys = ImmutableList.of(StringUtils.join(limit.prefix(), "_",
+                key, "_", request.getRequestURI().replaceAll("/", "_")));
+        String luaScript = buildLuaScript();
+        RedisScript<Integer> redisScript = new DefaultRedisScript<>(luaScript, Integer.class);
+        Integer count = livkRedisTemplate.execute(redisScript, keys, limit.count(), limit.period());
+        if (null != count && count <= limit.count()) {
+            log.info("第{}次访问key为 {}，描述为 [{}] 的接口", count, keys, limit.name());
+            return joinPoint.proceed();
+        } else {
+            throw new InvalidRequestStateException("访问次数受限制");
+        }
+    }
 
-		String luaScript = buildLuaScript();
-		RedisScript<Integer> redisScript = new DefaultRedisScript<>(luaScript, Integer.class);
-		Integer count = livkRedisTemplate.execute(redisScript, keys, limit.count(), limit.period());
-		if (null != count && count <= limit.count()) {
-			log.info("第{}次访问key为 {}，描述为 [{}] 的接口", count, keys, limit.name());
-			return joinPoint.proceed();
-		}
-		else {
-			throw new InvalidRequestStateException("访问次数受限制");
-		}
-	}
-
-	/**
-	 * 限流脚本
-	 */
-	private String buildLuaScript() {
-		return """
-				local c
-				c = redis.call('get',KEYS[1])
-				if c and tonumber(c) > tonumber(ARGV[1]) then
-				return c;
-				end
-				c = redis.call('incr',KEYS[1])
-				if tonumber(c) == 1 then
-				redis.call('expire',KEYS[1],ARGV[2])
-				end
-				return c;
-				""";
-	}
+    /**
+     * 限流脚本
+     */
+    private String buildLuaScript() {
+        return """
+                local c
+                c = redis.call('get',KEYS[1])
+                if c and tonumber(c) > tonumber(ARGV[1]) then
+                return c;
+                end
+                c = redis.call('incr',KEYS[1])
+                if tonumber(c) == 1 then
+                redis.call('expire',KEYS[1],ARGV[2])
+                end
+                return c;
+                """;
+    }
 
 }

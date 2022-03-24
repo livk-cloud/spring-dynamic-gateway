@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.lang.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class LivkRemoteListener implements ApplicationListener<LivkRemoteEvent> 
 	private final List<LivkRemoteHandler> livkRemoteHandlerList;
 
 	@Override
-	public void onApplicationEvent(@Nullable LivkRemoteEvent event) {
+	public void onApplicationEvent(@Nonnull LivkRemoteEvent event) {
 		log.info("event:{} Listener", event);
 		livkRemoteHandlerList.stream().sorted().forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
 	}

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 	private static boolean executor = true;
 
 	@Override
-	public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {
+	public void setApplicationContext(@Nonnull ApplicationContext applicationContext) throws BeansException {
 		if (SpringContextHolder.applicationContext != null) {
 			log.warn("SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:"
 					+ SpringContextHolder.applicationContext);

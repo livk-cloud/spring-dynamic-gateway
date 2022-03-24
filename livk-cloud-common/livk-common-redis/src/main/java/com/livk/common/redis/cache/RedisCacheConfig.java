@@ -12,7 +12,7 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
  * <p>
@@ -35,7 +35,7 @@ public class RedisCacheConfig implements CachingConfigurer {
 		return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
 				.cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().disableCachingNullValues()
 						.serializeKeysWith(
-								RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+								RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string()))
 						.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer)))
 				.build();
 	}
