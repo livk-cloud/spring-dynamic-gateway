@@ -5,7 +5,6 @@ import com.livk.common.bus.handler.LivkRemoteHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
-import org.springframework.lang.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.List;

@@ -13,6 +13,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <livk-common.version>0.0.1</livk-common.version>
+        <livk-api.version>0.0.1</livk-api.version>
         <swagger.version>3.0.0</swagger.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <mapstruct.version>1.5.0.Beta2</mapstruct.version>
@@ -58,6 +59,12 @@
                 <groupId>com.livk.cloud</groupId>
                 <artifactId>livk-common-swagger</artifactId>
                 <version>${livk-common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.livk.cloud</groupId>
+                <artifactId>sys-api</artifactId>
+                <version>${livk-api.version}</version>
             </dependency>
 
             <dependency>

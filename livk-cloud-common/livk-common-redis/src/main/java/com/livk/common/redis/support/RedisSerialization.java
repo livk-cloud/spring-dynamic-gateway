@@ -28,7 +28,7 @@ public interface RedisSerialization<V> extends RedisSerializationContext<String,
 		return (SerializationPair<HK>) SerializationPair.fromSerializer(RedisSerializer.string());
 	}
 
-	@NonNull
+	@Nonnull
 	@Override
 	default SerializationPair<String> getStringSerializationPair() {
 		return SerializationPair.fromSerializer(RedisSerializer.string());

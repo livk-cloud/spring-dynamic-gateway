@@ -1,16 +1,13 @@
 package com.livk.common.log.event;
 
 import com.livk.common.core.util.JacksonUtils;
+import com.livk.sys.entity.SysLog;
+import com.livk.sys.feign.RemoteSysLogService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.context.ApplicationListener;
-import org.springframework.lang.Nullable;
 
 import javax.annotation.Nonnull;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -21,23 +18,14 @@ import java.util.concurrent.TimeUnit;
  * @date 2021/11/2
  */
 @Slf4j
+@RequiredArgsConstructor
 public class LivkLogEventListener implements ApplicationListener<LivkLogEvent> {
 
-	private static final ExecutorService EXECUTOR = new ThreadPoolExecutor(20, 100, 60L, TimeUnit.SECONDS,
-			new ArrayBlockingQueue<>(10), r -> new Thread(null, r, "Livk-log-Thread-", 0, false));
+    private final RemoteSysLogService remoteSysLogService;
 
-	@Override
-	public void onApplicationEvent(@Nonnull LivkLogEvent event) {
-		EXECUTOR.execute(new LogThread(event, log));
-	}
-
-}
-
-record LogThread(LivkLogEvent event, Logger log) implements Runnable {
-
-	@Override
-	public void run() {
-		log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtils.toJson(event.getSource()));
-	}
-
+    @Override
+    public void onApplicationEvent(@Nonnull LivkLogEvent event) {
+        log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtils.toJson(event.getSource()));
+        remoteSysLogService.save((SysLog) event.getSource());
+    }
 }

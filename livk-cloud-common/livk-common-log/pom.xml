@@ -19,6 +19,11 @@
     <dependencies>
         <dependency>
             <groupId>com.livk.cloud</groupId>
+            <artifactId>sys-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.livk.cloud</groupId>
             <artifactId>livk-common-core</artifactId>
         </dependency>
 

@@ -4,6 +4,7 @@ import com.livk.common.bus.LivkBusAutoConfiguration;
 import com.livk.common.bus.listener.LivkRemoteListener;
 import com.livk.common.core.function.ThrowException;
 import com.livk.common.gateway.config.LivkRouteProperties;
+import com.livk.common.gateway.exception.RouteCheckException;
 import com.livk.common.gateway.support.LivkRedisRouteDefinitionRepository;
 import com.livk.common.gateway.support.RedisRouteHealthIndicator;
 import com.livk.common.gateway.support.RouteHandler;
