@@ -1,5 +1,6 @@
 package com.livk.sys.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.net.InetAddress;
@@ -14,6 +15,7 @@ import java.util.Map;
  * @date 2022/3/24
  */
 @Data
+@Builder
 public class SysLog {
     private String methodName;
 
