@@ -3,6 +3,7 @@ package com.livk.common.core.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.StringUtils;
@@ -18,7 +19,7 @@ import java.util.stream.Stream;
 @UtilityClass
 public class JacksonUtils {
 
-	private static final ObjectMapper MAPPER = new ObjectMapper();
+	private static final ObjectMapper MAPPER = JsonMapper.builder().build();
 
 	/**
 	 * The constant JSON_EMPTY.

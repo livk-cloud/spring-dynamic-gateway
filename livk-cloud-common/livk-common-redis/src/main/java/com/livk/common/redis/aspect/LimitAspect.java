@@ -1,6 +1,5 @@
 package com.livk.common.redis.aspect;
 
-import com.google.common.collect.ImmutableList;
 import com.livk.common.core.util.RequestUtils;
 import com.livk.common.core.util.SysUtils;
 import com.livk.common.redis.annoration.Limit;
@@ -15,7 +14,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -58,10 +56,9 @@ public class LimitAspect {
                 key = method.getName();
             }
         }
-        List<String> keys = ImmutableList.of(StringUtils.join(limit.prefix(), "_",
-                key, "_", request.getRequestURI().replaceAll("/", "_")));
+        List<String> keys = List.of(limit.prefix() + ":" + key + ":" + request.getRequestURI());
         String luaScript = buildLuaScript();
-        RedisScript<Integer> redisScript = new DefaultRedisScript<>(luaScript, Integer.class);
+        RedisScript<Integer> redisScript = RedisScript.of(luaScript, Integer.class);
         Integer count = livkRedisTemplate.execute(redisScript, keys, limit.count(), limit.period());
         if (null != count && count <= limit.count()) {
             log.info("第{}次访问key为 {}，描述为 [{}] 的接口", count, keys, limit.name());

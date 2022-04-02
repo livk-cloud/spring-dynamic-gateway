@@ -16,11 +16,11 @@
         <livk-api.version>0.0.1</livk-api.version>
         <swagger.version>3.0.0</swagger.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
-        <mapstruct.version>1.5.0.Beta2</mapstruct.version>
+        <mapstruct.version>1.5.0.RC1</mapstruct.version>
         <mapstruct-lombok.version>0.2.0</mapstruct-lombok.version>
         <commons-validator.version>1.7</commons-validator.version>
-        <guava.version>31.0.1-jre</guava.version>
-        <burningwave.version>12.45.2</burningwave.version>
+        <guava.version>31.1-jre</guava.version>
+        <burningwave.version>12.47.0</burningwave.version>
     </properties>
 
     <dependencyManagement>
