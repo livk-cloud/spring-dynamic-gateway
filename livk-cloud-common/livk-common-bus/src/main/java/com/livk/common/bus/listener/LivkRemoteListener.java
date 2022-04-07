@@ -21,12 +21,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LivkRemoteListener implements ApplicationListener<LivkRemoteEvent> {
 
-	private final List<LivkRemoteHandler> livkRemoteHandlerList;
+    private final List<LivkRemoteHandler> livkRemoteHandlerList;
 
-	@Override
-	public void onApplicationEvent(@Nonnull LivkRemoteEvent event) {
-		log.info("event:{} Listener", event);
-		livkRemoteHandlerList.stream().sorted().forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
-	}
-
+    @Override
+    public void onApplicationEvent(@Nonnull LivkRemoteEvent event) {
+        log.info("event:{} Listener", event);
+        livkRemoteHandlerList.forEach(livkRemoteHandler -> livkRemoteHandler.remoteHandler(event));
+    }
 }

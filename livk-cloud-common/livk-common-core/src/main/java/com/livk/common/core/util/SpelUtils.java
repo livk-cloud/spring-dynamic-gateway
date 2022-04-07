@@ -23,7 +23,7 @@ public class SpelUtils {
     private static final SpelExpressionParser PARSER = new SpelExpressionParser();
     private static final StandardEvaluationContext CONTEXT = new StandardEvaluationContext();
 
-    private <T> T parseSpel(Method method, Object[] args, String condition, Class<T> returnClass) {
+    public <T> T parseSpel(Method method, Object[] args, String condition, Class<T> returnClass) {
         var discoverer = new LocalVariableTableParameterNameDiscoverer();
         var parameterNames = discoverer.getParameterNames(method);
         Assert.notNull(parameterNames, "参数列表不能为null");
@@ -33,8 +33,17 @@ public class SpelUtils {
         return PARSER.parseExpression(condition).getValue(CONTEXT, returnClass);
     }
 
-    private <T> T parseSpel(Map<String, Object> variables, String condition, Class<T> returnClass) {
+    public String parseSpel(Method method, Object[] args, String condition) {
+        return parseSpel(method, args, condition, String.class);
+    }
+
+
+    public <T> T parseSpel(Map<String, Object> variables, String condition, Class<T> returnClass) {
         CONTEXT.setVariables(variables);
         return PARSER.parseExpression(condition).getValue(CONTEXT, returnClass);
+    }
+
+    public String parseSpel(Map<String, Object> variables, String condition) {
+        return parseSpel(variables, condition, String.class);
     }
 }

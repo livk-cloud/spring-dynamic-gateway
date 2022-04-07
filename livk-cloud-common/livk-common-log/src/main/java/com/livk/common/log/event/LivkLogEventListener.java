@@ -1,10 +1,12 @@
 package com.livk.common.log.event;
 
+import com.livk.common.core.support.SpringContextHolder;
 import com.livk.common.core.util.JacksonUtils;
 import com.livk.sys.entity.SysLog;
 import com.livk.sys.feign.RemoteSysLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationListener;
 
 import javax.annotation.Nonnull;
@@ -20,12 +22,13 @@ import javax.annotation.Nonnull;
 @Slf4j
 @RequiredArgsConstructor
 public class LivkLogEventListener implements ApplicationListener<LivkLogEvent> {
-
-    private final RemoteSysLogService remoteSysLogService;
-
+    /**
+     * 监听器单独存储，没有加入到IOC
+     * {@link SpringApplication#getListeners()}
+     */
     @Override
     public void onApplicationEvent(@Nonnull LivkLogEvent event) {
         log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtils.toJson(event.getSource()));
-        remoteSysLogService.save((SysLog) event.getSource());
+        SpringContextHolder.getBean(RemoteSysLogService.class).save((SysLog) event.getSource());
     }
 }

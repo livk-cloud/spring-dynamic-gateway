@@ -3,6 +3,7 @@ package com.livk.common.bus.aspect;
 import com.livk.common.bus.annotation.LivkEventPublish;
 import com.livk.common.bus.event.LivkRemoteEvent;
 import com.livk.common.core.support.SpringContextHolder;
+import com.livk.common.core.util.SpelUtils;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -10,6 +11,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.cloud.bus.BusProperties;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
+
+import java.lang.reflect.Method;
 
 /**
  * <p>
@@ -29,12 +32,13 @@ public class RemoteAspect {
      */
     @After("@annotation(livkEventPublish)")
     public void publishEvent(JoinPoint joinPoint, LivkEventPublish livkEventPublish) {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
         if (livkEventPublish == null) {
-            var signature = (MethodSignature) joinPoint.getSignature();
-            livkEventPublish = AnnotationUtils.findAnnotation(signature.getMethod(), LivkEventPublish.class);
+            livkEventPublish = AnnotationUtils.findAnnotation(method, LivkEventPublish.class);
             Assert.notNull(livkEventPublish, "LivkEventPublish is null");
         }
-        String value = SpringContextHolder.resolvePlaceholders(livkEventPublish.value());
+        String value = SpelUtils.parseSpel(method, joinPoint.getArgs(), livkEventPublish.value());
         SpringContextHolder.publishEvent(new LivkRemoteEvent(busProperties.getId(), () -> value));
     }
 
