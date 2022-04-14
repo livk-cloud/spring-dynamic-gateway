@@ -37,13 +37,12 @@ public class SpelUtils {
         return parseSpel(method, args, condition, String.class);
     }
 
-
-    public <T> T parseSpel(Map<String, Object> variables, String condition, Class<T> returnClass) {
-        CONTEXT.setVariables(variables);
+    public <T> T parseSpel(Map<String, ?> variables, String condition, Class<T> returnClass) {
+        variables.forEach(CONTEXT::setVariable);
         return PARSER.parseExpression(condition).getValue(CONTEXT, returnClass);
     }
 
-    public String parseSpel(Map<String, Object> variables, String condition) {
+    public String parseSpel(Map<String, ?> variables, String condition) {
         return parseSpel(variables, condition, String.class);
     }
 }
