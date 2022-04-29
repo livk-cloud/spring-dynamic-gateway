@@ -1,8 +1,8 @@
 package com.livk.common.bus;
 
+import com.livk.common.bus.aspect.RemoteAspect;
 import com.livk.common.bus.event.LivkRemoteEvent;
 import com.livk.common.bus.handler.LivkRemoteHandler;
-import com.livk.common.bus.aspect.RemoteAspect;
 import com.livk.common.bus.listener.LivkRemoteListener;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.cloud.bus.BusAutoConfiguration;
