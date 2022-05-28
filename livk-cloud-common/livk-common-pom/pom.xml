@@ -14,8 +14,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <livk-common.version>0.0.1</livk-common.version>
         <livk-api.version>0.0.1</livk-api.version>
-        <boot.version>2.6.7</boot.version>
-        <cloud.version>2021.0.2</cloud.version>
+        <boot.version>2.7.0</boot.version>
+        <cloud.version>2021.0.3</cloud.version>
         <spring-boot-admin.version>2.6.7</spring-boot-admin.version>
         <swagger.version>3.0.0</swagger.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
