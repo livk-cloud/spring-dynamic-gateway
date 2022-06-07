@@ -18,7 +18,7 @@ import java.util.Map;
  * @date 2022/4/2
  */
 @UtilityClass
-public class SpelUtils {
+public class SpELUtils {
 
     private static final SpelExpressionParser PARSER = new SpelExpressionParser();
     private static final StandardEvaluationContext CONTEXT = new StandardEvaluationContext();
