@@ -1,0 +1,96 @@
+import java.time.Instant
+import java.util.concurrent.TimeUnit
+
+plugins {
+    id "java"
+    id "org.springframework.boot" version("${springBootVersion}") apply false
+}
+
+ext {
+    bom = project(":dependencies")
+    gradleModuleProjects = subprojects.findAll {
+        it.buildFile.exists()
+    } - bom
+    commonModuleProjects = gradleModuleProjects.findAll {
+        it.name.startsWith("livk-common-") || it.name.endsWith("-api")
+    }
+    springModuleProjects = gradleModuleProjects - commonModuleProjects
+}
+
+configure(commonModuleProjects) {
+    apply plugin: "maven-publish"
+    apply plugin: "java-library"
+    apply plugin: "com.livk.resources"
+
+    publishing {
+        repositories {
+            mavenLocal()
+        }
+        publications {
+            library(MavenPublication) {
+                artifact jar
+            }
+        }
+    }
+}
+
+configure(springModuleProjects) {
+    apply plugin: "java"
+    apply plugin: "org.springframework.boot"
+
+    springBoot {
+        buildInfo {
+            properties {
+                group = "$project.group"
+                version = "$project.version"
+                time = Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8))
+            }
+        }
+    }
+
+    dependencies {
+        implementation "org.springframework.cloud:spring-cloud-starter-consul-discovery"
+    }
+}
+
+configure(allprojects) {
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/repository/public" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://repo.spring.io/release" }
+    }
+
+    configurations.all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+
+    clean {
+        delete "${projectDir}/build"
+        delete "${projectDir}/out"
+        delete "${projectDir}/bin"
+    }
+}
+
+configure(gradleModuleProjects) {
+    apply plugin: "java"
+    apply plugin: "com.livk.format"
+    apply plugin: "com.livk.compile.args"
+    apply plugin: "com.livk.dependency"
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    dependencies {
+        dependencyBom platform(project(":dependencies"))
+
+        annotationProcessor "org.projectlombok:lombok"
+
+        compileOnly "org.projectlombok:lombok"
+
+        testImplementation "org.springframework.boot:spring-boot-starter-test"
+        testImplementation "org.projectlombok:lombok"
+
+        testAnnotationProcessor "org.projectlombok:lombok"
+    }
+}

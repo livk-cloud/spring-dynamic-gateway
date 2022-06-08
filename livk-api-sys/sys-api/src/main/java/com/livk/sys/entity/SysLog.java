@@ -17,13 +17,15 @@ import java.util.Map;
 @Data
 @Builder
 public class SysLog {
-    private String methodName;
 
-    private Map<String, Object> params;
+	private String methodName;
 
-    private Object result;
+	private Map<String, Object> params;
 
-    private InetAddress ip;
+	private Object result;
 
-    private Long runtime;
+	private InetAddress ip;
+
+	private Long runtime;
+
 }

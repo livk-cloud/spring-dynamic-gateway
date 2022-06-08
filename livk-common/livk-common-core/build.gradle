@@ -1,0 +1,23 @@
+dependencies {
+    compileOnly "org.springframework:spring-web"
+    compileOnly "org.springframework.cloud:spring-cloud-bus"
+    annotationProcessor "org.mapstruct:mapstruct-processor"
+    api "com.github.ben-manes.caffeine:caffeine"
+    api "com.google.guava:guava"
+    api "com.fasterxml.jackson.core:jackson-databind"
+    api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    api "com.squareup.okhttp3:okhttp"
+    api "org.apache.tomcat.embed:tomcat-embed-core"
+    api "org.springframework.boot:spring-boot-starter-logging"
+    api "org.springframework.boot:spring-boot-configuration-processor"
+    api "org.springframework.boot:spring-boot-autoconfigure"
+    api "org.springframework.boot:spring-boot-starter-actuator"
+    api "org.springframework.cloud:spring-cloud-starter-bootstrap"
+    api "org.mapstruct:mapstruct"
+    api "org.projectlombok:lombok-mapstruct-binding"
+    api "org.apache.commons:commons-lang3"
+}
+
+test {
+    useJUnitPlatform()
+}

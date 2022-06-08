@@ -1,0 +1,8 @@
+dependencies {
+    api project(":livk-common:livk-common-core")
+    api "org.springframework.cloud:spring-cloud-starter-openfeign"
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,13 @@
+dependencies {
+    compileOnly project(":livk-common:livk-common-gateway")
+    compileOnly "org.springframework.cloud:spring-cloud-gateway-server"
+    compileOnly "org.springframework:spring-webflux"
+    compileOnly "org.springframework:spring-webmvc"
+    api "io.springfox:springfox-boot-starter"
+    api "org.springframework.cloud:spring-cloud-commons"
+    api "org.springframework.cloud:spring-cloud-context"
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,14 @@
+dependencies {
+    implementation project(":livk-common:livk-common-core")
+    implementation project(":livk-common:livk-common-log")
+    implementation project(":livk-common:livk-common-redis")
+    implementation "de.codecentric:spring-boot-admin-starter-server"
+    implementation "de.codecentric:spring-boot-admin-server-cloud"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-undertow"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+}
+
+test {
+    useJUnitPlatform()
+}

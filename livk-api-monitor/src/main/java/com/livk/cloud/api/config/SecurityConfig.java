@@ -1,9 +1,10 @@
 package com.livk.cloud.api.config;
 
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 /**
@@ -14,8 +15,8 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
  * @author livk
  * @date 2021/11/8
  */
-@Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity
+public class SecurityConfig {
 
 	private final String adminContextPath;
 
@@ -23,12 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		this.adminContextPath = adminServerProperties.getContextPath();
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
 		successHandler.setTargetUrlParameter("redirectTo");
 		// 静态资源和登录页面可以不用认证
-		http.authorizeRequests().antMatchers(adminContextPath + "/assets/**").permitAll()
+		return http.authorizeRequests().antMatchers(adminContextPath + "/assets/**").permitAll()
 				.antMatchers(adminContextPath + "/login").permitAll()
 				// 其他请求必须认证
 				.anyRequest().authenticated()
@@ -36,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().formLogin().loginPage(adminContextPath + "/login").successHandler(successHandler).and().logout()
 				.logoutUrl(adminContextPath + "/logout")
 				// 启用HTTP-Basic, 用于Spring Boot Admin Client注册
-				.and().httpBasic().and().csrf().disable();
+				.and().httpBasic().and().csrf().disable().build();
 	}
 
 }

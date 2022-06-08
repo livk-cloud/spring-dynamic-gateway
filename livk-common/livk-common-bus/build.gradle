@@ -1,0 +1,9 @@
+dependencies {
+    api project(":livk-common:livk-common-core")
+    api "org.springframework.boot:spring-boot-starter-aop"
+    api "org.springframework.cloud:spring-cloud-bus"
+}
+
+test {
+    useJUnitPlatform()
+}

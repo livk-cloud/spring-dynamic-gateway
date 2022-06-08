@@ -1,0 +1,40 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+plugins {
+    id "java-platform"
+}
+
+javaPlatform {
+    allowDependencies()
+}
+
+ext {
+    springCloudVersion = "2021.0.3"
+    springBootAdminVersion = "2.6.7"
+    guavaVersion = "31.1-jre"
+    mpVersion = "3.5.1"
+    swaggerVersion = "3.0.0"
+    googleFindbugsVersion = "3.0.1"
+    mapstructVersion = "1.5.0.RC1"
+    mapstructLombokVersion = "0.2.0"
+    commonsValidatorVersion = "1.7"
+    pagehelperVersion = "1.4.2"
+}
+
+dependencies {
+    api platform(SpringBootPlugin.BOM_COORDINATES)
+    api platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+    api platform("de.codecentric:spring-boot-admin-dependencies:$springBootAdminVersion")
+    constraints {
+        api "com.google.guava:guava:$guavaVersion"
+        api "com.baomidou:mybatis-plus-boot-starter:$mpVersion"
+        api "com.baomidou:mybatis-plus:$mpVersion"
+        api "io.springfox:springfox-boot-starter:$swaggerVersion"
+        api "com.google.code.findbugs:annotations:$googleFindbugsVersion"
+        api "org.mapstruct:mapstruct:$mapstructVersion"
+        api "org.mapstruct:mapstruct-processor:$mapstructVersion"
+        api "org.projectlombok:lombok-mapstruct-binding:$mapstructLombokVersion"
+        api "commons-validator:commons-validator:$commonsValidatorVersion"
+        api "com.github.pagehelper:pagehelper-spring-boot-starter:$pagehelperVersion"
+    }
+}

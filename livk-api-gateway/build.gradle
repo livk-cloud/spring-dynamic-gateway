@@ -1,0 +1,14 @@
+dependencies {
+    implementation project(":livk-common:livk-common-redis")
+    implementation project(":livk-common:livk-common-gateway")
+    implementation project(":livk-common:livk-common-log")
+    implementation project(":livk-common:livk-common-swagger")
+    implementation "de.codecentric:spring-boot-admin-starter-client"
+    implementation "org.springframework.cloud:spring-cloud-starter-gateway"
+    implementation "org.springframework.cloud:spring-cloud-starter-loadbalancer"
+    implementation "org.springframework.cloud:spring-cloud-starter-bus-kafka"
+}
+
+test {
+    useJUnitPlatform()
+}
