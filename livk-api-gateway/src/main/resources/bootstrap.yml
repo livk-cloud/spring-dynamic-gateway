@@ -8,7 +8,7 @@ management:
         include: '*'
 spring:
   application:
-    name: @artifactId@
+    name: livk-gateway
   redis:
     host: ${REDIS_HOST:livk.com}
     password: ${REDIS_PASSWORD:123456}
@@ -28,7 +28,7 @@ spring:
         username: livk
         password: 123456
   profiles:
-    active: @profiles.active@
+    active: dev
 
 livk:
   gateway:

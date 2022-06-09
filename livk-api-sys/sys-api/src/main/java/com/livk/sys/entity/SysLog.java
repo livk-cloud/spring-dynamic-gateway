@@ -1,10 +1,12 @@
 package com.livk.sys.entity;
 
-import lombok.Builder;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.net.InetAddress;
-import java.util.Map;
+import java.util.Date;
 
 /**
  * <p>
@@ -15,17 +17,22 @@ import java.util.Map;
  * @date 2022/3/24
  */
 @Data
-@Builder
+@TableName("sys_log")
 public class SysLog {
+
+	@TableId(type = IdType.ASSIGN_ID)
+	private String id;
 
 	private String methodName;
 
-	private Map<String, Object> params;
+	private String params;
 
-	private Object result;
+	private String result;
 
 	private InetAddress ip;
 
 	private Long runtime;
+
+	private Date time;
 
 }

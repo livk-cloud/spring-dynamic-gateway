@@ -17,7 +17,7 @@ spring:
       name: livk
       password: 123456
   application:
-    name: @artifactId@
+    name: livk-monitor
   cloud:
     consul:
       discovery:
@@ -30,7 +30,7 @@ spring:
       host: ${CONSUL_HOST:livk.com}
       port: ${CONSUL_PORT:8500}
   profiles:
-    active: @profiles.active@
+    active: dev
 
 management:
   endpoints:

@@ -1,6 +1,8 @@
 dependencies {
     api project(":livk-common:livk-common-core")
+    api "com.baomidou:mybatis-plus-extension"
     api "org.springframework.cloud:spring-cloud-starter-openfeign"
+    api "org.springframework.cloud:spring-cloud-starter-loadbalancer"
 }
 
 test {

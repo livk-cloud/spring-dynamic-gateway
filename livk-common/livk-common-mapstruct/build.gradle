@@ -1,0 +1,11 @@
+dependencies {
+    api project(":livk-common:livk-common-core")
+    api "com.google.guava:guava"
+    api "org.springframework.boot:spring-boot-autoconfigure"
+    api "org.mapstruct:mapstruct"
+    api "org.projectlombok:lombok-mapstruct-binding"
+}
+
+test {
+    useJUnitPlatform()
+}

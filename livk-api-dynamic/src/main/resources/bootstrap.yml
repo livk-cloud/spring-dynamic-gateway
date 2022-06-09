@@ -1,11 +1,8 @@
 server:
   port: 5599
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   application:
-    name: @artifactId@
+    name: livk-dynamic
   redis:
     host: ${REDIS_HOST:livk.com}
     password: ${REDIS_PASSWORD:123456}
@@ -34,7 +31,7 @@ spring:
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:123456}
   profiles:
-    active: @profiles.active@
+    active: dev
 mybatis-plus:
   global-config:
     banner: false

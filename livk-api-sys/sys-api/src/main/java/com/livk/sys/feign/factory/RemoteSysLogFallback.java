@@ -1,7 +1,6 @@
 package com.livk.sys.feign.factory;
 
 import com.livk.common.core.result.R;
-import com.livk.sys.entity.SysLog;
 import com.livk.sys.feign.RemoteSysLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;

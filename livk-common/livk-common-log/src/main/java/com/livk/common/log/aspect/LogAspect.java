@@ -5,7 +5,7 @@ import com.livk.common.core.util.RequestUtils;
 import com.livk.common.core.util.SysUtils;
 import com.livk.common.log.annotation.LivkLog;
 import com.livk.common.log.event.LivkLogEvent;
-import com.livk.sys.entity.SysLog;
+import com.livk.sys.dto.SysLogDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -39,7 +39,7 @@ public class LogAspect {
 			livkLog = AnnotationUtils.findAnnotation(method, LivkLog.class);
 			Assert.notNull(livkLog, "LivkLog is null");
 		}
-		var builder = SysLog.builder();
+		var sysLogDTO = new SysLogDTO();
 		var parameterNames = signature.getParameterNames();
 		var args = joinPoint.getArgs();
 		var start = System.currentTimeMillis();
@@ -50,14 +50,14 @@ public class LogAspect {
 			for (var i = 0; i < parameterNames.length; i++) {
 				map.put(parameterNames[i], args[i]);
 			}
-			builder.params(map);
+			sysLogDTO.setParams(map);
 		}
-		builder.result(proceed);
-		builder.methodName(method.getName());
-		builder.ip(InetAddress.getByName(SysUtils.getRealIp(RequestUtils.getRequest())));
-		builder.runtime(end - start);
-		SpringContextHolder.publishEvent(
-				new LivkLogEvent(builder.build(), SpringContextHolder.getProperty("spring.application.name")));
+		sysLogDTO.setResult(proceed);
+		sysLogDTO.setMethodName(method.getName());
+		sysLogDTO.setIp(InetAddress.getByName(SysUtils.getRealIp(RequestUtils.getRequest())));
+		sysLogDTO.setRuntime(end - start);
+		SpringContextHolder
+				.publishEvent(new LivkLogEvent(sysLogDTO, SpringContextHolder.getProperty("spring.application.name")));
 		return proceed;
 	}
 

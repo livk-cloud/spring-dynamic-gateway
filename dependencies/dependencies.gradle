@@ -19,6 +19,7 @@ ext {
     mapstructLombokVersion = "0.2.0"
     commonsValidatorVersion = "1.7"
     pagehelperVersion = "1.4.2"
+    clickhouseJdbcVersion = "0.3.2-patch9"
 }
 
 dependencies {
@@ -28,6 +29,7 @@ dependencies {
     constraints {
         api "com.google.guava:guava:$guavaVersion"
         api "com.baomidou:mybatis-plus-boot-starter:$mpVersion"
+        api "com.baomidou:mybatis-plus-extension:$mpVersion"
         api "com.baomidou:mybatis-plus:$mpVersion"
         api "io.springfox:springfox-boot-starter:$swaggerVersion"
         api "com.google.code.findbugs:annotations:$googleFindbugsVersion"
@@ -36,5 +38,6 @@ dependencies {
         api "org.projectlombok:lombok-mapstruct-binding:$mapstructLombokVersion"
         api "commons-validator:commons-validator:$commonsValidatorVersion"
         api "com.github.pagehelper:pagehelper-spring-boot-starter:$pagehelperVersion"
+        api "com.clickhouse:clickhouse-jdbc:$clickhouseJdbcVersion"
     }
 }

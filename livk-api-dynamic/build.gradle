@@ -1,8 +1,9 @@
 dependencies {
-    implementation project(":livk-common:livk-common-redis")
     implementation project(":livk-common:livk-common-bus")
+    implementation project(":livk-common:livk-common-redis")
     implementation project(":livk-common:livk-common-log")
-    implementation project(":livk-common:livk-common-swagger")
+    implementation project(":livk-common:livk-common-mapstruct")
+//    implementation project(":livk-common:livk-common-swagger")
     implementation "com.baomidou:mybatis-plus-boot-starter"
     implementation "commons-validator:commons-validator"
     implementation "de.codecentric:spring-boot-admin-starter-client"
@@ -12,6 +13,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.springframework.cloud:spring-cloud-starter-loadbalancer"
     implementation "org.springframework.cloud:spring-cloud-starter-bus-kafka"
+    annotationProcessor "org.mapstruct:mapstruct-processor"
 }
 
 test {

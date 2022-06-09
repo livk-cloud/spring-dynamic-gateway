@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.livk.cloud.api.mapper.DynamicRouteMapper">
-  <resultMap id="BaseResultMap" type="com.livk.cloud.api.domain.DynamicRoute">
+<mapper namespace="com.livk.cloud.dynamic.mapper.DynamicRouteMapper">
+  <resultMap id="BaseResultMap" type="com.livk.cloud.dynamic.domain.DynamicRoute">
     <!--@mbg.generated-->
     <!--@Table dynamic_route-->
     <id column="id" property="id" />
@@ -17,7 +17,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, uri, predicates, filters, metadata, `order`, description, `status`, insert_time, 
+    id, uri, predicates, filters, metadata, `order`, description, `status`, insert_time,
     update_time
   </sql>
 </mapper>
