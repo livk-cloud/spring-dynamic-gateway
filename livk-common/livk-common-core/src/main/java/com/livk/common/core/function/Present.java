@@ -16,13 +16,6 @@ import java.util.function.Predicate;
 public interface Present<T> {
 
 	/**
-	 * Present.
-	 * @param action the action
-	 * @param emptyAction the empty action
-	 */
-	void present(Consumer<T> action, Runnable emptyAction);
-
-	/**
 	 * Handler present.
 	 * @param <T> the type parameter
 	 * @param t the t
@@ -37,5 +30,12 @@ public interface Present<T> {
 				emptyAction.run();
 		};
 	}
+
+	/**
+	 * Present.
+	 * @param action the action
+	 * @param emptyAction the empty action
+	 */
+	void present(Consumer<T> action, Runnable emptyAction);
 
 }

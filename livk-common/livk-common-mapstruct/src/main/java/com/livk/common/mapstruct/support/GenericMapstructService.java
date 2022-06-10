@@ -25,6 +25,10 @@ public class GenericMapstructService implements MapstructService, MapstructRegis
 
 	private final ConverterRepository repository;
 
+	public static void addBeans(MapstructRegistry registry, ListableBeanFactory beanFactory) {
+		beanFactory.getBeansOfType(Converter.class).values().forEach(registry::addConverter);
+	}
+
 	@Override
 	public void addConverter(Converter<?, ?> converter) {
 		repository.put(converter);
@@ -63,10 +67,6 @@ public class GenericMapstructService implements MapstructService, MapstructRegis
 	@Override
 	public ConverterRepository getConverterRepository() {
 		return this.repository;
-	}
-
-	public static void addBeans(MapstructRegistry registry, ListableBeanFactory beanFactory) {
-		beanFactory.getBeansOfType(Converter.class).values().forEach(registry::addConverter);
 	}
 
 }

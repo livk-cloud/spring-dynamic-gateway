@@ -1,6 +1,5 @@
 package com.livk.common.log.event;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 

@@ -14,13 +14,6 @@ import java.util.function.Predicate;
 public interface BranchHandle {
 
 	/**
-	 * True or false handle.
-	 * @param trueHandle the true handle
-	 * @param falseHandle the false handle
-	 */
-	void trueOrFalseHandle(Runnable trueHandle, Runnable falseHandle);
-
-	/**
 	 * Is true or false branch handle.
 	 * @param <T> the type parameter
 	 * @param predicate the predicate
@@ -34,5 +27,12 @@ public interface BranchHandle {
 				falseHandle.run();
 		};
 	}
+
+	/**
+	 * True or false handle.
+	 * @param trueHandle the true handle
+	 * @param falseHandle the false handle
+	 */
+	void trueOrFalseHandle(Runnable trueHandle, Runnable falseHandle);
 
 }

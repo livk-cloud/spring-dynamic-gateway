@@ -1,6 +1,5 @@
 package com.livk.common.springdoc.annotation;
 
-import com.livk.common.springdoc.LivkGatewaySpringdocAutoConfiguration;
 import com.livk.common.springdoc.LivkSpringdocAutoConfiguration;
 import org.springframework.context.annotation.Import;
 

@@ -26,11 +26,15 @@ import java.util.List;
 @Lazy(false)
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 
-	private static ApplicationContext applicationContext = null;
-
 	private static final List<CallBack> CALL_BACKS = new ArrayList<>();
 
+	private static ApplicationContext applicationContext = null;
+
 	private static boolean executor = true;
+
+	public static ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
 
 	@Override
 	public void setApplicationContext(@Nonnull ApplicationContext applicationContext) throws BeansException {
@@ -47,32 +51,6 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 				CALL_BACKS.clear();
 				executor = false;
 			}
-		}
-	}
-
-	@Override
-	public void destroy() {
-		if (log.isDebugEnabled()) {
-			log.debug("清除SpringContextHolder中的ApplicationContext:" + applicationContext);
-		}
-		this.setSpringContext(null);
-	}
-
-	public static ApplicationContext getApplicationContext() {
-		return applicationContext;
-	}
-
-	private synchronized void setSpringContext(ApplicationContext applicationContext) {
-		SpringContextHolder.applicationContext = applicationContext;
-	}
-
-	public synchronized void callBack(CallBack callBack) {
-		if (executor) {
-			SpringContextHolder.CALL_BACKS.add(callBack);
-		}
-		else {
-			log.warn("CallBack：{} 已无法添加！立即执行", callBack.getCallBackName());
-			callBack.executor();
 		}
 	}
 
@@ -111,6 +89,28 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 
 	public static String resolvePlaceholders(String text) {
 		return applicationContext.getEnvironment().resolvePlaceholders(text);
+	}
+
+	@Override
+	public void destroy() {
+		if (log.isDebugEnabled()) {
+			log.debug("清除SpringContextHolder中的ApplicationContext:" + applicationContext);
+		}
+		this.setSpringContext(null);
+	}
+
+	private synchronized void setSpringContext(ApplicationContext applicationContext) {
+		SpringContextHolder.applicationContext = applicationContext;
+	}
+
+	public synchronized void callBack(CallBack callBack) {
+		if (executor) {
+			SpringContextHolder.CALL_BACKS.add(callBack);
+		}
+		else {
+			log.warn("CallBack：{} 已无法添加！立即执行", callBack.getCallBackName());
+			callBack.executor();
+		}
 	}
 
 }

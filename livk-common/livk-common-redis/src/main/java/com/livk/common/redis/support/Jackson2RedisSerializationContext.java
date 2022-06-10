@@ -2,7 +2,6 @@ package com.livk.common.redis.support;
 
 import com.livk.common.redis.util.SerializerUtils;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.lang.NonNull;
 
 import javax.annotation.Nonnull;
 

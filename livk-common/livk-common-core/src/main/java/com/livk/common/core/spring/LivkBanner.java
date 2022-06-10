@@ -21,9 +21,6 @@ import java.util.function.Function;
  */
 public class LivkBanner implements Banner {
 
-	private LivkBanner() {
-	}
-
 	private static final String[] banner = { """
 			 ██       ██          ██         ██████   ██                       ██
 			░██      ░░          ░██        ██░░░░██ ░██                      ░██
@@ -34,6 +31,13 @@ public class LivkBanner implements Banner {
 			░████████░██  ░░██   ░██░░██   ░░██████  ███░░██████ ░░██████░░██████
 			░░░░░░░░ ░░    ░░    ░░  ░░     ░░░░░░  ░░░  ░░░░░░   ░░░░░░  ░░░░░░\s
 			""" };
+
+	private LivkBanner() {
+	}
+
+	public static LivkBanner create() {
+		return new LivkBanner();
+	}
 
 	@Override
 	public void printBanner(Environment environment, Class<?> sourceClass, PrintStream out) {
@@ -48,11 +52,11 @@ public class LivkBanner implements Banner {
 		out.flush();
 	}
 
-	public static LivkBanner create() {
-		return new LivkBanner();
-	}
-
 	private record Format(int n, PrintStream out, char ch) implements Function<String, String>, Consumer<String> {
+		public static Format create(PrintStream out) {
+			return new Format(70, out, '*');
+		}
+
 		@Override
 		public String apply(String str) {
 			var length = str.length();
@@ -67,10 +71,6 @@ public class LivkBanner implements Banner {
 		@Override
 		public void accept(String s) {
 			out.println(this.apply(s));
-		}
-
-		public static Format create(PrintStream out) {
-			return new Format(70, out, '*');
 		}
 	}
 

@@ -12,8 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.web.context.WebServerInitializedEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
@@ -37,15 +35,15 @@ public class InitializationRoute implements ApplicationRunner {
 
 	private final DynamicRouteConverter converter;
 
+	private final DataSource dataSource;
+
+	private final Environment env;
+
 	@Value("classpath:sql/initData.json")
 	private Resource initData;
 
 	@Value("classpath:sql/table.sql")
 	private Resource initSql;
-
-	private final DataSource dataSource;
-
-	private final Environment env;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {

@@ -1,6 +1,5 @@
 package com.livk.sys.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.net.InetAddress;

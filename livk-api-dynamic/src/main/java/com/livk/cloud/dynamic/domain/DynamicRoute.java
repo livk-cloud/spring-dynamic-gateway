@@ -1,7 +1,8 @@
 package com.livk.cloud.dynamic.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -19,6 +20,29 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName(value = "dynamic_route")
 public class DynamicRoute implements Serializable {
+
+	public static final String COL_ID = "id";
+
+	public static final String COL_URI = "uri";
+
+	public static final String COL_PREDICATES = "predicates";
+
+	public static final String COL_FILTERS = "filters";
+
+	public static final String COL_METADATA = "metadata";
+
+	public static final String COL_ORDER = "order";
+
+	public static final String COL_DESCRIPTION = "description";
+
+	public static final String COL_STATUS = "status";
+
+	public static final String COL_INSERT_TIME = "insert_time";
+
+	public static final String COL_UPDATE_TIME = "update_time";
+
+	@Serial
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 路由id
@@ -79,28 +103,5 @@ public class DynamicRoute implements Serializable {
 	 */
 	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
 	private Date updateTime;
-
-	@Serial
-	private static final long serialVersionUID = 1L;
-
-	public static final String COL_ID = "id";
-
-	public static final String COL_URI = "uri";
-
-	public static final String COL_PREDICATES = "predicates";
-
-	public static final String COL_FILTERS = "filters";
-
-	public static final String COL_METADATA = "metadata";
-
-	public static final String COL_ORDER = "order";
-
-	public static final String COL_DESCRIPTION = "description";
-
-	public static final String COL_STATUS = "status";
-
-	public static final String COL_INSERT_TIME = "insert_time";
-
-	public static final String COL_UPDATE_TIME = "update_time";
 
 }

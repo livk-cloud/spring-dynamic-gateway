@@ -61,9 +61,6 @@ public class R<T> {
 
 	public static class Constant {
 
-		private Constant() {
-		}
-
 		public static final String SUCCESS = "success";
 
 		public static final String ERROR = "error";
@@ -73,6 +70,9 @@ public class R<T> {
 		public static final String MSG = "msg";
 
 		public static final String DATA = "data";
+
+		private Constant() {
+		}
 
 	}
 

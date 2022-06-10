@@ -109,9 +109,9 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
 	private static class HeaderEnumeration implements Enumeration<String> {
 
-		private boolean hasMoreElements = false;
-
 		private final String contentType;
+
+		private boolean hasMoreElements = false;
 
 		public HeaderEnumeration(String contentType) {
 			this.contentType = contentType;

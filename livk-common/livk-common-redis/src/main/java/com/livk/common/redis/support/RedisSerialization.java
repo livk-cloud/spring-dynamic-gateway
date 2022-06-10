@@ -15,6 +15,18 @@ import javax.annotation.Nonnull;
  */
 public interface RedisSerialization<V> extends RedisSerializationContext<String, V> {
 
+	static <T> Jackson2RedisSerializationContext<T> json(Class<T> targetClass) {
+		return new Jackson2RedisSerializationContext<>(targetClass);
+	}
+
+	static Jackson2RedisSerializationContext<Object> json() {
+		return json(Object.class);
+	}
+
+	static JdkRedisSerializationContext java() {
+		return new JdkRedisSerializationContext();
+	}
+
 	@Nonnull
 	@Override
 	default SerializationPair<String> getKeySerializationPair() {
@@ -32,18 +44,6 @@ public interface RedisSerialization<V> extends RedisSerializationContext<String,
 	@Override
 	default SerializationPair<String> getStringSerializationPair() {
 		return SerializationPair.fromSerializer(RedisSerializer.string());
-	}
-
-	static <T> Jackson2RedisSerializationContext<T> json(Class<T> targetClass) {
-		return new Jackson2RedisSerializationContext<>(targetClass);
-	}
-
-	static Jackson2RedisSerializationContext<Object> json() {
-		return json(Object.class);
-	}
-
-	static JdkRedisSerializationContext java() {
-		return new JdkRedisSerializationContext();
 	}
 
 }

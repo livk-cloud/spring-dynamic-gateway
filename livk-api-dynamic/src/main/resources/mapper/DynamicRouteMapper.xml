@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.livk.cloud.dynamic.mapper.DynamicRouteMapper">
-  <resultMap id="BaseResultMap" type="com.livk.cloud.dynamic.domain.DynamicRoute">
-    <!--@mbg.generated-->
-    <!--@Table dynamic_route-->
-    <id column="id" property="id" />
-    <result column="uri" property="uri" />
-    <result column="predicates" property="predicates" />
-    <result column="filters" property="filters" />
-    <result column="metadata" property="metadata" />
-    <result column="order" property="order" />
-    <result column="description" property="description" />
-    <result column="status" property="status" />
-    <result column="insert_time" property="insertTime" />
-    <result column="update_time" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, uri, predicates, filters, metadata, `order`, description, `status`, insert_time,
-    update_time
-  </sql>
+    <resultMap id="BaseResultMap" type="com.livk.cloud.dynamic.domain.DynamicRoute">
+        <!--@mbg.generated-->
+        <!--@Table dynamic_route-->
+        <id column="id" property="id"/>
+        <result column="uri" property="uri"/>
+        <result column="predicates" property="predicates"/>
+        <result column="filters" property="filters"/>
+        <result column="metadata" property="metadata"/>
+        <result column="order" property="order"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, uri, predicates, filters, metadata, `order`, description, `status`, insert_time,
+        update_time
+    </sql>
 </mapper>

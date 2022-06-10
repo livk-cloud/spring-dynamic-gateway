@@ -2,7 +2,6 @@ package com.livk.cloud.sys.controller;
 
 import com.livk.cloud.sys.service.SysLogService;
 import com.livk.common.core.result.R;
-import com.livk.common.core.util.SpringUtils;
 import com.livk.sys.dto.SysLogDTO;
 import com.livk.sys.entity.SysLog;
 import lombok.RequiredArgsConstructor;

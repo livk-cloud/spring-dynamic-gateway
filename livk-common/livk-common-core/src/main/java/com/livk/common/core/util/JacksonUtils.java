@@ -23,12 +23,12 @@ import java.util.stream.Stream;
 @UtilityClass
 public class JacksonUtils {
 
-	private static final ObjectMapper MAPPER = JsonMapper.builder().build();
-
 	/**
 	 * The constant JSON_EMPTY.
 	 */
 	public static final String JSON_EMPTY = "{}";
+
+	private static final ObjectMapper MAPPER = JsonMapper.builder().build();
 
 	/**
 	 * To bean t.
