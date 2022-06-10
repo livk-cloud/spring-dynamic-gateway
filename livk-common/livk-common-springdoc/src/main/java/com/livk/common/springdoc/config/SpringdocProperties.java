@@ -1,4 +1,4 @@
-package com.livk.common.swagger.config;
+package com.livk.common.springdoc.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,8 +17,8 @@ import java.util.List;
  */
 @Data
 @RefreshScope
-@ConfigurationProperties(prefix = "swagger")
-public class SwaggerProperties {
+@ConfigurationProperties(prefix = "springdoc")
+public class SpringdocProperties {
 
 	/**
 	 * swagger是否启用默认false

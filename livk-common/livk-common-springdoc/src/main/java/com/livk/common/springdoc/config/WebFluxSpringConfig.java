@@ -1,5 +1,6 @@
-package com.livk.common.swagger.config;
+package com.livk.common.springdoc.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 
@@ -11,13 +12,13 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
  * @author livk
  * @date 2021/11/9
  */
-public class WebFluxSwaggerConfig implements WebFluxConfigurer {
+@ConditionalOnClass(WebFluxConfigurer.class)
+public class WebFluxSpringConfig implements WebFluxConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/swagger-ui/**")
-				.addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-				.resourceChain(false);
+				.addResourceLocations("classpath:/META-INF/resources/webjars/swagger-ui/**").resourceChain(false);
 	}
 
 }

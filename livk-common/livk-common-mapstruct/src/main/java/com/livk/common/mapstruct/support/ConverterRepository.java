@@ -21,6 +21,8 @@ public interface ConverterRepository {
 
 	Map<Class<?>, Map<Class<?>, Converter>> getConverterMap();
 
-	void put(Converter t);
+	void put(Converter<?, ?> t);
+
+	void put(Class<?> sourceType, Class<?> targetType, Converter<?, ?> converter);
 
 }

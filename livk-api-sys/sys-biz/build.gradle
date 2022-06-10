@@ -1,13 +1,14 @@
 dependencies {
     implementation project(":livk-common:livk-common-log")
     implementation project(":livk-common:livk-common-mapstruct")
-//    implementation project(":livk-common:livk-common-swagger")
+    implementation project(":livk-common:livk-common-springdoc")
     implementation "com.baomidou:mybatis-plus-boot-starter"
     implementation "de.codecentric:spring-boot-admin-starter-client"
     implementation "com.clickhouse:clickhouse-jdbc"
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-undertow"
     implementation "org.springframework.boot:spring-boot-starter-validation"
+    annotationProcessor "org.mapstruct:mapstruct-processor"
 }
 
 test {

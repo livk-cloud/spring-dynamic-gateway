@@ -1,7 +1,7 @@
 package com.livk.common.mapstruct.utils;
 
 import com.livk.common.core.support.SpringContextHolder;
-import com.livk.common.mapstruct.support.MapstructService;
+import com.livk.common.mapstruct.converter.MapstructService;
 import lombok.experimental.UtilityClass;
 
 import java.util.Collection;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * </p>
  *
  * @author livk
- * @date 2022/6/9
+ * @date 2022/6/10
  */
 @UtilityClass
 public class MapstructUtils {

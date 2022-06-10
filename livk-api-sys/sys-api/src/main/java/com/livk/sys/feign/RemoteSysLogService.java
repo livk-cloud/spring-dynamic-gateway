@@ -19,6 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface RemoteSysLogService {
 
 	@PostMapping("/sysLog")
-	R<Boolean> save(@RequestBody SysLogDTO sysLogDTO);
+	R<Void> save(@RequestBody SysLogDTO sysLogDTO);
 
 }

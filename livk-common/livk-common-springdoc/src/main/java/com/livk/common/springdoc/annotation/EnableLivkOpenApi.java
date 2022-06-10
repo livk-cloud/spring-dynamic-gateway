@@ -1,7 +1,7 @@
-package com.livk.common.swagger.annotation;
+package com.livk.common.springdoc.annotation;
 
-import com.livk.common.swagger.LivkGateWaySwaggerAutoConfiguration;
-import com.livk.common.swagger.LivkSwaggerAutoConfiguration;
+import com.livk.common.springdoc.LivkGatewaySpringdocAutoConfiguration;
+import com.livk.common.springdoc.LivkSpringdocAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -18,7 +18,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@Import({ LivkGateWaySwaggerAutoConfiguration.class, LivkSwaggerAutoConfiguration.class })
+@Import({ LivkSpringdocAutoConfiguration.class })
 public @interface EnableLivkOpenApi {
 
 }

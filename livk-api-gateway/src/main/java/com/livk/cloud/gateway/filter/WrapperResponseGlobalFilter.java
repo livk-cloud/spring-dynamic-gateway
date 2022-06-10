@@ -1,7 +1,6 @@
 package com.livk.cloud.gateway.filter;
 
 import com.livk.common.core.util.SysUtils;
-import com.livk.common.swagger.support.GatewaySwaggerResourcesProvider;
 import org.reactivestreams.Publisher;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -18,7 +17,6 @@ import reactor.core.publisher.Mono;
 
 import javax.annotation.Nonnull;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
 /**
  * <p>
@@ -42,13 +40,11 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
 		var originalResponse = exchange.getResponse();
 		var bufferFactory = originalResponse.bufferFactory();
 		var uri = exchange.getRequest().getURI();
-		if (!uri.getPath().endsWith(GatewaySwaggerResourcesProvider.SWAGGER2URL)
-				&& !uri.getPath().endsWith(GatewaySwaggerResourcesProvider.SWAGGER3URL)) {
+		if (uri.getPath().endsWith("/v3/api-docs")) {
 			return chain.filter(exchange);
 		}
-		if (StringUtils.countOccurrencesOf(
-				Objects.requireNonNull(originalResponse.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE)),
-				"application/json") == 0) {
+		String contentType = originalResponse.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE);
+		if (contentType == null || StringUtils.countOccurrencesOf(contentType, "application/json") == 0) {
 			return chain.filter(exchange);
 		}
 		var decoratedResponse = new ServerHttpResponseDecorator(originalResponse) {

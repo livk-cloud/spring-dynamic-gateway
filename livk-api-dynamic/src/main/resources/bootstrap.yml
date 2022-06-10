@@ -20,7 +20,7 @@ spring:
   boot:
     admin:
       client:
-        url: lb://livk-api-monitor
+        url: lb://livk-monitor
         username: livk
         password: 123456
         instance:

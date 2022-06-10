@@ -33,6 +33,6 @@ public class SysLog {
 
 	private Long runtime;
 
-	private Date time;
+	private Date time = new Date();
 
 }

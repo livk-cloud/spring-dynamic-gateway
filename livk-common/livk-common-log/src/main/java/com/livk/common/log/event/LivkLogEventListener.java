@@ -1,7 +1,6 @@
 package com.livk.common.log.event;
 
 import com.livk.common.core.support.SpringContextHolder;
-import com.livk.common.core.util.JacksonUtils;
 import com.livk.sys.dto.SysLogDTO;
 import com.livk.sys.feign.RemoteSysLogService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,8 @@ public class LivkLogEventListener implements ApplicationListener<LivkLogEvent> {
 	 */
 	@Override
 	public void onApplicationEvent(@Nonnull LivkLogEvent event) {
-		log.info("serviceName:{}-->log:{}", event.getServiceName(), JacksonUtils.toJson(event.getSource()));
+		// log.info("serviceName:{}-->log:{}", event.getServiceName(),
+		// JacksonUtils.toJson(event.getSource()));
 		SpringContextHolder.getBean(RemoteSysLogService.class).save((SysLogDTO) event.getSource());
 	}
 

@@ -1,8 +1,9 @@
 package com.livk.cloud.dynamic;
 
 import com.livk.common.core.spring.LivkSpring;
-import com.livk.common.mapstruct.annotation.EnableConverter;
+import com.livk.common.springdoc.annotation.EnableLivkOpenApi;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * <p>
@@ -12,7 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author livk
  * @date 2021/11/3
  */
-@EnableConverter
+@EnableLivkOpenApi
+@EnableFeignClients("com.livk.sys.feign")
 @SpringBootApplication
 public class LivkDynamicApplication {
 

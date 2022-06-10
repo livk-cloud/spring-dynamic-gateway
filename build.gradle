@@ -84,7 +84,10 @@ configure(gradleModuleProjects) {
     dependencies {
         dependencyBom platform(project(":dependencies"))
 
+        implementation "com.google.code.findbugs:annotations"
+
         annotationProcessor "org.projectlombok:lombok"
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
         compileOnly "org.projectlombok:lombok"
 

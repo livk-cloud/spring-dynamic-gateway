@@ -1,7 +1,6 @@
 package com.livk.cloud.dynamic.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.livk.cloud.dynamic.converter.DynamicRouteConverter;
 import com.livk.cloud.dynamic.domain.DynamicRoute;
 import com.livk.cloud.dynamic.domain.RedisRoute;
 import com.livk.cloud.dynamic.handler.RedisRouteHandler;

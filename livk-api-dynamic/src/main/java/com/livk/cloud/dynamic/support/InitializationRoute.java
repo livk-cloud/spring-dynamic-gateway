@@ -6,6 +6,7 @@ import com.livk.cloud.dynamic.domain.DynamicRoute;
 import com.livk.cloud.dynamic.domain.RedisRoute;
 import com.livk.cloud.dynamic.service.DynamicRouteService;
 import com.livk.common.core.util.JacksonUtils;
+import com.livk.common.mapstruct.utils.MapstructUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +58,7 @@ public class InitializationRoute implements ApplicationRunner {
 			redisRoute.setId(serviceName);
 			redisRoute.setUri("lb://" + serviceName);
 			redisRoute.setDescription("this is " + serviceName + " route!");
-			dynamicRoute = converter.getTarget(redisRoute);
+			dynamicRoute = MapstructUtils.converter(redisRoute, DynamicRoute.class);
 			dynamicRouteService.saveOrUpdate(dynamicRoute);
 		}
 		log.info("Route Info init is :{}", dynamicRouteService.reload());

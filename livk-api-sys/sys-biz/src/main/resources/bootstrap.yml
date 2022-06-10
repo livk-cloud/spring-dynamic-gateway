@@ -1,5 +1,5 @@
 server:
-  port: 9632
+  port: 5699
 
 management:
   endpoints:
@@ -8,7 +8,7 @@ management:
         include: '*'
 spring:
   application:
-    name: livk-gateway
+    name: livk-api-sys
   datasource:
     driver-class-name: com.clickhouse.jdbc.ClickHouseDriver
     url: jdbc:clickhouse://livk.com:18123/dynamic_sys
@@ -21,7 +21,7 @@ spring:
   boot:
     admin:
       client:
-        url: lb://api-monitor
+        url: lb://livk-monitor
         username: livk
         password: 123456
   profiles:

@@ -1,7 +1,9 @@
 dependencies {
     api project(":livk-common:livk-common-core")
+    compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
     api "org.springframework.boot:spring-boot-starter-aop"
-    api "org.springframework.boot:spring-boot-starter-data-redis"
+    api "org.springframework.boot:spring-boot-starter-data-redis-reactive"
+    api 'org.apache.commons:commons-pool2:2.11.1'
 }
 
 test {
