@@ -1,4 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.livk.common.log.LivkLogAutoConfiguration
 #org.springframework.context.ApplicationListener=\
 #  com.livk.common.log.event.LivkLogEventListener
