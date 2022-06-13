@@ -18,12 +18,12 @@ abstract class CompileArgsPlugin implements Plugin<Project> {
 
     private static final List<String> COMPILER_ARGS = new ArrayList<>()
     private static final String MAPSTRUCT_NAME = "mapstruct"
+    private static final String MAPSTRUCT_PROCESSOR_NAME = "mapstruct-processor"
     private static final List<String> MAPSTRUCT_COMPILER_ARGS = new ArrayList<>()
     private static final String UTF_8 = "UTF-8"
 
     static {
-        COMPILER_ARGS.addAll(Arrays.asList(
-                "-Xlint:-options",
+        COMPILER_ARGS.addAll(Arrays.asList("-Xlint:-options",
                 "-Xlint:rawtypes",
                 "-Xlint:deprecation",
                 "-Xlint:unchecked",))
@@ -32,6 +32,7 @@ abstract class CompileArgsPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
+        project.pluginManager.apply(JavaPlugin.class)
         def javaCompile = project.tasks
                 .getByName(JavaPlugin.COMPILE_JAVA_TASK_NAME) as JavaCompile
         javaCompile.options.compilerArgs.addAll(COMPILER_ARGS)
@@ -42,7 +43,7 @@ abstract class CompileArgsPlugin implements Plugin<Project> {
             project.configurations.forEach {
                 dependencyName.addAll(it.dependencies.name)
             }
-            if (dependencyName.contains(MAPSTRUCT_NAME)) {
+            if (dependencyName.contains(MAPSTRUCT_NAME) || dependencyName.contains(MAPSTRUCT_PROCESSOR_NAME)) {
                 javaCompile.options.compilerArgs.addAll(MAPSTRUCT_COMPILER_ARGS)
             }
         }

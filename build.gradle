@@ -7,7 +7,7 @@ plugins {
 }
 
 ext {
-    bom = project(":dependencies")
+    bom = project(":livk-dependencies")
     gradleModuleProjects = subprojects.findAll {
         it.buildFile.exists()
     } - bom
@@ -19,7 +19,6 @@ ext {
 
 configure(commonModuleProjects) {
     apply plugin: "maven-publish"
-    apply plugin: "java-library"
     apply plugin: "com.livk.resources"
 
     publishing {
@@ -73,27 +72,21 @@ configure(allprojects) {
 }
 
 configure(gradleModuleProjects) {
-    apply plugin: "java"
     apply plugin: "com.livk.format"
     apply plugin: "com.livk.compile.args"
     apply plugin: "com.livk.dependency"
+    apply plugin: "com.livk.lombok"
 
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 
     dependencies {
-        dependencyBom platform(project(":dependencies"))
+        dependencyBom platform(project(":livk-dependencies"))
 
         implementation "com.google.code.findbugs:annotations"
 
-        annotationProcessor "org.projectlombok:lombok"
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
-        compileOnly "org.projectlombok:lombok"
-
         testImplementation "org.springframework.boot:spring-boot-starter-test"
-        testImplementation "org.projectlombok:lombok"
-
-        testAnnotationProcessor "org.projectlombok:lombok"
     }
 }
