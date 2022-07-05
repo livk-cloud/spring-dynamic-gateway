@@ -15,23 +15,23 @@ import javax.annotation.Nonnull;
  */
 public class Jackson2RedisSerializationContext<T> implements RedisSerialization<T> {
 
-	private final RedisSerializer<T> serializer;
+    private final RedisSerializer<T> serializer;
 
-	public Jackson2RedisSerializationContext(Class<T> targetClass) {
-		this.serializer = SerializerUtils.getJacksonSerializer(targetClass);
-	}
+    public Jackson2RedisSerializationContext(Class<T> targetClass) {
+        this.serializer = SerializerUtils.getJacksonSerializer(targetClass);
+    }
 
-	@Nonnull
-	@Override
-	public SerializationPair<T> getValueSerializationPair() {
-		return SerializationPair.fromSerializer(serializer);
-	}
+    @Nonnull
+    @Override
+    public SerializationPair<T> getValueSerializationPair() {
+        return SerializationPair.fromSerializer(serializer);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Nonnull
-	@Override
-	public <HV> SerializationPair<HV> getHashValueSerializationPair() {
-		return (SerializationPair<HV>) SerializationPair.fromSerializer(serializer);
-	}
+    @SuppressWarnings("unchecked")
+    @Nonnull
+    @Override
+    public <HV> SerializationPair<HV> getHashValueSerializationPair() {
+        return (SerializationPair<HV>) SerializationPair.fromSerializer(serializer);
+    }
 
 }

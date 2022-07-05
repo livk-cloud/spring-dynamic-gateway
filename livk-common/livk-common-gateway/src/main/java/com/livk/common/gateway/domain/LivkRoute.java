@@ -18,14 +18,14 @@ import org.springframework.cloud.gateway.route.RouteDefinition;
 @JsonPropertyOrder(alphabetic = true)
 public class LivkRoute extends RouteDefinition {
 
-	/**
-	 * 描述
-	 */
-	private String description;
+    /**
+     * 描述
+     */
+    private String description;
 
-	/**
-	 * 状态：1-有效，0-无效
-	 */
-	private Integer status;
+    /**
+     * 状态：1-有效，0-无效
+     */
+    private Integer status;
 
 }

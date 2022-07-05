@@ -23,23 +23,22 @@ import javax.annotation.Nonnull;
 @Component
 public class CustomNotifier extends AbstractEventNotifier {
 
-	protected CustomNotifier(InstanceRepository repository) {
-		super(repository);
-	}
+    protected CustomNotifier(InstanceRepository repository) {
+        super(repository);
+    }
 
-	@Nonnull
-	@Override
-	protected Mono<Void> doNotify(@Nonnull InstanceEvent event, @Nonnull Instance instance) {
-		return Mono.fromRunnable(() -> {
-			if (event instanceof InstanceStatusChangedEvent statusChangedEvent) {
-				log.info("Instance {} ({}) is {}", instance.getRegistration().getName(), event.getInstance(),
-						statusChangedEvent.getStatusInfo().getStatus());
-			}
-			else {
-				log.info("Instance {} ({}) {}", instance.getRegistration().getName(), event.getInstance(),
-						event.getType());
-			}
-		});
-	}
+    @Nonnull
+    @Override
+    protected Mono<Void> doNotify(@Nonnull InstanceEvent event, @Nonnull Instance instance) {
+        return Mono.fromRunnable(() -> {
+            if (event instanceof InstanceStatusChangedEvent statusChangedEvent) {
+                log.info("Instance {} ({}) is {}", instance.getRegistration().getName(), event.getInstance(),
+                        statusChangedEvent.getStatusInfo().getStatus());
+            } else {
+                log.info("Instance {} ({}) {}", instance.getRegistration().getName(), event.getInstance(),
+                        event.getType());
+            }
+        });
+    }
 
 }

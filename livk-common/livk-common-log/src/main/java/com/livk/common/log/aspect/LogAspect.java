@@ -31,34 +31,34 @@ import java.util.HashMap;
 @Order(-1)
 public class LogAspect {
 
-	@Around("@annotation(livkLog)||@within(livkLog)")
-	public Object around(ProceedingJoinPoint joinPoint, LivkLog livkLog) throws Throwable {
-		var signature = (MethodSignature) joinPoint.getSignature();
-		var method = signature.getMethod();
-		if (livkLog == null) {
-			livkLog = AnnotationUtils.findAnnotation(method, LivkLog.class);
-			Assert.notNull(livkLog, "LivkLog is null");
-		}
-		var sysLogDTO = new SysLogDTO();
-		var parameterNames = signature.getParameterNames();
-		var args = joinPoint.getArgs();
-		var start = System.currentTimeMillis();
-		var proceed = joinPoint.proceed();
-		var end = System.currentTimeMillis();
-		if (parameterNames.length != 0 && args.length != 0) {
-			var map = new HashMap<String, Object>(SysUtils.getMapSize(parameterNames.length));
-			for (var i = 0; i < parameterNames.length; i++) {
-				map.put(parameterNames[i], args[i]);
-			}
-			sysLogDTO.setParams(map);
-		}
-		sysLogDTO.setResult(proceed);
-		sysLogDTO.setMethodName(method.getName());
-		sysLogDTO.setIp(InetAddress.getByName(SysUtils.getRealIp(RequestUtils.getRequest())));
-		sysLogDTO.setRuntime(end - start);
-		SpringContextHolder
-				.publishEvent(new LivkLogEvent(sysLogDTO, SpringContextHolder.getProperty("spring.application.name")));
-		return proceed;
-	}
+    @Around("@annotation(livkLog)||@within(livkLog)")
+    public Object around(ProceedingJoinPoint joinPoint, LivkLog livkLog) throws Throwable {
+        var signature = (MethodSignature) joinPoint.getSignature();
+        var method = signature.getMethod();
+        if (livkLog == null) {
+            livkLog = AnnotationUtils.findAnnotation(method, LivkLog.class);
+            Assert.notNull(livkLog, "LivkLog is null");
+        }
+        var sysLogDTO = new SysLogDTO();
+        var parameterNames = signature.getParameterNames();
+        var args = joinPoint.getArgs();
+        var start = System.currentTimeMillis();
+        var proceed = joinPoint.proceed();
+        var end = System.currentTimeMillis();
+        if (parameterNames.length != 0 && args.length != 0) {
+            var map = new HashMap<String, Object>(SysUtils.getMapSize(parameterNames.length));
+            for (var i = 0; i < parameterNames.length; i++) {
+                map.put(parameterNames[i], args[i]);
+            }
+            sysLogDTO.setParams(map);
+        }
+        sysLogDTO.setResult(proceed);
+        sysLogDTO.setMethodName(method.getName());
+        sysLogDTO.setIp(InetAddress.getByName(SysUtils.getRealIp(RequestUtils.getRequest())));
+        sysLogDTO.setRuntime(end - start);
+        SpringContextHolder
+                .publishEvent(new LivkLogEvent(sysLogDTO, SpringContextHolder.getProperty("spring.application.name")));
+        return proceed;
+    }
 
 }

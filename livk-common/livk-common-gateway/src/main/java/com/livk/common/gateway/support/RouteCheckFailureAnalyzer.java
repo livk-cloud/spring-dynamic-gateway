@@ -14,9 +14,9 @@ import org.springframework.boot.diagnostics.FailureAnalysis;
  */
 public class RouteCheckFailureAnalyzer extends AbstractFailureAnalyzer<RouteCheckException> {
 
-	@Override
-	protected FailureAnalysis analyze(Throwable rootFailure, RouteCheckException cause) {
-		return new FailureAnalysis(rootFailure.getMessage(), "", cause);
-	}
+    @Override
+    protected FailureAnalysis analyze(Throwable rootFailure, RouteCheckException cause) {
+        return new FailureAnalysis(rootFailure.getMessage(), "", cause);
+    }
 
 }

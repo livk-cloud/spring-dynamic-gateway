@@ -24,14 +24,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SysLogController {
 
-	private final SysLogService sysLogService;
+    private final SysLogService sysLogService;
 
-	private final ConversionService conversionService;
+    private final ConversionService conversionService;
 
-	@PostMapping
-	public R<Void> save(@RequestBody SysLogDTO sysLogDTO) {
-		SysLog sysLog = conversionService.convert(sysLogDTO, SysLog.class);
-		return sysLogService.save(sysLog) ? R.ok() : R.error("error");
-	}
+    @PostMapping
+    public R<Void> save(@RequestBody SysLogDTO sysLogDTO) {
+        SysLog sysLog = conversionService.convert(sysLogDTO, SysLog.class);
+        return sysLogService.save(sysLog) ? R.ok() : R.error("error");
+    }
 
 }

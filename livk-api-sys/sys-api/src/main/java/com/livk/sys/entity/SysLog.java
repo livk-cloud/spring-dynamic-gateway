@@ -20,19 +20,19 @@ import java.util.Date;
 @TableName("sys_log")
 public class SysLog {
 
-	@TableId(type = IdType.ASSIGN_ID)
-	private String id;
+    @TableId(type = IdType.ASSIGN_ID)
+    private String id;
 
-	private String methodName;
+    private String methodName;
 
-	private String params;
+    private String params;
 
-	private String result;
+    private String result;
 
-	private InetAddress ip;
+    private InetAddress ip;
 
-	private Long runtime;
+    private Long runtime;
 
-	private Date time = new Date();
+    private Date time = new Date();
 
 }

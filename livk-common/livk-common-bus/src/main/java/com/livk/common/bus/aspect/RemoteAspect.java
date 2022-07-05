@@ -25,21 +25,21 @@ import java.lang.reflect.Method;
 @RequiredArgsConstructor
 public class RemoteAspect {
 
-	private final BusProperties busProperties;
+    private final BusProperties busProperties;
 
-	/**
-	 * 需添加配置文件，设置通知那个serviceId 例如"api-gateway:9852:**"
-	 */
-	@After("@annotation(livkEventPublish)")
-	public void publishEvent(JoinPoint joinPoint, LivkEventPublish livkEventPublish) {
-		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-		Method method = signature.getMethod();
-		if (livkEventPublish == null) {
-			livkEventPublish = AnnotationUtils.findAnnotation(method, LivkEventPublish.class);
-			Assert.notNull(livkEventPublish, "LivkEventPublish is null");
-		}
-		String value = SpringUtils.parseSpEL(method, joinPoint.getArgs(), livkEventPublish.value());
-		SpringContextHolder.publishEvent(new LivkRemoteEvent(busProperties.getId(), () -> value));
-	}
+    /**
+     * 需添加配置文件，设置通知那个serviceId 例如"api-gateway:9852:**"
+     */
+    @After("@annotation(livkEventPublish)")
+    public void publishEvent(JoinPoint joinPoint, LivkEventPublish livkEventPublish) {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        if (livkEventPublish == null) {
+            livkEventPublish = AnnotationUtils.findAnnotation(method, LivkEventPublish.class);
+            Assert.notNull(livkEventPublish, "LivkEventPublish is null");
+        }
+        String value = SpringUtils.parseSpEL(method, joinPoint.getArgs(), livkEventPublish.value());
+        SpringContextHolder.publishEvent(new LivkRemoteEvent(busProperties.getId(), () -> value));
+    }
 
 }

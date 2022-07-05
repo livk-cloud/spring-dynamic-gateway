@@ -23,39 +23,39 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DynamicRouteServiceImpl extends ServiceImpl<DynamicRouteMapper, DynamicRoute>
-		implements DynamicRouteService {
+        implements DynamicRouteService {
 
-	private final RedisRouteHandler redisRouteHandler;
+    private final RedisRouteHandler redisRouteHandler;
 
-	@Override
-	public Boolean saveOrUpdate(RedisRoute redisRoute) {
-		redisRouteHandler.push(redisRoute);
-		var dynamicRoute = MapstructUtils.converter(redisRoute, DynamicRoute.class);
-		return this.saveOrUpdate(dynamicRoute);
-	}
+    @Override
+    public Boolean saveOrUpdate(RedisRoute redisRoute) {
+        redisRouteHandler.push(redisRoute);
+        var dynamicRoute = MapstructUtils.converter(redisRoute, DynamicRoute.class);
+        return this.saveOrUpdate(dynamicRoute);
+    }
 
-	@Override
-	public Boolean delete(String routeId) {
-		redisRouteHandler.delete(routeId);
-		return this.removeById(routeId);
-	}
+    @Override
+    public Boolean delete(String routeId) {
+        redisRouteHandler.delete(routeId);
+        return this.removeById(routeId);
+    }
 
-	@Override
-	public RedisRoute getById(String routeId) {
-		return redisRouteHandler.getByRouteId(routeId);
-	}
+    @Override
+    public RedisRoute getById(String routeId) {
+        return redisRouteHandler.getByRouteId(routeId);
+    }
 
-	@Override
-	public List<RedisRoute> selectList() {
-		return redisRouteHandler.list();
-	}
+    @Override
+    public List<RedisRoute> selectList() {
+        return redisRouteHandler.list();
+    }
 
-	@Override
-	public Boolean reload() {
-		var dynamicRouteList = this.list();
-		var redisRouteStream = MapstructUtils.converter(dynamicRouteList, RedisRoute.class);
-		redisRouteHandler.reload(redisRouteStream.toList());
-		return true;
-	}
+    @Override
+    public Boolean reload() {
+        var dynamicRouteList = this.list();
+        var redisRouteStream = MapstructUtils.converter(dynamicRouteList, RedisRoute.class);
+        redisRouteHandler.reload(redisRouteStream.toList());
+        return true;
+    }
 
 }

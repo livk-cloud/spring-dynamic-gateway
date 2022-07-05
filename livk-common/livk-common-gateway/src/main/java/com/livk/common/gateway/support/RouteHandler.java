@@ -17,10 +17,10 @@ import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 @Slf4j
 public class RouteHandler implements LivkRemoteHandler {
 
-	@Override
-	public void remoteHandler(LivkRemoteEvent livkRemoteEvent) {
-		SpringContextHolder.publishEvent(new RefreshRoutesEvent(this));
-		log.info("Spring Gateway RefreshRoutesEvent publish!");
-	}
+    @Override
+    public void remoteHandler(LivkRemoteEvent livkRemoteEvent) {
+        SpringContextHolder.publishEvent(new RefreshRoutesEvent(this));
+        log.info("Spring Gateway RefreshRoutesEvent publish!");
+    }
 
 }

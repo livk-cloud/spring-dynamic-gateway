@@ -16,12 +16,12 @@ import org.springframework.core.convert.converter.Converter;
  * @author livk
  * @date 2022/6/9
  */
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, imports = { JacksonUtils.class })
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, imports = {JacksonUtils.class})
 public interface SysLogConverter extends Converter<SysLogDTO, SysLog> {
 
-	@Mapping(target = "params", expression = "java(JacksonUtils.toJson(sysLog.getParams()))")
-	@Mapping(target = "result", expression = "java(JacksonUtils.toJson(sysLog.getParams()))")
-	@Override
-	SysLog convert(SysLogDTO source);
+    @Mapping(target = "params", expression = "java(JacksonUtils.toJson(sysLog.getParams()))")
+    @Mapping(target = "result", expression = "java(JacksonUtils.toJson(sysLog.getParams()))")
+    @Override
+    SysLog convert(SysLogDTO source);
 
 }

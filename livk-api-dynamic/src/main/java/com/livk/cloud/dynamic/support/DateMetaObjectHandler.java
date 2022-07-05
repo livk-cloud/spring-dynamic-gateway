@@ -17,15 +17,15 @@ import java.util.Date;
 @Component
 public class DateMetaObjectHandler implements MetaObjectHandler {
 
-	@Override
-	public void insertFill(MetaObject metaObject) {
-		this.strictInsertFill(metaObject, "insertTime", Date::new, Date.class);
-		this.strictInsertFill(metaObject, "updateTime", Date::new, Date.class);
-	}
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        this.strictInsertFill(metaObject, "insertTime", Date::new, Date.class);
+        this.strictInsertFill(metaObject, "updateTime", Date::new, Date.class);
+    }
 
-	@Override
-	public void updateFill(MetaObject metaObject) {
-		this.strictUpdateFill(metaObject, "updateTime", Date::new, Date.class);
-	}
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        this.strictUpdateFill(metaObject, "updateTime", Date::new, Date.class);
+    }
 
 }

@@ -16,14 +16,14 @@ import java.util.List;
  */
 public interface DynamicRouteService extends IService<DynamicRoute> {
 
-	Boolean saveOrUpdate(RedisRoute redisRoute);
+    Boolean saveOrUpdate(RedisRoute redisRoute);
 
-	Boolean delete(String routeId);
+    Boolean delete(String routeId);
 
-	RedisRoute getById(String routeId);
+    RedisRoute getById(String routeId);
 
-	List<RedisRoute> selectList();
+    List<RedisRoute> selectList();
 
-	Boolean reload();
+    Boolean reload();
 
 }

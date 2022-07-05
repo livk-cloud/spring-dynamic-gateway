@@ -15,17 +15,17 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  */
 public class LivkRedisTemplate extends RedisTemplate<String, Object> {
 
-	private LivkRedisTemplate() {
-		this.setKeySerializer(RedisSerializer.string());
-		this.setHashKeySerializer(RedisSerializer.string());
-		this.setValueSerializer(SerializerUtils.getJacksonSerializer(Object.class));
-		this.setHashValueSerializer(SerializerUtils.getJacksonSerializer(Object.class));
-	}
+    private LivkRedisTemplate() {
+        this.setKeySerializer(RedisSerializer.string());
+        this.setHashKeySerializer(RedisSerializer.string());
+        this.setValueSerializer(SerializerUtils.getJacksonSerializer(Object.class));
+        this.setHashValueSerializer(SerializerUtils.getJacksonSerializer(Object.class));
+    }
 
-	public LivkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-		this();
-		this.setConnectionFactory(redisConnectionFactory);
-		this.afterPropertiesSet();
-	}
+    public LivkRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        this();
+        this.setConnectionFactory(redisConnectionFactory);
+        this.afterPropertiesSet();
+    }
 
 }

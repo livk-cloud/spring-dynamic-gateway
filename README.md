@@ -147,12 +147,14 @@ docker run -d -p 15672:15672  -p  5672:5672  -e RABBITMQ_DEFAULT_USER=admin -e R
 > Spring Cloud Bus需要与Spring Cloud Stream结合使用，同时需要一个Message Queue(官方使用RabbitMQ或者Kafka).<br>
 > [Gateway路由信息与Redis操作结合](livk-common/livk-common-gateway/src/main/java/com/livk/common/gateway/support/LivkRedisRouteDefinitionRepository.java)
 > .<br>
-> [Bus操作远程Event](./livk-cloud-common/livk-common-bus/src/main/java/com/livk/common/bus/event/LivkRemoteEvent.java).<br>
+> [Bus操作远程Event](./livk-cloud-common/livk-common-bus/src/main/java/com/livk/common/bus/event/LivkRemoteEvent.java)
+> .<br>
 > [Mapstruct转化器通用接口](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/converter/BaseConverter.java)
 > .<br>
 > [Swagger整合Gateway](./livk-cloud-common/livk-common-swagger/src/main/java/com/livk/common/swagger/support/GatewaySwaggerResourcesProvider.java)
 > .<br>
-> [方法引用获取字段](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/function/FieldFunction.java).<br>
+> [方法引用获取字段](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/function/FieldFunction.java)
+> .<br>
 > [策略模式抽象类](./livk-cloud-common/livk-common-core/src/main/java/com/livk/common/core/handler/AbstractHandlerAdapter.java)
 > .<br>
 > [ReactiveRedis配置](./livk-cloud-common/livk-common-redis/src/main/java/com/livk/common/redis/support/LivkReactiveRedisTemplate.java)

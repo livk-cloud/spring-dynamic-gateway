@@ -31,35 +31,35 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class InitializationRoute implements ApplicationRunner {
 
-	private final DynamicRouteService dynamicRouteService;
+    private final DynamicRouteService dynamicRouteService;
 
-	private final DynamicRouteConverter converter;
+    private final DynamicRouteConverter converter;
 
-	private final DataSource dataSource;
+    private final DataSource dataSource;
 
-	private final Environment env;
+    private final Environment env;
 
-	@Value("classpath:sql/initData.json")
-	private Resource initData;
+    @Value("classpath:sql/initData.json")
+    private Resource initData;
 
-	@Value("classpath:sql/table.sql")
-	private Resource initSql;
+    @Value("classpath:sql/table.sql")
+    private Resource initSql;
 
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		ScriptUtils.executeSqlScript(dataSource.getConnection(), initSql);
-		var serviceName = env.getProperty("spring.application.name");
-		var dynamicRoute = dynamicRouteService
-				.getOne(Wrappers.lambdaQuery(DynamicRoute.class).eq(DynamicRoute::getUri, "lb://" + serviceName));
-		if (dynamicRoute == null) {
-			var redisRoute = JacksonUtils.toBean(initData.getInputStream(), RedisRoute.class);
-			redisRoute.setId(serviceName);
-			redisRoute.setUri("lb://" + serviceName);
-			redisRoute.setDescription("this is " + serviceName + " route!");
-			dynamicRoute = MapstructUtils.converter(redisRoute, DynamicRoute.class);
-			dynamicRouteService.saveOrUpdate(dynamicRoute);
-		}
-		log.info("Route Info init is :{}", dynamicRouteService.reload());
-	}
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        ScriptUtils.executeSqlScript(dataSource.getConnection(), initSql);
+        var serviceName = env.getProperty("spring.application.name");
+        var dynamicRoute = dynamicRouteService
+                .getOne(Wrappers.lambdaQuery(DynamicRoute.class).eq(DynamicRoute::getUri, "lb://" + serviceName));
+        if (dynamicRoute == null) {
+            var redisRoute = JacksonUtils.toBean(initData.getInputStream(), RedisRoute.class);
+            redisRoute.setId(serviceName);
+            redisRoute.setUri("lb://" + serviceName);
+            redisRoute.setDescription("this is " + serviceName + " route!");
+            dynamicRoute = MapstructUtils.converter(redisRoute, DynamicRoute.class);
+            dynamicRouteService.saveOrUpdate(dynamicRoute);
+        }
+        log.info("Route Info init is :{}", dynamicRouteService.reload());
+    }
 
 }

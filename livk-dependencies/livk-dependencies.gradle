@@ -10,16 +10,16 @@ javaPlatform {
 
 ext {
     springCloudVersion = "2021.0.3"
-    springBootAdminVersion = "2.7.0"
+    springBootAdminVersion = "2.7.2"
     guavaVersion = "31.1-jre"
-    mpVersion = "3.5.1"
+    mpVersion = "3.5.2"
     springdocVersion = "1.6.9"
     googleFindbugsVersion = "3.0.1"
-    mapstructVersion = "1.5.0.RC1"
+    mapstructVersion = "1.5.2.Final"
     mapstructLombokVersion = "0.2.0"
     commonsValidatorVersion = "1.7"
-    pagehelperVersion = "1.4.2"
-    clickhouseJdbcVersion = "0.3.2-patch9"
+    pagehelperVersion = "1.4.3"
+    clickhouseJdbcVersion = "0.3.2-patch10"
 }
 
 dependencies {

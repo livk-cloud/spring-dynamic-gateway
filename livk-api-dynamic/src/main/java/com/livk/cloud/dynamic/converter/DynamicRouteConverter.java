@@ -19,24 +19,24 @@ import org.mapstruct.MappingConstants;
  * @date 2021/11/4
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
-		imports = { JacksonUtils.class, Predicate.class, Filter.class })
+        imports = {JacksonUtils.class, Predicate.class, Filter.class})
 public interface DynamicRouteConverter extends Converter<RedisRoute, DynamicRoute> {
 
-	@Mapping(target = "predicates",
-			expression = "java(JacksonUtils.toStream(dynamicRoute.getPredicates(),Predicate.class).toList())")
-	@Mapping(target = "filters",
-			expression = "java(JacksonUtils.toStream(dynamicRoute.getFilters(),Filter.class).toList())")
-	@Mapping(target = "metadata",
-			expression = "java(JacksonUtils.toMap(dynamicRoute.getMetadata(),String.class,Object.class))")
-	@Override
-	RedisRoute getSource(DynamicRoute dynamicRoute);
+    @Mapping(target = "predicates",
+            expression = "java(JacksonUtils.toStream(dynamicRoute.getPredicates(),Predicate.class).toList())")
+    @Mapping(target = "filters",
+            expression = "java(JacksonUtils.toStream(dynamicRoute.getFilters(),Filter.class).toList())")
+    @Mapping(target = "metadata",
+            expression = "java(JacksonUtils.toMap(dynamicRoute.getMetadata(),String.class,Object.class))")
+    @Override
+    RedisRoute getSource(DynamicRoute dynamicRoute);
 
-	@Mapping(target = "insertTime", ignore = true)
-	@Mapping(target = "updateTime", ignore = true)
-	@Mapping(target = "predicates", expression = "java(JacksonUtils.toJson(redisRoute.getPredicates()))")
-	@Mapping(target = "filters", expression = "java(JacksonUtils.toJson(redisRoute.getFilters()))")
-	@Mapping(target = "metadata", expression = "java(JacksonUtils.toJson(redisRoute.getMetadata()))")
-	@Override
-	DynamicRoute getTarget(RedisRoute redisRoute);
+    @Mapping(target = "insertTime", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "predicates", expression = "java(JacksonUtils.toJson(redisRoute.getPredicates()))")
+    @Mapping(target = "filters", expression = "java(JacksonUtils.toJson(redisRoute.getFilters()))")
+    @Mapping(target = "metadata", expression = "java(JacksonUtils.toJson(redisRoute.getMetadata()))")
+    @Override
+    DynamicRoute getTarget(RedisRoute redisRoute);
 
 }

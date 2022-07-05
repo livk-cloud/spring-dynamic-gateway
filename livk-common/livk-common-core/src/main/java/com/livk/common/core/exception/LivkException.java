@@ -15,8 +15,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LivkException extends RuntimeException {
 
-	private final int code;
+    private final int code;
 
-	private final String message;
+    private final String message;
 
 }

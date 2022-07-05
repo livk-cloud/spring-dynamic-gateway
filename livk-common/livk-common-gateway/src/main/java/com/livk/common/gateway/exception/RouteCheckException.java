@@ -10,24 +10,24 @@ package com.livk.common.gateway.exception;
  */
 public class RouteCheckException extends RuntimeException {
 
-	public RouteCheckException() {
-		super();
-	}
+    public RouteCheckException() {
+        super();
+    }
 
-	public RouteCheckException(String message) {
-		super(message);
-	}
+    public RouteCheckException(String message) {
+        super(message);
+    }
 
-	public RouteCheckException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public RouteCheckException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public RouteCheckException(Throwable cause) {
-		super(cause);
-	}
+    public RouteCheckException(Throwable cause) {
+        super(cause);
+    }
 
-	public RouteCheckException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
+    public RouteCheckException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 
 }

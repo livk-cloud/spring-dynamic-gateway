@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class LivkExceptionHandler {
 
-	@ExceptionHandler(LivkException.class)
-	public R<String> krisExceptionHandler(LivkException e) {
-		e.printStackTrace();
-		return R.error(e.getMessage());
-	}
+    @ExceptionHandler(LivkException.class)
+    public R<String> krisExceptionHandler(LivkException e) {
+        e.printStackTrace();
+        return R.error(e.getMessage());
+    }
 
-	@ExceptionHandler(Exception.class)
-	public R<String> exceptionHandler(Exception e) {
-		e.printStackTrace();
-		return R.error("Server error");
-	}
+    @ExceptionHandler(Exception.class)
+    public R<String> exceptionHandler(Exception e) {
+        e.printStackTrace();
+        return R.error("Server error");
+    }
 
 }

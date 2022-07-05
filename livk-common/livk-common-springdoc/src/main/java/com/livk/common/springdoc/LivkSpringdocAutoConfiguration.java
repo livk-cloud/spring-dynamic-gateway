@@ -29,18 +29,18 @@ import java.util.List;
 @ConditionalOnMissingClass(value = "org.springframework.cloud.gateway.config.GatewayAutoConfiguration")
 public class LivkSpringdocAutoConfiguration {
 
-	@Bean
-	public OpenAPI springOpenAPI(SpringdocProperties springdocProperties, ServiceInstance serviceInstance,
-			DiscoveryClient discoveryClient) {
-		OpenAPI openAPI = new OpenAPI().info(new Info().title(springdocProperties.getTitle()));
-		// servers
-		List<Server> serverList = new ArrayList<>();
-		String path = serviceInstance.getServiceId();
-		List<ServiceInstance> gatewayInstances = discoveryClient.getInstances("livk-gateway");
-		gatewayInstances.forEach(
-				gateway -> serverList.add(new Server().url(gateway.getHost() + ":" + gateway.getPort() + "/" + path)));
-		openAPI.servers(serverList);
-		return openAPI;
-	}
+    @Bean
+    public OpenAPI springOpenAPI(SpringdocProperties springdocProperties, ServiceInstance serviceInstance,
+                                 DiscoveryClient discoveryClient) {
+        OpenAPI openAPI = new OpenAPI().info(new Info().title(springdocProperties.getTitle()));
+        // servers
+        List<Server> serverList = new ArrayList<>();
+        String path = serviceInstance.getServiceId();
+        List<ServiceInstance> gatewayInstances = discoveryClient.getInstances("livk-gateway");
+        gatewayInstances.forEach(
+                gateway -> serverList.add(new Server().url(gateway.getHost() + ":" + gateway.getPort() + "/" + path)));
+        openAPI.servers(serverList);
+        return openAPI;
+    }
 
 }

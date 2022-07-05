@@ -34,40 +34,40 @@ import org.springframework.data.redis.core.ReactiveRedisTemplate;
  */
 @EnableConfigurationProperties(LivkRouteProperties.class)
 @Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter({ LivkRedisAutoConfiguration.class, LivkBusAutoConfiguration.class })
+@AutoConfigureAfter({LivkRedisAutoConfiguration.class, LivkBusAutoConfiguration.class})
 @AutoConfigureBefore(GatewayAutoConfiguration.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class LivkGateWayAutoConfiguration {
 
-	@Bean
-	@ConditionalOnProperty(prefix = "livk.gateway.route", name = "type", havingValue = "Redis_Hash")
-	public LivkRedisRouteDefinitionRepository redisRouteDefinitionWriter(
-			LivkReactiveRedisTemplate livkReactiveRedisTemplate) {
-		return new LivkRedisRouteDefinitionRepository(livkReactiveRedisTemplate);
-	}
+    @Bean
+    @ConditionalOnProperty(prefix = "livk.gateway.route", name = "type", havingValue = "Redis_Hash")
+    public LivkRedisRouteDefinitionRepository redisRouteDefinitionWriter(
+            LivkReactiveRedisTemplate livkReactiveRedisTemplate) {
+        return new LivkRedisRouteDefinitionRepository(livkReactiveRedisTemplate);
+    }
 
-	@Bean
-	@ConditionalOnProperty(prefix = "livk.gateway.route", name = "type", havingValue = "REDIS_STR")
-	public RouteDefinitionRepository redisRouteDefinitionRepository(
-			ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisTemplate) {
-		return new RedisRouteDefinitionRepository(reactiveRedisTemplate);
-	}
+    @Bean
+    @ConditionalOnProperty(prefix = "livk.gateway.route", name = "type", havingValue = "REDIS_STR")
+    public RouteDefinitionRepository redisRouteDefinitionRepository(
+            ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisTemplate) {
+        return new RedisRouteDefinitionRepository(reactiveRedisTemplate);
+    }
 
-	@Bean
-	@ConditionalOnBean(LivkReactiveRedisTemplate.class)
-	public RedisRouteHealthIndicator redisRouteHealthIndicator(LivkReactiveRedisTemplate livkReactiveRedisTemplate)
-			throws Exception {
-		ThrowException
-				.isTrue(o -> Boolean.FALSE
-						.equals(livkReactiveRedisTemplate.hasKey(LivkRedisRouteDefinitionRepository.ROUTE_KEY).block()))
-				.throwException(new RouteCheckException("route initialization not detected"));
-		return new RedisRouteHealthIndicator(livkReactiveRedisTemplate);
-	}
+    @Bean
+    @ConditionalOnBean(LivkReactiveRedisTemplate.class)
+    public RedisRouteHealthIndicator redisRouteHealthIndicator(LivkReactiveRedisTemplate livkReactiveRedisTemplate)
+            throws Exception {
+        ThrowException
+                .isTrue(o -> Boolean.FALSE
+                        .equals(livkReactiveRedisTemplate.hasKey(LivkRedisRouteDefinitionRepository.ROUTE_KEY).block()))
+                .throwException(new RouteCheckException("route initialization not detected"));
+        return new RedisRouteHealthIndicator(livkReactiveRedisTemplate);
+    }
 
-	@Bean
-	@ConditionalOnBean(LivkRemoteListener.class)
-	public RouteHandler routeHandler() {
-		return new RouteHandler();
-	}
+    @Bean
+    @ConditionalOnBean(LivkRemoteListener.class)
+    public RouteHandler routeHandler() {
+        return new RouteHandler();
+    }
 
 }

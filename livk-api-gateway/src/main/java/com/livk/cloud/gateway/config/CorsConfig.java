@@ -19,16 +19,16 @@ import java.util.Collections;
 @Configuration
 public class CorsConfig {
 
-	@Bean
-	public CorsWebFilter corsWebFilter() {
-		var source = new UrlBasedCorsConfigurationSource();
-		var corsConfiguration = new CorsConfiguration();
-		corsConfiguration.addAllowedHeader("*");
-		corsConfiguration.addAllowedMethod("*");
-		corsConfiguration.setAllowedOriginPatterns(Collections.singletonList("*"));
-		corsConfiguration.setAllowCredentials(true);
-		source.registerCorsConfiguration("/**", corsConfiguration);
-		return new CorsWebFilter(source);
-	}
+    @Bean
+    public CorsWebFilter corsWebFilter() {
+        var source = new UrlBasedCorsConfigurationSource();
+        var corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setAllowedOriginPatterns(Collections.singletonList("*"));
+        corsConfiguration.setAllowCredentials(true);
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return new CorsWebFilter(source);
+    }
 
 }

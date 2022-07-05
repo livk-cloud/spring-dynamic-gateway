@@ -33,35 +33,35 @@ import java.util.*;
 @ConditionalOnBean(RouteDefinitionRepository.class)
 public class LivkGatewaySpringdocAutoConfiguration {
 
-	@Bean
-	@Lazy(false)
-	public List<GroupedOpenApi> apis(SwaggerUiConfigParameters swaggerUiConfigParameters,
-			RouteDefinitionRepository routeDefinitionRepository, DiscoveryClient discoveryClient) {
-		var routeDefinitions = new HashSet<RouteDefinition>();
-		routeDefinitionRepository.getRouteDefinitions()
-				.filter(routeDefinition -> discoveryClient.getServices().contains(routeDefinition.getId()))
-				.sort(Comparator.comparingInt(RouteDefinition::getOrder)).subscribe(routeDefinitions::add);
-		return routeDefinitions.stream().flatMap(routeDefinition -> routeDefinition.getPredicates().stream()
-				.filter(predicateDefinition -> "Path".equalsIgnoreCase(predicateDefinition.getName()))
-				.filter(predicateDefinition -> !predicateDefinition.getArgs().isEmpty()).map(predicateDefinition -> {
-					Map<String, String> args = predicateDefinition.getArgs();
-					var pattern = Optional.ofNullable(args.get("pattern"))
-							.orElse(args.get(NameUtils.GENERATED_NAME_PREFIX + "0"));
-					String name = pattern.replace("/**", "");
-					swaggerUiConfigParameters.addGroup(name);
-					return GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).build();
-				})).toList();
-	}
+    @Bean
+    @Lazy(false)
+    public List<GroupedOpenApi> apis(SwaggerUiConfigParameters swaggerUiConfigParameters,
+                                     RouteDefinitionRepository routeDefinitionRepository, DiscoveryClient discoveryClient) {
+        var routeDefinitions = new HashSet<RouteDefinition>();
+        routeDefinitionRepository.getRouteDefinitions()
+                .filter(routeDefinition -> discoveryClient.getServices().contains(routeDefinition.getId()))
+                .sort(Comparator.comparingInt(RouteDefinition::getOrder)).subscribe(routeDefinitions::add);
+        return routeDefinitions.stream().flatMap(routeDefinition -> routeDefinition.getPredicates().stream()
+                .filter(predicateDefinition -> "Path".equalsIgnoreCase(predicateDefinition.getName()))
+                .filter(predicateDefinition -> !predicateDefinition.getArgs().isEmpty()).map(predicateDefinition -> {
+                    Map<String, String> args = predicateDefinition.getArgs();
+                    var pattern = Optional.ofNullable(args.get("pattern"))
+                            .orElse(args.get(NameUtils.GENERATED_NAME_PREFIX + "0"));
+                    String name = pattern.replace("/**", "");
+                    swaggerUiConfigParameters.addGroup(name);
+                    return GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).build();
+                })).toList();
+    }
 
-	@Bean
-	public OpenAPI customOpenApi() {
-		return new OpenAPI().info(new Info().title("springdoc gateway API").description("springdoc gateway API")
-				.version("v1.0.0").contact(new Contact().name("livk").email("livk@163.com")));
-	}
+    @Bean
+    public OpenAPI customOpenApi() {
+        return new OpenAPI().info(new Info().title("springdoc gateway API").description("springdoc gateway API")
+                .version("v1.0.0").contact(new Contact().name("livk").email("livk@163.com")));
+    }
 
-	@Bean
-	public WebFluxConfigurer webFluxConfigurer() {
-		return new WebFluxSpringConfig();
-	}
+    @Bean
+    public WebFluxConfigurer webFluxConfigurer() {
+        return new WebFluxSpringConfig();
+    }
 
 }

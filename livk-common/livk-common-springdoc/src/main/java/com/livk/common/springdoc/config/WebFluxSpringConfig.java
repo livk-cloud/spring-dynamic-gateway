@@ -15,10 +15,10 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 @ConditionalOnClass(WebFluxConfigurer.class)
 public class WebFluxSpringConfig implements WebFluxConfigurer {
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/swagger-ui/**")
-				.addResourceLocations("classpath:/META-INF/resources/webjars/swagger-ui/**").resourceChain(false);
-	}
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/swagger-ui/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/swagger-ui/**").resourceChain(false);
+    }
 
 }

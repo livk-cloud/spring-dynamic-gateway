@@ -10,6 +10,6 @@ package com.livk.common.redis.constant;
  */
 public enum LimitType {
 
-	CUSTOMER, IP
+    CUSTOMER, IP
 
 }

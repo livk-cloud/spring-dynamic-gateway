@@ -29,42 +29,42 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
 
-	@Override
-	public int getOrder() {
-		return -2;
-	}
+    @Override
+    public int getOrder() {
+        return -2;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-		var originalResponse = exchange.getResponse();
-		var bufferFactory = originalResponse.bufferFactory();
-		var uri = exchange.getRequest().getURI();
-		if (uri.getPath().endsWith("/v3/api-docs")) {
-			return chain.filter(exchange);
-		}
-		String contentType = originalResponse.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE);
-		if (contentType == null || StringUtils.countOccurrencesOf(contentType, "application/json") == 0) {
-			return chain.filter(exchange);
-		}
-		var decoratedResponse = new ServerHttpResponseDecorator(originalResponse) {
-			@Nonnull
-			@Override
-			public Mono<Void> writeWith(@Nonnull Publisher<? extends DataBuffer> body) {
-				if (body instanceof Flux) {
-					var fluxBody = (Flux<? extends DataBuffer>) body;
-					return super.writeWith(fluxBody.map(dataBuffer -> {
-						var content = new byte[dataBuffer.readableByteCount()];
-						dataBuffer.read(content);
-						DataBufferUtils.release(dataBuffer);
-						var result = new String(content, StandardCharsets.UTF_8);
-						return bufferFactory.wrap(SysUtils.packageResult(result).getBytes(StandardCharsets.UTF_8));
-					}));
-				}
-				return super.writeWith(body);
-			}
-		};
-		return chain.filter(exchange.mutate().response(decoratedResponse).build());
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        var originalResponse = exchange.getResponse();
+        var bufferFactory = originalResponse.bufferFactory();
+        var uri = exchange.getRequest().getURI();
+        if (uri.getPath().endsWith("/v3/api-docs")) {
+            return chain.filter(exchange);
+        }
+        String contentType = originalResponse.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE);
+        if (contentType == null || StringUtils.countOccurrencesOf(contentType, "application/json") == 0) {
+            return chain.filter(exchange);
+        }
+        var decoratedResponse = new ServerHttpResponseDecorator(originalResponse) {
+            @Nonnull
+            @Override
+            public Mono<Void> writeWith(@Nonnull Publisher<? extends DataBuffer> body) {
+                if (body instanceof Flux) {
+                    var fluxBody = (Flux<? extends DataBuffer>) body;
+                    return super.writeWith(fluxBody.map(dataBuffer -> {
+                        var content = new byte[dataBuffer.readableByteCount()];
+                        dataBuffer.read(content);
+                        DataBufferUtils.release(dataBuffer);
+                        var result = new String(content, StandardCharsets.UTF_8);
+                        return bufferFactory.wrap(SysUtils.packageResult(result).getBytes(StandardCharsets.UTF_8));
+                    }));
+                }
+                return super.writeWith(body);
+            }
+        };
+        return chain.filter(exchange.mutate().response(decoratedResponse).build());
+    }
 
 }

@@ -18,8 +18,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 public class LivkDynamicApplication {
 
-	public static void main(String[] args) {
-		LivkSpring.run(LivkDynamicApplication.class, args);
-	}
+    public static void main(String[] args) {
+        LivkSpring.run(LivkDynamicApplication.class, args);
+    }
 
 }

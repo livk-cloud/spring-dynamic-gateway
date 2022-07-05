@@ -14,17 +14,17 @@ import javax.annotation.Nonnull;
  */
 public class JdkRedisSerializationContext implements RedisSerialization<Object> {
 
-	@Nonnull
-	@Override
-	public SerializationPair<Object> getValueSerializationPair() {
-		return SerializationPair.fromSerializer(RedisSerializer.java());
-	}
+    @Nonnull
+    @Override
+    public SerializationPair<Object> getValueSerializationPair() {
+        return SerializationPair.fromSerializer(RedisSerializer.java());
+    }
 
-	@SuppressWarnings("unchecked")
-	@Nonnull
-	@Override
-	public <HV> SerializationPair<HV> getHashValueSerializationPair() {
-		return (SerializationPair<HV>) SerializationPair.fromSerializer(RedisSerializer.java());
-	}
+    @SuppressWarnings("unchecked")
+    @Nonnull
+    @Override
+    public <HV> SerializationPair<HV> getHashValueSerializationPair() {
+        return (SerializationPair<HV>) SerializationPair.fromSerializer(RedisSerializer.java());
+    }
 
 }

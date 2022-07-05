@@ -16,8 +16,8 @@ import java.util.Map;
 @Data
 public class Predicate {
 
-	private String name;
+    private String name;
 
-	private Map<String, String> args = new LinkedHashMap<>();
+    private Map<String, String> args = new LinkedHashMap<>();
 
 }

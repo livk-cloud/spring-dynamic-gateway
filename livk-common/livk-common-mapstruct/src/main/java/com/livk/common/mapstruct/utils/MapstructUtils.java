@@ -18,18 +18,18 @@ import java.util.stream.Stream;
 @UtilityClass
 public class MapstructUtils {
 
-	private static final MapstructService MAPSTRUCT_SERVICE;
+    private static final MapstructService MAPSTRUCT_SERVICE;
 
-	static {
-		MAPSTRUCT_SERVICE = SpringContextHolder.getBean(MapstructService.class);
-	}
+    static {
+        MAPSTRUCT_SERVICE = SpringContextHolder.getBean(MapstructService.class);
+    }
 
-	public <T> T converter(Object source, Class<T> targetClass) {
-		return MAPSTRUCT_SERVICE.converter(source, targetClass);
-	}
+    public <T> T converter(Object source, Class<T> targetClass) {
+        return MAPSTRUCT_SERVICE.converter(source, targetClass);
+    }
 
-	public <T> Stream<T> converter(Collection<?> sources, Class<T> targetClass) {
-		return MAPSTRUCT_SERVICE.converter(sources, targetClass);
-	}
+    public <T> Stream<T> converter(Collection<?> sources, Class<T> targetClass) {
+        return MAPSTRUCT_SERVICE.converter(sources, targetClass);
+    }
 
 }

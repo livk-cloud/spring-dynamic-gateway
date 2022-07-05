@@ -15,35 +15,35 @@ import javax.annotation.Nonnull;
  */
 public interface RedisSerialization<V> extends RedisSerializationContext<String, V> {
 
-	static <T> Jackson2RedisSerializationContext<T> json(Class<T> targetClass) {
-		return new Jackson2RedisSerializationContext<>(targetClass);
-	}
+    static <T> Jackson2RedisSerializationContext<T> json(Class<T> targetClass) {
+        return new Jackson2RedisSerializationContext<>(targetClass);
+    }
 
-	static Jackson2RedisSerializationContext<Object> json() {
-		return json(Object.class);
-	}
+    static Jackson2RedisSerializationContext<Object> json() {
+        return json(Object.class);
+    }
 
-	static JdkRedisSerializationContext java() {
-		return new JdkRedisSerializationContext();
-	}
+    static JdkRedisSerializationContext java() {
+        return new JdkRedisSerializationContext();
+    }
 
-	@Nonnull
-	@Override
-	default SerializationPair<String> getKeySerializationPair() {
-		return SerializationPair.fromSerializer(RedisSerializer.string());
-	}
+    @Nonnull
+    @Override
+    default SerializationPair<String> getKeySerializationPair() {
+        return SerializationPair.fromSerializer(RedisSerializer.string());
+    }
 
-	@Nonnull
-	@SuppressWarnings("unchecked")
-	@Override
-	default <HK> SerializationPair<HK> getHashKeySerializationPair() {
-		return (SerializationPair<HK>) SerializationPair.fromSerializer(RedisSerializer.string());
-	}
+    @Nonnull
+    @SuppressWarnings("unchecked")
+    @Override
+    default <HK> SerializationPair<HK> getHashKeySerializationPair() {
+        return (SerializationPair<HK>) SerializationPair.fromSerializer(RedisSerializer.string());
+    }
 
-	@Nonnull
-	@Override
-	default SerializationPair<String> getStringSerializationPair() {
-		return SerializationPair.fromSerializer(RedisSerializer.string());
-	}
+    @Nonnull
+    @Override
+    default SerializationPair<String> getStringSerializationPair() {
+        return SerializationPair.fromSerializer(RedisSerializer.string());
+    }
 
 }

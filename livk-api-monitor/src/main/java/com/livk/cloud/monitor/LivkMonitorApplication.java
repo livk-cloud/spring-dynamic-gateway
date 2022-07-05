@@ -16,8 +16,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class LivkMonitorApplication {
 
-	public static void main(String[] args) {
-		LivkSpring.run(LivkMonitorApplication.class, args);
-	}
+    public static void main(String[] args) {
+        LivkSpring.run(LivkMonitorApplication.class, args);
+    }
 
 }

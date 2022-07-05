@@ -19,15 +19,15 @@ import org.springframework.boot.actuate.health.Health;
 @RequiredArgsConstructor
 public class RedisRouteHealthIndicator extends AbstractHealthIndicator {
 
-	private final LivkReactiveRedisTemplate livkReactiveRedisTemplate;
+    private final LivkReactiveRedisTemplate livkReactiveRedisTemplate;
 
-	@Override
-	protected void doHealthCheck(Health.Builder builder) {
-		livkReactiveRedisTemplate.hasKey(LivkRedisRouteDefinitionRepository.ROUTE_KEY)
-				.subscribe(exit -> Present.handler(exit, Boolean.TRUE::equals).present(bool -> builder.up(), () -> {
-					log.warn("Redis路由信息丢失！");
-					builder.down();
-				}));
-	}
+    @Override
+    protected void doHealthCheck(Health.Builder builder) {
+        livkReactiveRedisTemplate.hasKey(LivkRedisRouteDefinitionRepository.ROUTE_KEY)
+                .subscribe(exit -> Present.handler(exit, Boolean.TRUE::equals).present(bool -> builder.up(), () -> {
+                    log.warn("Redis路由信息丢失！");
+                    builder.down();
+                }));
+    }
 
 }

@@ -26,14 +26,14 @@ import java.util.List;
 @RemoteApplicationEventScan(basePackageClasses = LivkRemoteEvent.class)
 public class LivkBusAutoConfiguration {
 
-	@Bean
-	public LivkRemoteListener livkRemoteListener(List<LivkRemoteHandler> livkRemoteHandlerList) {
-		return new LivkRemoteListener(livkRemoteHandlerList);
-	}
+    @Bean
+    public LivkRemoteListener livkRemoteListener(List<LivkRemoteHandler> livkRemoteHandlerList) {
+        return new LivkRemoteListener(livkRemoteHandlerList);
+    }
 
-	@Bean
-	public RemoteAspect remoteAspect(BusProperties busProperties) {
-		return new RemoteAspect(busProperties);
-	}
+    @Bean
+    public RemoteAspect remoteAspect(BusProperties busProperties) {
+        return new RemoteAspect(busProperties);
+    }
 
 }

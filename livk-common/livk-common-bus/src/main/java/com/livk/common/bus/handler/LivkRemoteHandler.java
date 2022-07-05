@@ -12,10 +12,11 @@ import com.livk.common.bus.event.LivkRemoteEvent;
  */
 public interface LivkRemoteHandler {
 
-	/**
-	 * Remote handler.
-	 * @param livkRemoteEvent the livk remote event
-	 */
-	void remoteHandler(LivkRemoteEvent livkRemoteEvent);
+    /**
+     * Remote handler.
+     *
+     * @param livkRemoteEvent the livk remote event
+     */
+    void remoteHandler(LivkRemoteEvent livkRemoteEvent);
 
 }

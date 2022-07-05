@@ -22,14 +22,14 @@ import javax.annotation.Nonnull;
 @RequiredArgsConstructor
 public class LivkLogEventListener implements ApplicationListener<LivkLogEvent> {
 
-	/**
-	 * 监听器单独存储，没有加入到IOC {@link SpringApplication#getListeners()}
-	 */
-	@Override
-	public void onApplicationEvent(@Nonnull LivkLogEvent event) {
-		// log.info("serviceName:{}-->log:{}", event.getServiceName(),
-		// JacksonUtils.toJson(event.getSource()));
-		SpringContextHolder.getBean(RemoteSysLogService.class).save((SysLogDTO) event.getSource());
-	}
+    /**
+     * 监听器单独存储，没有加入到IOC {@link SpringApplication#getListeners()}
+     */
+    @Override
+    public void onApplicationEvent(@Nonnull LivkLogEvent event) {
+        // log.info("serviceName:{}-->log:{}", event.getServiceName(),
+        // JacksonUtils.toJson(event.getSource()));
+        SpringContextHolder.getBean(RemoteSysLogService.class).save((SysLogDTO) event.getSource());
+    }
 
 }

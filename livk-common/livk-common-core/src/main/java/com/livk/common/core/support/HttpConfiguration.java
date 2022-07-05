@@ -22,24 +22,24 @@ import java.util.concurrent.TimeUnit;
 @Configuration(proxyBeanMethods = false)
 public class HttpConfiguration {
 
-	@Bean
-	@ConditionalOnMissingBean
-	public RestTemplate restTemplate() {
-		return getRestTemplate(
-				new OkHttpClient().newBuilder().connectionPool(new ConnectionPool(200, 300, TimeUnit.SECONDS))
-						.connectTimeout(3, TimeUnit.SECONDS).readTimeout(3, TimeUnit.SECONDS)
-						.writeTimeout(3, TimeUnit.SECONDS).hostnameVerifier((s, sslSession) -> true).build());
-	}
+    @Bean
+    @ConditionalOnMissingBean
+    public RestTemplate restTemplate() {
+        return getRestTemplate(
+                new OkHttpClient().newBuilder().connectionPool(new ConnectionPool(200, 300, TimeUnit.SECONDS))
+                        .connectTimeout(3, TimeUnit.SECONDS).readTimeout(3, TimeUnit.SECONDS)
+                        .writeTimeout(3, TimeUnit.SECONDS).hostnameVerifier((s, sslSession) -> true).build());
+    }
 
-	@Bean
-	@ConditionalOnBean(OkHttpClient.class)
-	@ConditionalOnMissingBean
-	public RestTemplate restTemplate(OkHttpClient okHttpClient) {
-		return getRestTemplate(okHttpClient);
-	}
+    @Bean
+    @ConditionalOnBean(OkHttpClient.class)
+    @ConditionalOnMissingBean
+    public RestTemplate restTemplate(OkHttpClient okHttpClient) {
+        return getRestTemplate(okHttpClient);
+    }
 
-	private RestTemplate getRestTemplate(OkHttpClient okHttpClient) {
-		return new RestTemplate(new OkHttp3ClientHttpRequestFactory(okHttpClient));
-	}
+    private RestTemplate getRestTemplate(OkHttpClient okHttpClient) {
+        return new RestTemplate(new OkHttp3ClientHttpRequestFactory(okHttpClient));
+    }
 
 }

@@ -14,8 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class LivkGateWayApplication {
 
-	public static void main(String[] args) {
-		LivkSpring.run(LivkGateWayApplication.class, args);
-	}
+    public static void main(String[] args) {
+        LivkSpring.run(LivkGateWayApplication.class, args);
+    }
 
 }

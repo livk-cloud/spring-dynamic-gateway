@@ -16,7 +16,7 @@ import java.lang.annotation.*;
  * @author livk
  * @date 2021/11/2
  */
-@Target({ ElementType.TYPE })
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
@@ -24,13 +24,13 @@ import java.lang.annotation.*;
 @Import(RedisCacheConfig.class)
 public @interface EnableLivkCache {
 
-	@AliasFor(annotation = EnableCaching.class)
-	boolean proxyTargetClass() default false;
+    @AliasFor(annotation = EnableCaching.class)
+    boolean proxyTargetClass() default false;
 
-	@AliasFor(annotation = EnableCaching.class)
-	AdviceMode mode() default AdviceMode.PROXY;
+    @AliasFor(annotation = EnableCaching.class)
+    AdviceMode mode() default AdviceMode.PROXY;
 
-	@AliasFor(annotation = EnableCaching.class)
-	int order() default 2147483647;
+    @AliasFor(annotation = EnableCaching.class)
+    int order() default 2147483647;
 
 }

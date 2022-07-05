@@ -16,14 +16,14 @@ import java.util.Map;
 @Data
 public class SysLogDTO {
 
-	private String methodName;
+    private String methodName;
 
-	private Map<String, Object> params;
+    private Map<String, Object> params;
 
-	private Object result;
+    private Object result;
 
-	private InetAddress ip;
+    private InetAddress ip;
 
-	private Long runtime;
+    private Long runtime;
 
 }

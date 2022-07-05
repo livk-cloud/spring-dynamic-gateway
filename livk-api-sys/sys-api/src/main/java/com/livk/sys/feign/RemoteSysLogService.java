@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(value = "livk-api-sys", fallbackFactory = RemoteSysLogFallback.class)
 public interface RemoteSysLogService {
 
-	@PostMapping("/sysLog")
-	R<Void> save(@RequestBody SysLogDTO sysLogDTO);
+    @PostMapping("/sysLog")
+    R<Void> save(@RequestBody SysLogDTO sysLogDTO);
 
 }
