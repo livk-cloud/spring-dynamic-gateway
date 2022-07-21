@@ -8,37 +8,19 @@ javaPlatform {
     allowDependencies()
 }
 
-ext {
-    springCloudVersion = "2021.0.3"
-    springBootAdminVersion = "2.7.2"
-    guavaVersion = "31.1-jre"
-    mpVersion = "3.5.2"
-    springdocVersion = "1.6.9"
-    googleFindbugsVersion = "3.0.1"
-    mapstructVersion = "1.5.2.Final"
-    mapstructLombokVersion = "0.2.0"
-    commonsValidatorVersion = "1.7"
-    pagehelperVersion = "1.4.3"
-    clickhouseJdbcVersion = "0.3.2-patch10"
-}
+def versionCatalog = rootProject.extensions
+        .getByType(VersionCatalogsExtension.class)
+        .named("libs")
+def bom = versionCatalog.libraryAliases
+        .findAll { it.endsWith("dependencies") || it.endsWith("bom") }
+def dependency = (versionCatalog.libraryAliases - bom)
+
 
 dependencies {
     api platform(SpringBootPlugin.BOM_COORDINATES)
-    api platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
-    api platform("de.codecentric:spring-boot-admin-dependencies:$springBootAdminVersion")
+    bom.forEach { api platform(versionCatalog.findLibrary(it).get().get()) }
     constraints {
-        api "com.google.guava:guava:$guavaVersion"
-        api "com.baomidou:mybatis-plus-boot-starter:$mpVersion"
-        api "com.baomidou:mybatis-plus-extension:$mpVersion"
-        api "com.baomidou:mybatis-plus:$mpVersion"
-        api "org.springdoc:springdoc-openapi-ui:$springdocVersion"
-        api "org.springdoc:springdoc-openapi-webflux-ui:$springdocVersion"
-        api "com.google.code.findbugs:annotations:$googleFindbugsVersion"
-        api "org.mapstruct:mapstruct:$mapstructVersion"
-        api "org.mapstruct:mapstruct-processor:$mapstructVersion"
-        api "org.projectlombok:lombok-mapstruct-binding:$mapstructLombokVersion"
-        api "commons-validator:commons-validator:$commonsValidatorVersion"
-        api "com.github.pagehelper:pagehelper-spring-boot-starter:$pagehelperVersion"
-        api "com.clickhouse:clickhouse-jdbc:$clickhouseJdbcVersion"
+        dependency.forEach { api versionCatalog.findLibrary(it).get().get() }
     }
 }
+

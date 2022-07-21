@@ -5,36 +5,44 @@ repositories {
     maven { url "https://plugins.gradle.org/m2/" }
 }
 
+def bootVersion = libs.versions.springBoot.get()
+
 dependencies {
-    implementation "io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.31"
+    implementation("org.springframework.boot:spring-boot-gradle-plugin:$bootVersion")
 }
 
 gradlePlugin {
     plugins {
-        compileArgsPlugin {
-            id = "com.livk.compile.args"
-            implementationClass = "com.livk.plugin.CompileArgsPlugin"
+        create("compileArgsPlugin") {
+            id = "com.livk.compile-args"
+            implementationClass = "com.livk.compile.CompileArgsPlugin"
             description = "Add compile parameters"
         }
-        dependencyBomPlugin {
+        create("dependencyBomPlugin") {
             id = "com.livk.dependency"
-            implementationClass = "com.livk.plugin.DependencyBomPlugin"
+            implementationClass = "com.livk.DependencyBomPlugin"
             description = "build dependency BOM"
         }
-        formatPlugin {
-            id = "com.livk.format"
-            implementationClass = "com.livk.plugin.FormatPlugin"
-            description = "code format"
-        }
-        lombokPlugin {
-            id = "com.livk.lombok"
-            implementationClass = "com.livk.plugin.LombokPlugin"
-            description = "add dependency lombok"
-        }
-        resourcesPlugin {
+        create("resourcesPlugin") {
             id = "com.livk.resources"
-            implementationClass = "com.livk.plugin.ResourcesPlugin"
+            implementationClass = "com.livk.compile.ResourcesPlugin"
             description = "Add resource handling"
+        }
+        create("deployedPlugin") {
+            id = "com.livk.maven.deployed"
+            implementationClass = "com.livk.maven.DeployedPlugin"
+        }
+        create("bootPlugin") {
+            id = "com.livk.build.boot"
+            implementationClass = "com.livk.info.BootPlugin"
+        }
+        create("deleteExpand") {
+            id = "com.livk.clean.expand"
+            implementationClass = "com.livk.tasks.DeleteExpand"
+        }
+        create("allConfiguration") {
+            id = "com.livk.all.configuration"
+            implementationClass = "com.livk.config.AllConfiguration"
         }
     }
 }
