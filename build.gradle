@@ -14,6 +14,13 @@ ext {
     springModuleProjects = gradleModuleProjects - commonModuleProjects
 }
 
+configure(bom) {
+    apply plugin: "java-platform"
+    apply plugin: "com.livk.maven.deployed"
+
+    project.extensions.getByType(JavaPlatformExtension.class).allowDependencies()
+}
+
 configure(commonModuleProjects) {
     apply plugin: "com.livk.maven.deployed"
     apply plugin: "com.livk.resources"
