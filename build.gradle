@@ -52,11 +52,13 @@ configure(gradleModuleProjects) {
 
     dependencies {
         dependencyBom platform(project(":livk-dependencies"))
-
+        compileOnly "org.projectlombok:lombok"
         implementation "com.google.code.findbugs:annotations"
-
+        annotationProcessor "org.projectlombok:lombok"
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
         testImplementation "org.springframework.boot:spring-boot-starter-test"
+        testCompileOnly "org.projectlombok:lombok"
+        testAnnotationProcessor "org.projectlombok:lombok"
     }
 }
