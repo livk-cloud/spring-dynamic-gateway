@@ -7,12 +7,16 @@ def bom = versionCatalog.libraryAliases
         .findAll { it.endsWith("dependencies") || it.endsWith("bom") }
 def dependency = (versionCatalog.libraryAliases - bom)
 
+static Collection<MinimalExternalModuleDependency> get(Collection<String> dependencyNames, VersionCatalog versionCatalog) {
+    return dependencyNames.stream().map { versionCatalog.findLibrary(it).get().get() }.toList()
+}
+
 
 dependencies {
     api platform(SpringBootPlugin.BOM_COORDINATES)
-    bom.forEach { api platform(versionCatalog.findLibrary(it).get().get()) }
+    get(bom, versionCatalog).forEach { api(platform(it)) }
     constraints {
-        dependency.forEach { api versionCatalog.findLibrary(it).get().get() }
+        get(dependency, versionCatalog).forEach { api(it) }
     }
 }
 
