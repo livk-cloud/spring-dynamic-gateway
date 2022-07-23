@@ -1,4 +1,5 @@
 dependencies {
+    compileOnly "org.springframework.boot:spring-boot-starter-actuator"
     compileOnly "org.springframework.cloud:spring-cloud-gateway-server"
     compileOnly "org.springframework:spring-web"
     api project(":livk-common:livk-common-bus")

@@ -1,19 +1,12 @@
 dependencies {
     compileOnly "org.springframework:spring-web"
-    compileOnly "org.springframework.cloud:spring-cloud-bus"
-    compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
-    annotationProcessor "org.mapstruct:mapstruct-processor"
-    api "com.github.ben-manes.caffeine:caffeine"
+    compileOnly "jakarta.servlet:jakarta.servlet-api"
     api "com.google.guava:guava"
     api "com.fasterxml.jackson.core:jackson-databind"
     api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
     api "com.squareup.okhttp3:okhttp"
     api "org.springframework.boot:spring-boot-starter-logging"
-    api "org.springframework.boot:spring-boot-configuration-processor"
     api "org.springframework.boot:spring-boot-autoconfigure"
-    api "org.springframework.boot:spring-boot-starter-actuator"
-    api "org.springframework.cloud:spring-cloud-starter-bootstrap"
-    api "org.projectlombok:lombok-mapstruct-binding"
     api "org.apache.commons:commons-lang3"
 }
 
