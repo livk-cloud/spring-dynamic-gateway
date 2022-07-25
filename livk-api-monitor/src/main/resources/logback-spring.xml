@@ -13,7 +13,7 @@
     <!-- 项目名称 -->
     <springProperty scope="context" name="projectName" source="spring.application.name"/>
     <!-- 日志存放目录；默认从配置文件中读取 "log.path" 的配置值，若没有配置，使用默认值 /var/yuemia-live-logs/ -->
-    <springProperty scope="context" name="logPath" source="log.path" defaultValue=".\livk-log"/>
+    <springProperty scope="context" name="logPath" source="log.path" defaultValue="..\livk-log"/>
     <!-- 日志级别；默认从配置文件中读取 "logging.level.root" 的配置值，若没有配置，使用默认值 info -->
     <springProperty scope="context" name="logging.level.root" source="logging.level.root" defaultValue="info"/>
 
