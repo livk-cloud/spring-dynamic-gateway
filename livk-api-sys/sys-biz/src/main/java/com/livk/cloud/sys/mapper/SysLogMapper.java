@@ -1,7 +1,7 @@
 package com.livk.cloud.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.livk.sys.entity.SysLog;
+import com.livk.cloud.sys.entity.SysLog;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

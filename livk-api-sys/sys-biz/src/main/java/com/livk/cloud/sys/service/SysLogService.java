@@ -1,7 +1,7 @@
 package com.livk.cloud.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.livk.sys.entity.SysLog;
+import com.livk.cloud.sys.entity.SysLog;
 
 /**
  * <p>

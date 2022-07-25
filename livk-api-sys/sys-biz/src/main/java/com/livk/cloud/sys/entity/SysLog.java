@@ -1,4 +1,4 @@
-package com.livk.sys.entity;
+package com.livk.cloud.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

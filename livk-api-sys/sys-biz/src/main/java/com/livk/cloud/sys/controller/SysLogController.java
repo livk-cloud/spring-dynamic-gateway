@@ -3,7 +3,7 @@ package com.livk.cloud.sys.controller;
 import com.livk.cloud.sys.service.SysLogService;
 import com.livk.common.core.result.R;
 import com.livk.sys.dto.SysLogDTO;
-import com.livk.sys.entity.SysLog;
+import com.livk.cloud.sys.entity.SysLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.PostMapping;
