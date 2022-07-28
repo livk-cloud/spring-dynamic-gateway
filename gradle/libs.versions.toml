@@ -1,7 +1,7 @@
 [versions]
-springBoot = "2.7.1"
+springBoot = "2.7.2"
 springCloud = "2021.0.3"
-springBootAdmin = "2.7.2"
+springBootAdmin = "2.7.3"
 guava = "31.1-jre"
 mybatisPlus = "3.5.2"
 springdoc = "1.6.9"
