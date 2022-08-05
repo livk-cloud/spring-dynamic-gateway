@@ -4,8 +4,7 @@ import com.livk.common.mapstruct.converter.MapstructRegistry;
 import com.livk.common.mapstruct.factory.MapstructFactory;
 import com.livk.common.mapstruct.support.ConverterRepository;
 import com.livk.common.mapstruct.support.GenericMapstructService;
-import com.livk.common.mapstruct.support.InmemoryConverterRepository;
-import org.springframework.beans.factory.ListableBeanFactory;
+import com.livk.common.mapstruct.support.InMemoryConverterRepository;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
@@ -21,8 +20,8 @@ import org.springframework.context.annotation.Bean;
 public class MapstructAutoConfiguration {
 
     @Bean
-    public MapstructFactory mapstructFactory(MapstructRegistry registry, ListableBeanFactory beanFactory) {
-        return new MapstructFactory(registry, beanFactory);
+    public MapstructFactory mapstructFactory(MapstructRegistry registry) {
+        return new MapstructFactory(registry);
     }
 
     @Bean
@@ -32,7 +31,7 @@ public class MapstructAutoConfiguration {
 
     @Bean
     public ConverterRepository converterRepository() {
-        return new InmemoryConverterRepository();
+        return new InMemoryConverterRepository();
     }
 
 }

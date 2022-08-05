@@ -17,7 +17,7 @@ import java.util.Map;
  * @date 2022/5/18
  */
 @SuppressWarnings("rawtypes")
-public class InmemoryConverterRepository implements ConverterRepository {
+public class InMemoryConverterRepository implements ConverterRepository {
 
     // 本质是HashMap<Class,HashMap<Class,Converter>> put添加synchronized锁
     private final Table<Class<?>, Class<?>, Converter> converterTable = HashBasedTable.create();
@@ -38,7 +38,7 @@ public class InmemoryConverterRepository implements ConverterRepository {
     }
 
     @Override
-    public synchronized void put(Class<?> sourceType, Class<?> targetType, Converter<?, ?> converter) {
+    public void put(Class<?> sourceType, Class<?> targetType, Converter<?, ?> converter) {
         converterTable.put(sourceType, targetType, converter);
     }
 

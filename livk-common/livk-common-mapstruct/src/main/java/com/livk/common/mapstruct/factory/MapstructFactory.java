@@ -1,10 +1,11 @@
 package com.livk.common.mapstruct.factory;
 
+import com.livk.common.mapstruct.converter.Converter;
 import com.livk.common.mapstruct.converter.MapstructRegistry;
-import com.livk.common.mapstruct.support.GenericMapstructService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
 /**
  * <p>
@@ -15,15 +16,14 @@ import org.springframework.beans.factory.ListableBeanFactory;
  * @date 2022/5/11
  */
 @RequiredArgsConstructor
-public class MapstructFactory implements InitializingBean {
+public class MapstructFactory implements BeanFactoryPostProcessor {
 
     private final MapstructRegistry registry;
 
-    private final ListableBeanFactory beanFactory;
-
     @Override
-    public void afterPropertiesSet() {
-        GenericMapstructService.addBeans(registry, beanFactory);
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        beanFactory.getBeansOfType(Converter.class)
+                .values()
+                .forEach(registry::addConverter);
     }
-
 }

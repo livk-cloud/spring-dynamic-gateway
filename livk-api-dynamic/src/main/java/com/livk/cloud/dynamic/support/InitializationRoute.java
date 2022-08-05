@@ -9,6 +9,7 @@ import com.livk.common.core.util.JacksonUtils;
 import com.livk.common.mapstruct.utils.MapstructUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -29,11 +30,9 @@ import javax.sql.DataSource;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class InitializationRoute implements ApplicationRunner {
+public class InitializationRoute implements InitializingBean {
 
     private final DynamicRouteService dynamicRouteService;
-
-    private final DynamicRouteConverter converter;
 
     private final DataSource dataSource;
 
@@ -46,7 +45,7 @@ public class InitializationRoute implements ApplicationRunner {
     private Resource initSql;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void afterPropertiesSet() throws Exception {
         ScriptUtils.executeSqlScript(dataSource.getConnection(), initSql);
         var serviceName = env.getProperty("spring.application.name");
         var dynamicRoute = dynamicRouteService
@@ -61,5 +60,4 @@ public class InitializationRoute implements ApplicationRunner {
         }
         log.info("Route Info init is :{}", dynamicRouteService.reload());
     }
-
 }

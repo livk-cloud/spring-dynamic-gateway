@@ -35,10 +35,10 @@ livk:
     route:
       type: Redis_Hash
 
-springfox:
-  documentation:
-    swagger:
-      v2:
-        enabled: true
-    swagger-ui:
-      enabled: true
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - {display-name: "abc", url: ""}
