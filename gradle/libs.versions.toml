@@ -1,7 +1,7 @@
 [versions]
-springBoot = "2.7.2"
-springCloud = "2021.0.3"
-springBootAdmin = "2.7.3"
+springBoot = "2.7.4"
+springCloud = "2021.0.4"
+springBootAdmin = "2.7.4"
 guava = "31.1-jre"
 mybatisPlus = "3.5.2"
 springdoc = "1.6.9"
@@ -9,8 +9,8 @@ googleFindbugs = "3.0.1"
 mapstruct = "1.5.2.Final"
 mapstructLombok = "0.2.0"
 commonsValidator = "1.7"
-pagehelper = "1.4.3"
-clickhouseJdbc = "0.3.2-patch9"
+pagehelper = "1.4.5"
+clickhouseJdbc = "0.3.2-patch11"
 
 [libraries]
 spring-cloud-dependencies = { group = "org.springframework.cloud", name = "spring-cloud-dependencies", version.ref = "springCloud" }
