@@ -6,6 +6,7 @@ import com.livk.common.redis.annoration.Limit;
 import com.livk.common.redis.constant.LimitType;
 import com.livk.common.redis.support.LivkRedisTemplate;
 import com.sun.jdi.request.InvalidRequestStateException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +19,6 @@ import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.List;
 

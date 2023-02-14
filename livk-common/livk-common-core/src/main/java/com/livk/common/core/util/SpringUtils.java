@@ -2,6 +2,7 @@ package com.livk.common.core.util;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -72,7 +73,7 @@ public class SpringUtils {
     }
 
     public <T> T parseSpEL(Method method, Object[] args, String condition, Class<T> returnClass) {
-        var discoverer = new LocalVariableTableParameterNameDiscoverer();
+        var discoverer = new StandardReflectionParameterNameDiscoverer();
         var parameterNames = discoverer.getParameterNames(method);
         Assert.notNull(parameterNames, "参数列表不能为null");
         for (int i = 0; i < parameterNames.length; i++) {

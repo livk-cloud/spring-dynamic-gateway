@@ -97,7 +97,7 @@ public class RedisUtils {
         var options = ScanOptions.scanOptions().match(patternKey).build();
         var factory = TEMPLATE.getConnectionFactory();
         var connection = Objects.requireNonNull(factory).getConnection();
-        var cursor = connection.scan(options);
+        var cursor = connection.keyCommands().scan(options);
         var resultStream = Lists.newArrayList(cursor).stream().map(String::new);
         if (page != -1 && size != -1) {
             resultStream = resultStream.skip((long) page * size).limit(size);

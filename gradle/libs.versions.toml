@@ -1,6 +1,6 @@
 [versions]
 springBoot = "3.0.2"
-springCloud = "2022.0.0"
+springCloud = "2022.0.1"
 springBootAdmin = "3.0.0"
 guava = "31.1-jre"
 mybatisPlus = "3.5.3"
