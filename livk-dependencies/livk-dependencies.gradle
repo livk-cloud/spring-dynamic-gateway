@@ -14,7 +14,7 @@ static Collection<MinimalExternalModuleDependency> get(Collection<String> depend
 
 dependencies {
     api platform(SpringBootPlugin.BOM_COORDINATES)
-    get(bom, versionCatalog).forEach { api(platform(it)) }
+    get(bom, versionCatalog).forEach { api(platform(it.toString())) }
     constraints {
         get(dependency, versionCatalog).forEach { api(it) }
     }
